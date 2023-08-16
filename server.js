@@ -24,11 +24,14 @@ app.listen(PORT_NUMBER, function () {
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 
-//Links to html pages for task 1
+
+//Default
 app.get('/', function(req, res) {
     fileName = VIEWS_PATH + "index.html"; 
     res.sendFile(fileName);
 });
+
+//Links to html pages for task 1
 
 app.get('/list-category-by-keyword.html', function(req, res) {
     fileName = VIEWS_PATH + "list-category-by-keyword.html";
@@ -64,8 +67,6 @@ app.post('/add-category.html', function(req,res) {
 
 })
 
-
-
 // Task 1 point 5 delete category by ID
 app.post("/delete-category", function (req,res) {
     let id =parseInt(req.body.id); 
@@ -80,45 +81,4 @@ app.post("/delete-category", function (req,res) {
 
 //Sidd part
 
-app.get('/sidd/event/add', function(req, res) {
-    fileName = VIEWS_PATH + "list-category-by-keyword.html";
-    res.sendFile(fileName);
-});
-
-app.get('/sidd/event/.html', function(req, res) {
-    fileName = VIEWS_PATH + "list-all-category.html";
-    res.sendFile(fileName);
-});
-
-app.get('/add-category.html', function(req, res) {
-    fileName = VIEWS_PATH + "add-category.html";
-    res.sendFile(fileName);
-});
-
-app.get('/show-event-details.html', function(req, res) {
-    fileName = VIEWS_PATH + "show-event-details.html";
-    res.sendFile(fileName);
-});
-
-
-app.post('/add-category.html', function(req,res) {
-    console.log(req.body.name);
-    console.log(req.body.description);
-    console.log(req.body.image);
-    res.send('Thank You')
-
-})
-
-
-
-// Task 1 point 5 delete category by ID
-app.post("/delete-category", function (req,res) {
-    let id =parseInt(req.body.id); 
-    for (let i = 0; i < db.length; i++) {
-		if (db[i].id === id) {
-			db.splice(i, 1);
-			break;
-		} //check agn^
-	}
-    res.redirect("/list-all-category");
-});
+const Event = require("./models/event");
