@@ -1,16 +1,24 @@
 const express = require('express');
 const app = express();
-const ejs = require("ejs");
+
 const path = require("path");
+
+const ejs = require("ejs");
 const Deletecat = require("./models/task1DeleteCategory");
+
 app.use(express.static("node_modules/bootstrap/dist/css"));
 
-
+const print = console.log;
 const VIEWS_PATH = path.join(__dirname, "/views/");
 
 
 let db = [];
-app.listen(8080);  //server listening
+
+const PORT_NUMBER = 8080;
+
+app.listen(PORT_NUMBER, function () {
+	print(`listening on port ${PORT_NUMBER}`);
+});  //server listening
 
 //middleware
 app.use(express.urlencoded({ extended: true}));
