@@ -1,26 +1,26 @@
 const express = require('express');
+const app = express();
+const ejs = require("ejs");
 const path = require("path");
+const Deletecat = require("./models/task1DeleteCategory");
 app.use(express.static("node_modules/bootstrap/dist/css"));
 
-const print = console.log;
+
 const VIEWS_PATH = path.join(__dirname, "/views/");
-const PORT_NUMBER = 8080;
 
 
-const app = express();
-app.listen(PORT_NUMBER, function () {
-    print(`listening port ${PORT_NUMBER}`);
-}); //server listening
+let db = [];
+app.listen(8080);  //server listening
 
 //middleware
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 
+//Links to html pages for task 1
 app.get('/', function(req, res) {
-    fileName = VIEWS_PATH + "index.html"; //links to index.html page
+    fileName = VIEWS_PATH + "index.html"; 
     res.sendFile(fileName);
 });
-
 
 app.get('/list-category-by-keyword.html', function(req, res) {
     fileName = VIEWS_PATH + "list-category-by-keyword.html";
@@ -41,6 +41,13 @@ app.get('/add-category.html', function(req, res) {
     fileName = VIEWS_PATH + "add-category.html";
     res.sendFile(fileName);
 });
+
+app.get('/show-event-details.html', function(req, res) {
+    fileName = VIEWS_PATH + "show-event-details.html";
+    res.sendFile(fileName);
+});
+
+
 app.post('/add-category.html', function(req,res) {
     console.log(req.body.name);
     console.log(req.body.description);
@@ -50,7 +57,15 @@ app.post('/add-category.html', function(req,res) {
 })
 
 
-app.get('/show-event-details.html', function(req, res) {
-    fileName = VIEWS_PATH + "show-event-details.html";
-    res.sendFile(fileName);
+
+// Task 1 point 5 delete category by ID
+app.post("/delete-category", function (req,res) {
+    let id =parseInt(req.body.id); 
+    for (let i = 0; i < db.length; i++) {
+		if (db[i].id === id) {
+			db.splice(i, 1);
+			break;
+		} //check agn^
+	}
+    res.redirect("/list-all-category");
 });

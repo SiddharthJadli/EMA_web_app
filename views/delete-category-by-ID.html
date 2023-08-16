@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html Lang="en">
+
 
 <head>
     <link href="bootstrap.min.css" rel="stylesheet" />
@@ -9,6 +9,17 @@
 <body>
     <h4>Delete Category by Keyword</h4>
     <p>Please provide category ID and click delete</p>
+    <form action="/delete-category" method="post">
+        Key in ID: <input type="number" name = "id"/>
+        <br />
+        <button type = "submit" name = "submit">Delete Category</button>
+    </form>
+    
 </body>
 
 </html>
+
+<!-- Task group 1, 5th point: Delete Category By ID: 
+    This endpoint deletes a category by its ID. 
+    The ID is sent to the backend server through the request's body 
+    The endpoint must redirect the client to "List all categories". -->
