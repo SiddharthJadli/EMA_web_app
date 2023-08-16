@@ -20,6 +20,8 @@ class event{
     }
 }
 
+module.exports = event;
+
 function makestring() {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
