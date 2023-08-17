@@ -1,7 +1,10 @@
+const randString = require("randomstring")
+
 class event{
     constructor(name, startTime, duration, isActive=True, image, capacity=1000, availableTickets=null, categoryID){
         
-        this.ID = "E" + makestring() + "-" + Math.floor(1000 + Math.random() * 9000).toString;
+        this.ID = "E" + randString.generate({length: 2, charset: "ABCDEFGHIJKLMNOPQRSTUvWXYZ"}) 
+                    + "-" + randString.generate({length: 4, charset: "0123456789"});
         
         this.name = name;
         this.startTime = startTime;

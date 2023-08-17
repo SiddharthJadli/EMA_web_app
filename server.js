@@ -1,16 +1,21 @@
 const express = require('express');
-const app = express();
 
+const morgan = require("morgan")
+const ejs = require("ejs");
 const path = require("path");
 
-const ejs = require("ejs");
 const Deletecat = require("./models/task1DeleteCategory");
 
+const app = express();
 app.use(express.static("node_modules/bootstrap/dist/css"));
+app.use(morgan('tiny'));
+
+//middleware
+app.use(express.urlencoded({ extended: true}));
+app.use(express.json());
 
 const print = console.log;
 const VIEWS_PATH = path.join(__dirname, "/views/");
-
 
 let db = [];
 
@@ -20,9 +25,6 @@ app.listen(PORT_NUMBER, function () {
 	print(`listening on port ${PORT_NUMBER}`);
 });  //server listening
 
-//middleware
-app.use(express.urlencoded({ extended: true}));
-app.use(express.json());
 
 
 //Default
