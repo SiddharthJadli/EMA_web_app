@@ -84,16 +84,21 @@ app.post("/delete-category", function (req,res) {
     res.redirect("/list-all-category");
 });
 
-//Sidd part
-
+//Sidd
 const Event = require("./models/event");
 
+//Adding a new event
 
+app.get("/sidd/event/add", function(req, res){
+    res.sendFile( VIEWS_PATH + "addevent.html" )
+})
 
-
-
-
-
+app.post("/sidd/event", function(req, res){
+    let reqBody = req.body;
+    let aEvent = new Event(reqBody.eventName, reqBody.eventDescription, reqBody.eventImage, reqBody.eventStartTime, reqBody.eventDuration, reqBody.eventActive, reqBody.eventCapacity, reqBody.eventAvailableTickets, reqBody.categoryID);
+    
+    res.send()
+})
 
 
 //404 errors
