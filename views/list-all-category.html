@@ -10,8 +10,8 @@
     </head>
 
 
-<div class="container-fluid d-flex justify-content-center align-items-center vh-100>
     <body>
+        <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
         <h4>Categories List</h4>
 
         <div class="table1">
@@ -19,26 +19,25 @@
             <thead class=""thread-dark> 
                 <tr> 
                  <th scope="col" >ID</th>
-                 <th scope="col" >Name</th>
-                 <th scope="col" >Description</th>
-                 <th scope="col" >Image</th>
-                 <th scope="col" >Created Date</th>
-                 <th scope="col" >Actions</th>
+                 <th scope="col" >name</th>
+                 <th scope="col" >description</th>
+                 <th scope="col" >image</th>
+                 <th scope="col" >createdAt</th>
+               
                 </tr>
             </thead>
         
             <tbody>
 
                 <tr>
-                    <% for(let i=0;i<products.length;i++){ %>
+                    <% for(let i=0;i <categories.length;i++){ %>
                 <tr> 
                     <td><%= (i+1) %></td>
-                    <td><%= category[i].ID %></td>
-                    <td><%= category[i].Name %></td>
-                    <td><%= category[i].Description %></td>
-                    <td><%= category[i].Image %> </td>
-                    <td><%= category[i].Created Date %> </td>
-                    <td><%= category[i].Actions %> </td>
+                    <td><%= categories[i].ID%></td>
+                    <td><%= categories[i].name %></td>
+                    <td><%= categories[i].description %></td>
+                    <td><%= categories[i].image %> </td>
+                    <td><%= categories[i].createdAt %> </td>
                     
                 </tr>
                 <% } %>
@@ -54,6 +53,3 @@
 
 
 </html>
-
-
-
