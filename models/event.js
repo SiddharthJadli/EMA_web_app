@@ -8,7 +8,14 @@ class Event{
         
         this.name = name;
         this.description = description;
+        
+        //Format Date time
         this.startTime = startTime;
+
+        //Find out when this event ends using duration minutes value
+        this.endTime = "";
+        
+        //Format in hourse and minutes
         this.duration = duration;
 
         this.isActive = isActive;

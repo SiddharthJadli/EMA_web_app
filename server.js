@@ -16,7 +16,7 @@ app.use(morgan('tiny'));
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 
-app.use(express.static("Images"));
+app.use(express.static("images"));
 app.engine("html", ejs.renderFile);
 app.set("view engine", "html");
 
@@ -87,8 +87,15 @@ app.post("/sidd/events/add", function(req, res){
     res.redirect("/sidd/events");
 })
 
+//Listing all events
 app.get("/sidd/events", function(req, res){
     res.render("listallevents", { events: eventsDB });
+})
+
+//Listing sold out events
+app.get("/sidd/sold-out-events", function(req, res){
+    //Iterate through events and make a new array of sold out events then parse it in soldEvents
+    res.render("listsoldoutevents", { soldEvents: eventsDB });
 })
 
 
