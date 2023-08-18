@@ -1,13 +1,14 @@
 const express = require('express');
-const app = express();
+
 const morgan = require("morgan")
 const path = require("path");
 const ejs = require("ejs");
 const Category = require("./models/category");
 
-const router = require("./routes/event-category");
-app.use("/category" , router);
+// const router = require("./routes/event-category");
+// app.use("/category" , router);
 
+const app = express();
 
 app.use(express.static("node_modules/bootstrap/dist/css"));
 app.use(morgan('tiny'));
@@ -15,7 +16,7 @@ app.use(morgan('tiny'));
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 
-app.use(express.static("Images"));
+app.use(express.static("images"));
 app.engine("html", ejs.renderFile);
 app.set("view engine", "html");
 
@@ -24,7 +25,7 @@ app.set("view engine", "html");
 const print = console.log;
 const VIEWS_PATH = path.join(__dirname, "/views/");
 
-let db = [];
+let eventsDB = [];
 
 const PORT_NUMBER = 8080;
 
@@ -32,8 +33,12 @@ app.listen(PORT_NUMBER, function () {
 	print(`listening on port ${PORT_NUMBER}`);
 });  //server listening
 
+//Default
+app.get("/" , function (req, res) {
+    res.render("index");
+});
 
-
+//Jade
 app.post("/category/33306036/add", function (req,res) {
     let reqBody = req.body;
     console.log(reqBody);
@@ -42,9 +47,7 @@ app.post("/category/33306036/add", function (req,res) {
     res.redirect("/category/33306036/list-all");
 });
 
-app.get("/" , function (req, res) {
-    res.render("index");
-});
+
 
 app.get("/category/33306036/list-all" , function (req, res) {
     res.render("list-all-category", {categories: db});
@@ -78,20 +81,28 @@ app.post("/category/33306036/delete-by-ID", function (req,res) {
 const Event = require("./models/event");
 
 //Adding a new event
-
-app.get("/sidd/event/add", function(req, res){
-    res.sendFile( VIEWS_PATH + "addevent.html" )
+app.get("/sidd/events/add", function(req, res){
+    res.sendFile( VIEWS_PATH + "newevent.html" )
 })
 
-app.post("/sidd/event/add", function(req, res){
+app.post("/sidd/events/add", function(req, res){
     let reqBody = req.body;
-    let aEvent = new Event(reqBody.eventName, reqBody.eventDescription, reqBody.eventImage, reqBody.eventStartTime, reqBody.eventDuration, reqBody.eventActive, reqBody.eventCapacity, reqBody.eventAvailableTickets, reqBody.categoryID);
-    db.push(aEvent);
-    res.send(".");
+    console.log(reqBody);
+    let newEvent = new Event(reqBody.name, reqBody.description, reqBody.startDateTime, reqBody.duration, reqBody.isActive, reqBody.image, reqBody.capacity, reqBody.ticketsAvailable, reqBody.categoryID);
+    eventsDB.push(newEvent);
+    res.redirect("/sidd/events");
 })
 
+//Listing all events
+app.get("/sidd/events", function(req, res){
+    res.render("listallevents", { events: eventsDB });
+})
 
-
+//Listing sold out events
+app.get("/sidd/sold-out-events", function(req, res){
+    //Iterate through events and make a new array of sold out events then parse it in soldEvents
+    res.render("listsoldoutevents", { soldEvents: eventsDB });
+})
 
 
 //404 errors

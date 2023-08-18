@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html Lang="en">
+    <head>
+
+         <link href="bootstrap.min.css" rel="stylesheet" />
+         <link rel="stylesheet" href="styles.css">
+            
+    </head>
+    <body>
+        <h2>Event List</h2>
+        <div class="container-fluid d-flex justify-content-center align-items-center vh-100>
+            <div class="table1">
+                <table class="table">
+                    <thead class=""thread-dark> 
+                        <tr> 
+                            <th scope="col" >ID</th>
+                            <th scope="col" >Name</th>
+                            <th scope="col" >Start</th>
+                            <th scope="col" >End</th>
+                            <th scope="col" >Duration</th>
+                            <th scope="col" >Is Active</th>
+                            <th scope="col" >Image</th>
+                            <th scope="col" >Capacity</th>
+                            <th scope="col" >Tickets Available</th>
+                            <th scope="col" >Category ID</th>
+                            <th scope="col" >Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <% for(let i=0;i<events.length;i++){ %>
+                        <tr> 
+                            <td><%= events[i].id %></td>
+                            <td><%= events[i].name %></td>
+                            <td><%= events[i].startTime %></td>
+                            <td><%= events[i].endTime %></td>
+                            <td><%= events[i].duration %></td>
+                            <!-- Find a way to make isActive a checkbox -->
+                            <td><%= events[i].isActive %></td>
+                            <td><%= events[i].image %></td>
+                            <td><%= events[i].capacity %></td>
+                            <td><%= events[i].availableTickets %></td>
+                            <td><%= events[i].categoryID %></td>
+                            <td><button type="view" class="btn btn-primary">View</button></td>
+                        </tr>
+                        <% } %>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> 
+        </div>    
+    </body>
+</html>
+
+
+
