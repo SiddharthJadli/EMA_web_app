@@ -1,6 +1,6 @@
 const randString = require("randomstring")
 
-class event{
+class Event{
     constructor(name, startTime, duration, isActive=True, image, capacity=1000, availableTickets=null, categoryID){
         
         this.ID = "E" + randString.generate({length: 2, charset: "ABCDEFGHIJKLMNOPQRSTUvWXYZ"}) 
@@ -23,4 +23,4 @@ class event{
     }
 }
 
-module.exports = event;
+module.exports = Event;

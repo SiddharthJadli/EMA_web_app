@@ -14,7 +14,7 @@ class Category{
         this.events = [];  
     }
 
-    addEfent(event){
+    addEvent(event){
         this.events.push(event)
     }
 }
