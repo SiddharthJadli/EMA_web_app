@@ -38,7 +38,7 @@ app.get('/', function(req, res) {
 
 //Jade part
 
-app.get('/jade/list-category-by-keyword', function(req, res) {
+app.get('/list-category-by-keyword.html', function(req, res) {
     fileName = VIEWS_PATH + "list-category-by-keyword.html";
     res.sendFile(fileName);
 });
@@ -53,7 +53,7 @@ app.get('/list-all-category.html', function(req, res) {
     res.sendFile(fileName);
 });
 
-app.get('/33306036/add', function(req, res) {
+app.get('/add-category.html', function(req, res) {
     fileName = VIEWS_PATH + "add-category.html";
     res.sendFile(fileName);
 });

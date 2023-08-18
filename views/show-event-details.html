@@ -1,4 +1,4 @@
-<!-- sidd -->
+<!-- jade -->
 
 <!DOCTYPE html>
 
@@ -10,7 +10,28 @@
 </head>
 
 <body>
-    <h4>Events Page</h4>
+    <div class="container-fluid d-flex justify-content-center align-items-center vh-100" >
+        <div>
+            <h4>Events Page</h4>
+            
+            <tr>
+                <td><%= (i+1) %></td>
+                    <td><%= event-category[i]id %></td>
+                    <td><%= event-category[i]name %></td>
+                    <td><%= event-category[i]description %></td>
+                    <td><%= event-category[i]endDateTime %></td>
+                    <td><%= event-category[i]duration %></td>
+                    <td><%= event-category[i]isActive %></td>
+                    <td><%= event-category[i]capacity %></td>
+                    <td><%= event-category[i]availableTickets %></td>
+                    <td><%= event-category[i]categoryID %></td>
+            </tr>
+        </div>
+    
+
+    </div>
 </body>
 
 </html>
+
+
