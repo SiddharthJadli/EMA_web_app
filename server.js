@@ -36,7 +36,7 @@ app.get('/', function(req, res) {
 
 
 
-//Links to html pages for task 1
+//Jade part
 
 app.get('/jade/list-category-by-keyword', function(req, res) {
     fileName = VIEWS_PATH + "list-category-by-keyword.html";
