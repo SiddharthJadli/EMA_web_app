@@ -11,18 +11,19 @@
     <div class="container-fluid d-flex justify-content-center align-items-center vh-100" >
         
         <div>
-            <h1 class "text=primary">Events Management App</h1>
+            <h1 class  "text=primary">Events Management App</h1>
             <h4>Delete Category by Keyword</h4>
             <p>Please provide category ID and click delete</p>
+
             <form  action="/delete-category" method="post">
                 <div class = "form-group">
                     <label for="Name">Name</label>
-                    <input type="text" class="form-control" id="exampleInputID" aria-describedby="delete-category" placeholder="Enter Category ID">
+                    <input type="text" class="form-control" id="exampleInputID"  placeholder="Enter Category ID">
                     <br />
                 </div>
 
-                <div class = "mt=5"> 
-                    <!-- adding space(margintop) between 'id' and 'enter id' box -->
+                <div class = "mb-4"> 
+                    <!-- adding space(marginbottom) between 'id' and 'enter id' box -->
                     <button type = "submit" class="btn btn-danger name="submit">Delete Category</button>
                 </div>
                 
