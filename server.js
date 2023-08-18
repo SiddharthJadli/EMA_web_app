@@ -33,6 +33,8 @@ app.get('/', function(req, res) {
     res.sendFile(fileName);
 });
 
+
+
 //Links to html pages for task 1
 
 app.get('/list-category-by-keyword.html', function(req, res) {
@@ -84,3 +86,17 @@ app.post("/delete-category", function (req,res) {
 //Sidd part
 
 const Event = require("./models/event");
+
+
+
+
+
+
+
+
+
+//404 errors
+app.get("*", function(req, res) {
+    fileName = VIEWS_PATH + "404.html"
+    res.sendFile(fileName);
+    });
