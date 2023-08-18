@@ -26,9 +26,20 @@
             </thead>
         
             <tbody>
+
                 <tr>
-                    <th scope = "row">        </th> 
-                    <!-- add ID in above -->
+                    <% for(let i=0;i<products.length;i++){ %>
+                <tr> 
+                    <td><%= (i+1) %></td>
+                    <td><%= category[i].ID %></td>
+                    <td><%= category[i].Name %></td>
+                    <td><%= category[i].Description %></td>
+                    <td><%= category[i].Image %> </td>
+                    <td><%= category[i].Created Date %> </td>
+                    <td><%= category[i].Actions %> </td>
+                    
+                </tr>
+                <% } %>
                 </tr>
             </tbody>
             </table>
