@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <link href="bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+        <div class="container-fluid d-flex justify-content-center align-items-center vh-100" >
+            
+                <div>
+                    <h2>Add Event</h2>
+                    <p>Fill in event details and click submit</p>
+                
+                    <form action="/sidd/events/add" method="post" >
+                        <div class="form-group mb-4">
+                            <label for="Name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter event name">
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="Description">Description</label>
+                            <input type="text" class="form-control" id="description" name="description">
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="Image">Image</label>
+                            <input type="text" class="form-control" id="image" name="image" placeholder="Enter static resource path">
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="StartDateTime">Start Date Time</label>
+                            <input type="datetime-local" class="form-control" id="startDateTime" name="startDateTime">
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="Duration">Duration In Minutes</label>
+                            <input type="number" class="form-control" id="duration" name="duration" placeholder="Event duration in minutes">
+                
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="IsActive">Is Active</label>
+                            <input type="checkbox" class="form-control" id="isActive" name="isActive" checked>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="Capacity">Capacity</label>
+                            <input type="number" class="form-control" id="capacity" name="capacity" placeholder="Event Capacity" min="1">
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="TicketsAvailable">Tickets available</label>
+                            <input type="number" class="form-control" id="ticketsAvailable" name="ticketsAvailable" placeholder="Tickets Available (optional)" min="0">
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="CategoryID">Category ID</label>
+                            <input type="text" class="form-control" id="categoryID" name="categoryID" placeholder="Enter category id">
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>  
+                </div>
+        </div>
+    </body>
+</html>

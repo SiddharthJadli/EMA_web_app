@@ -1,22 +1,30 @@
 const randString = require("randomstring")
 
 class Event{
-    constructor(name, startTime, duration, isActive=True, image, capacity=1000, availableTickets=null, categoryID){
+    constructor(name, description, startTime, duration, isActive="off", image, capacity, availableTickets, categoryID){
         
-        this.ID = "E" + randString.generate({length: 2, charset: "ABCDEFGHIJKLMNOPQRSTUvWXYZ"}) 
+        this.id = "E" + randString.generate({length: 2, charset: "ABCDEFGHIJKLMNOPQRSTUvWXYZ"}) 
                     + "-" + randString.generate({length: 4, charset: "0123456789"});
         
         this.name = name;
+        this.description = description;
         this.startTime = startTime;
         this.duration = duration;
+
         this.isActive = isActive;
-        this.image = image;
-        this.capacity = capacity;
         
-        if (availableTickets == null){
-            this.availableTickets = capacity;
+        this.image = image;
+        
+        if (availableTickets == ""){
+            this.capacity = 1000;
         } else {
-            this.availableTickets = availableTickets
+            this.capacity = capacity;;
+        }
+        
+        if (availableTickets == ""){
+            this.availableTickets = this.capacity;
+        } else {
+            this.availableTickets = availableTickets;
         }
         
         this.categoryID = categoryID;
