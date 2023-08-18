@@ -10,9 +10,10 @@ const app = express();
 app.use(express.static("node_modules/bootstrap/dist/css"));
 app.use(morgan('tiny'));
 
-//middleware
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
+
+
 
 const print = console.log;
 const VIEWS_PATH = path.join(__dirname, "/views/");
@@ -37,7 +38,7 @@ app.get('/', function(req, res) {
 
 //Links to html pages for task 1
 
-app.get('/list-category-by-keyword.html', function(req, res) {
+app.get('/jade/list-category-by-keyword', function(req, res) {
     fileName = VIEWS_PATH + "list-category-by-keyword.html";
     res.sendFile(fileName);
 });
@@ -52,7 +53,7 @@ app.get('/list-all-category.html', function(req, res) {
     res.sendFile(fileName);
 });
 
-app.get('/add-category.html', function(req, res) {
+app.get('/33306036/add', function(req, res) {
     fileName = VIEWS_PATH + "add-category.html";
     res.sendFile(fileName);
 });
