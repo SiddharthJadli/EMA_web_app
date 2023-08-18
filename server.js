@@ -37,7 +37,7 @@ app.listen(PORT_NUMBER, function () {
 app.post("/category/33306036/add", function (req,res) {
     let reqBody = req.body;
     console.log(reqBody);
-    let aCategory = new Category(reqBody.categoryName, reqBody.categoryDescription, reqBody.categoryImage, reqBody.categoryCreatedAt)
+    let aCategory = new Category(reqBody.categoryName, reqBody.categoryDescription, reqBody.categoryImage, reqBody.categoryCreatedAt);
     db.push(aCategory);
     res.redirect("/category/33306036/list-all");
 });
@@ -51,7 +51,13 @@ app.get("/category/33306036/list-all" , function (req, res) {
 });
 
 
-
+app.get("/category/33306036/list-by-keyword" , function(req, res) {
+    const keyword = req.query.keyword;
+    const filterCategory = db.filter(category);
+    res.render("list-category-by-keyword" , {
+        categories: filteredCategories. keyword
+    });
+});
 // Task 1 point 5 delete category by ID
 app.get("/category/33306036/delete-by-ID", function (req, res) {
 	res.sendFile(path.join(__dirname, "views", "delete-category-by-ID.html")); 
