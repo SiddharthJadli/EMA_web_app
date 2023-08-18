@@ -5,7 +5,7 @@ const ejs = require("ejs");
 const path = require("path");
 
 const Deletecat = require("./models/task1DeleteCategory");
-const Event = require("./models/event");
+
 
 const app = express();
 app.use(express.static("node_modules/bootstrap/dist/css"));
@@ -70,22 +70,32 @@ app.post('/category/33306036/add', function(req,res) {
     console.log(req.body.image);
     res.redirect("/category/33306036/list-all");
 })
+// const Category = require("./models/category");
 
-//Task 1 point 2: list all categories
+// app.post("category", function (req,res) {
+//     let reqBody = req.body;
+//     console.log(reqBody);
+//     let aCategory = new Category(reqBody.eventName, reqBody.eventDescription, reqBody.eventImage, reqBody.createdAt)
+//     db.push(aCategory);
+//     res.redirect("/category/33306036/list-all");
+// })
+
+
+
 // Task 1 point 5 delete category by ID
-app.post("/category/33306036/delete-event-by-ID", function (req,res) {
+app.post("/category/33306036/delete-by-ID", function (req,res) {
     let id =parseInt(req.body.id); 
     for (let i = 0; i < db.length; i++) {
 		if (db[i].id === id) {
 			db.splice(i, 1);
 			break;
-		} //check agn^
+		} 
 	}
     res.redirect("/category/33306036/list-all");
 });
 
 //Sidd
-// const Event = require("./models/event");
+const Event = require("./models/event");
 
 //Adding a new event
 
@@ -96,6 +106,7 @@ app.get("/sidd/event/add", function(req, res){
 app.post("/sidd/event/add", function(req, res){
     let reqBody = req.body;
     let aEvent = new Event(reqBody.eventName, reqBody.eventDescription, reqBody.eventImage, reqBody.eventStartTime, reqBody.eventDuration, reqBody.eventActive, reqBody.eventCapacity, reqBody.eventAvailableTickets, reqBody.categoryID);
+    db.push(aEvent);
     res.send(".");
 })
 
