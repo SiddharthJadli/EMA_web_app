@@ -6,11 +6,41 @@
         <link rel="stylesheet" href="styles.css">
         
         <style>
+            
+            .buttons-contain {
+                text-align: center;
+            }
+
+            .buttons {
+            background-color: #5b7cf5;
+            color: whitesmoke;
+            padding: 5px 8px;
+            border: none;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 14px;
+            display: inline-block;
+            margin-right: 10px;
+            margin-top: 10px;
+            }
+
+            .container1 {
+                text-align: center;
+                margin-top: 40px;
+                margin-bottom: 0px;
+            }
+
+            .container2 {
+                text-align: center;
+                margin-top: 40px;
+                margin-bottom: 20px;
             .oval-btn {
                 border-radius: 50px;
                 padding: 10px, 15px;
                 margin: 5px;
             }
+            
+
         </style>
         
     </head>
@@ -38,6 +68,34 @@
       
         
        
+        <div class="container1">
+            <h3>Admin Panel</h3>
+            <p>Task group 1 (Jade)</p>
+        </div>
+        
+
+        <div
+            class="buttons-contain">
+            <a href="/add-category.html" class="buttons">Add Category</a>
+            <a href="/list-all-category.html" class="buttons">List All Category</a>
+            <a href="/list-category-by-keyword.html" class="buttons">List Category by Keyword</a>
+            <a href="/show-event-details.html" class="buttons">Show Event Details</a>
+            <a href="/delete-category-by-ID.html" class="buttons">Delete Category by ID</a>
+        </div>
+        
+        <div class="container2">
+            <p>Task group 2 (Sidd)</p>
+        </div>
+        
+
+        <div
+            class="buttons-contain">
+            <a href="/add-event.html" class="buttons">Add Event</a>
+            <a href="/list-all-events.html" class="buttons">List All Events</a>
+            <a href="/list-sold-out-events.html" class="buttons">List Sold out events</a>
+            <a href="/show-event-details.html" class="buttons">Category Detail Page</a>
+            <a href="/delete-event-by-ID.html" class="buttons">Delete Event By ID</a>
+        </div>
     </body>
 
    
