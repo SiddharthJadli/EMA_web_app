@@ -5,8 +5,8 @@ const path = require("path");
 const ejs = require("ejs");
 const Category = require("./models/category");
 
-const router = require("./routes/event-category");
-app.use("/category" , router);
+// const router = require("./routes/event-category");
+// app.use("/category" , router);
 
 const app = express();
 
@@ -90,9 +90,6 @@ app.post("/sidd/events/add", function(req, res){
 app.get("/sidd/events", function(req, res){
     res.render("listallevents", { events: eventsDB });
 })
-
-
-
 
 
 //404 errors

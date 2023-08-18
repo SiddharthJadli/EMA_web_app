@@ -15,7 +15,7 @@ class Event{
         
         this.image = image;
         
-        if (availableTickets == ""){
+        if (capacity == ""){
             this.capacity = 1000;
         } else {
             this.capacity = capacity;;
