@@ -91,11 +91,14 @@ app.post("/category/33306036/delete-by-ID", function (req,res) {
 //Sidd
 const Event = require("./models/event");
 
-let eventsDB = [];
-
 //Adding a new event
 app.get("/sidd/events/add", function(req, res){
-    res.sendFile( VIEWS_PATH + "add-event.html" )
+    if (categoriesDB.length == 0){
+        // Serve a page which says categories are empty
+    }else{
+       res.sendFile( VIEWS_PATH + "add-event.html" ) 
+    }
+    
 })
 
 app.post("/sidd/events/add", function(req, res){
@@ -115,14 +118,16 @@ app.get("/sidd/soldout-events", function(req, res){
     //Iterate through events and make a new array of sold out events then parse it in soldEvents
     let soldEventsDB = [];
 
-    for(let i=0;i<eventsDB.length;i++){
-        if (eventsDB[i].ticketsAvailable == 0){
-            console.log(eventsDB[i]);
-            //soldEventsDB.push(eventsDB[i]);
-        }
-    }
+    console.log(eventsDB[0]);
 
-    console.log(soldEventsDB);
+    res.send("Hi");
+
+    // for(let i=0;i<eventsDB.length;i++){
+    //     if (eventsDB[i].ticketsAvailable == 0){
+            
+    //         //soldEventsDB.push(eventsDB[i]);
+    //     }
+    // }
 
     // res.render("list-soldout-events", { soldEvents: soldEventsDB });
 })
