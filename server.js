@@ -80,8 +80,8 @@ app.get("/category/33306036/delete-by-ID", function (req, res) {
 app.post("/category/33306036/delete-by-ID", function (req,res) {
     let categoryID =parseInt(req.body.categoryID); 
     for (let i = 0; i < categoriesDB.length; i++) {
-		if (categoriesDB[i].categoriesDB === categoriesDB) {
-			db.splice(i, 1);
+		if (categoriesDB[i].categoryID === categoryID) {
+			categoriesDB.splice(i, 1);
 			break;
 		} 
 	}

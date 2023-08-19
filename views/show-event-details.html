@@ -11,7 +11,7 @@
 
 <body>
     
-    <img src="/EVENTS.png" alt="events">
+    <img src="/EVENTS.png" alt="events" style = "width: 500px; height: 150px;">
      <h4>Events Page</h4>
 
      <table>
@@ -47,7 +47,8 @@
         </tr>
         <tr>
             <td>Is Active:</td>
-            <td><%= events[i].isActive %></td>
+            <td><input type="checkbox" <%= events[i].isActive ? 'checked' : '' %> disabled></td>
+            <!-- <td><%= events[i].isActive %></td> -->
         </tr>
         <tr>
             <td>Capacity:</td>
@@ -73,39 +74,4 @@
 </body>
 
 </html>
-
-<!-- 
-<p>Event ID:</p> 
-<p>Name:</p> 
-<p>Description:</p> 
-<p>Start Date Time:</p> 
-<p>End Date Time:</p> 
-<p>Duration:</p> 
-<p>Is Active:</p> 
-<p>Capacity:</p> 
-<p>Tickets Available:</p> 
-<p>Category ID:</p> 
-
-<tbody>
-    <tr>
-        <% for(let i=0;i<events.length;i++){ %>
-    <tr> 
-        <td><%= events[i].id %></td>
-        <td><%= events[i].name %></td>
-        <td><%= events[i].description %></td>
-        <td><%= events[i].startTime %></td>
-        <td><%= events[i].endTime %></td>
-        <td><%= events[i].duration %></td>
-        <td><%= events[i].isActive %></td>
-        <td><%= events[i].capacity %></td>
-        <td><%= events[i].availableTickets %></td>
-        <td><%= events[i].categoryID %></td>
-        
-        
-        <td><button type="view" class="btn btn-primary">View</button></td>
-    </tr>
-    <% } %>
-    </tr>
-</tbody>
- -->
 
