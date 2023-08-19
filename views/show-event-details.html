@@ -11,66 +11,58 @@
 
 <body>
     
-    <img src="/EVENTS.png" alt="events" style = "width: 500px; height: 150px;">
-     <h4>Events Page</h4>
+        <img src="/EVENTS.png" alt="events" style="width: 150px; height: auto;">
+            <h4>Events Page</h4>
 
-     <table>
-     <tr>
-        <% for(let i=0;i<events.length;i++){ %>
-    <tr> 
+<table>
+        <tbody>
+            <tr>
+                <td>Event ID:</td>
+                <td><%= events[i].id %></td>
+            </tr>
+            <tr>
+                <td>Name:</td>
+                <td><%= events[i].name %></td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td><%= events[i].description %></td>
+            </tr>
+            <tr>
+                <td>Start Date Time:</td>
+                <td><%= events[i].startTime %></td>
+            </tr>
+            <tr>
+                <td>End Date Time:</td>
+                <td><%= events[i].endTime %></td>
+            </tr>
+            <tr>
+                <td>Duration:</td>
+                <td><%= events[i].duration %></td>
+            </tr>
+            <tr>
+                <td>Is Active:</td>
+                <td><%= events[i].isActive %></td>
+            </tr>
+            <tr>
+                <td>Capacity:</td>
+                <td><%= events[i].capacity %></td>
+            </tr>
+            <tr>
+                <td>Tickets Available:</td>
+                <td><%= events[i].availableTickets %></td>
+            </tr>
+            <tr>
+                <td>Category ID:</td>
+                <td><%= events[i].categoryID %></td>
+            </tr>
+        </tbody>
+    </table>
 
-    <tbody>
-        <tr>
-            <td>Event ID:</td>
-            <td><%= events[i].id %></td>
-        </tr>
-
-        <tr>
-            <td>Name:</td>
-            <td><%= events[i].name %></td>
-        </tr>
-        <tr>
-            <td>Description:</td>
-            <td><%= events[i].description %></td>
-        </tr>
-        <tr>
-            <td>Start Date Time:</td>
-            <td><%= events[i].startTime %></td>
-        </tr>
-        <tr>
-            <td>End Date Time:</td>
-            <td><%= events[i].endTime %></td>
-        </tr>
-        <tr>
-            <td>Duration:</td>
-            <td><%= events[i].duration %></td>
-        </tr>
-        <tr>
-            <td>Is Active:</td>
-            <td><input type="checkbox" <%= events[i].isActive ? 'checked' : '' %> disabled></td>
-            <!-- <td><%= events[i].isActive %></td> -->
-        </tr>
-        <tr>
-            <td>Capacity:</td>
-            <td><%= events[i].capacity %></td>
-        </tr>
-        <tr>
-            <td>Tickets Available:</td>
-            <td><%= events[i].availableTickets %></td>
-        </tr>
-        <tr>
-            <td>Category ID:</td>
-            <td><%= events[i].categoryID %></td>
-        
-    </tr>
-    <% } %>
-    </tr>
-    </tbody>
-
-  
-           
             
-</table>
+            
+            
+    
 </body>
 
 </html>
