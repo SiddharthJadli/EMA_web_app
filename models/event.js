@@ -3,7 +3,7 @@ const randString = require("randomstring")
 class Event{
     constructor(name, description, startTime, duration, isActive="off", image, capacity, availableTickets, categoryID){
         
-        this.id = "E" + randString.generate({length: 2, charset: "ABCDEFGHIJKLMNOPQRSTUvWXYZ"}) 
+        this.id = "E" + randString.generate({length: 2, charset: "ABCDEFGHIJKLMNOPQRSTUVWXYZ"}) 
                     + "-" + randString.generate({length: 4, charset: "0123456789"});
         
         this.name = name;
@@ -14,7 +14,7 @@ class Event{
 
         //Find out when this event ends using duration minutes value
         this.endTime = "";
-        
+
         //Format in hourse and minutes
         this.duration = duration;
 
