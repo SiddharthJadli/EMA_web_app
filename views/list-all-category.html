@@ -11,6 +11,13 @@
 
 
     <body>
+
+        <form action="/category/33306036/list-by-keyword" method="GET">
+            <div class="form-group">
+                <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Enter Keyword">
+            </div>
+        </form>
+
         <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
         <h4>Categories List</h4>
 
@@ -19,26 +26,25 @@
             <thead class=""thread-dark> 
                 <tr> 
                  <th scope="col" >ID</th>
-                 <th scope="col" >name</th>
-                 <th scope="col" >description</th>
-                 <th scope="col" >image</th>
-                 <th scope="col" >createdAt</th>
+                 <th scope="col" >Name</th>
+                 <th scope="col" >Description</th>
+                 <th scope="col" >Image</th>
+                 <th scope="col" >Created At</th>
+                 <th scope="col" >Actions</th>
                
                 </tr>
             </thead>
         
             <tbody>
-
-                <tr>
-                    <% for(let i=0;i <categories.length;i++){ %>
+                <% for(let i=0;i <categories.length;i++){ %>
                 <tr> 
-                    <td><%= (i+1) %></td>
-                    <td><%= categories[i].ID%></td>
+                    
+                    <td><%= categories[i].id %></td>
                     <td><%= categories[i].name %></td>
                     <td><%= categories[i].description %></td>
                     <td><%= categories[i].image %> </td>
-                    <td><%= categories[i].createdAt %> </td>
-                    <td><button type="view" class="btn btn-primary">View</button></td>
+                    <td><%= categories[i].createdAt.toISOString() %> </td>
+                    <td><button  class="btn btn-primary">Show Category Details</button></td>
                 </tr>
                 <% } %>
                 </tr>
@@ -48,7 +54,7 @@
         
     </div>
     </body>
-    <!-- button to show category details -->
+    
     
 
 

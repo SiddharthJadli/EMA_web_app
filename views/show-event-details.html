@@ -16,46 +16,63 @@
 
 <table>
         <tbody>
+          
+            <% for(let i=0;i<events.length;i++){%>
+                
             <tr>
                 <td>Event ID:</td>
                 <td><%= events[i].id %></td>
             </tr>
+
             <tr>
                 <td>Name:</td>
                 <td><%= events[i].name %></td>
             </tr>
+
             <tr>
                 <td>Description:</td>
                 <td><%= events[i].description %></td>
             </tr>
+
+            
+
+
             <tr>
                 <td>Start Date Time:</td>
                 <td><%= events[i].startTime %></td>
             </tr>
+
             <tr>
                 <td>End Date Time:</td>
-                <td><%= events[i].endTime %></td>
+                <td><%= events[i].endTime%></td>
             </tr>
+
             <tr>
                 <td>Duration:</td>
-                <td><%= events[i].duration %></td>
+                <td><%= events[i].duration %> minutes</td>
             </tr>
+
             <tr>
                 <td>Is Active:</td>
-                <td><%= events[i].isActive %></td>
+                <td><input type="checkbox" <%= events[i].isActive ? 'checked' : '' %> disabled</td>
             </tr>
+
             <tr>
                 <td>Capacity:</td>
                 <td><%= events[i].capacity %></td>
             </tr>
+
             <tr>
                 <td>Tickets Available:</td>
                 <td><%= events[i].availableTickets %></td>
+        
             </tr>
-            <tr>
-                <td>Category ID:</td>
-                <td><%= events[i].categoryID %></td>
-            </tr>
+
+        <% } %>
+
+
+    
+       
         </tbody>
     </table>
 

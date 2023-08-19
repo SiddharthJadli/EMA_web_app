@@ -49,7 +49,8 @@ app.get("/category/33306036/add", function(req,res) {
 app.post("/category/33306036/add", function (req,res) {
     let reqBody = req.body;
     console.log(reqBody);
-    let aCategory = new Category(reqBody.categoryName, reqBody.categoryDescription, reqBody.categoryImage, reqBody.categoryCreatedAt);
+    let currentDate = new Date;
+    let aCategory = new Category(reqBody.categoryID, reqBody.name, reqBody.description, reqBody.image, currentDate);
     categoriesDB.push(aCategory);
     res.redirect("/category/33306036/list-all");
 });
@@ -60,45 +61,66 @@ app.get("/category/33306036/list-all" , function (req, res) {
     res.render("list-all-category", {categories: categoriesDB});
 });
 
+// ->link "show category details frm task 4 student 2"
+
 
 app.get("/category/33306036/show-event-details", function (req,res) {
     res.render("show-event-details", {events: eventsDB});
 });
 
+//filtering category list by keyword in name and descrip
 app.get("/category/33306036/list-by-keyword" , function(req, res) {
     const keyword = req.query.keyword;
-    const filterCategory = categoriesDB.filter(category);
-    res.render("list-category-by-keyword" , {
-        categories: filteredCategories. keyword
-    });
+    const filteredCategories = categoriesDB.filter(function(category) {
+        return category.description.includes(keyword) || category.name.includes(keyword);
 });
+
+if (filteredCategories.length===0) {
+    console.log("No such keywords found"); 
+        } else {
+            res.render("list-all-category" , {categories: filteredCategories});
+        }
+    });
+
+
+
+    app.get("/category/33306036/show-event-details", function (req,res) {
+        res.render("show-event-details", {events:eventsDB})
+    });
+
+    // , categories:categoriesDB
+
 // Task 1 point 5 delete category by ID
 app.get("/category/33306036/delete-by-ID", function (req, res) {
 	res.sendFile(path.join(__dirname, "views", "delete-category-by-ID.html")); 
 });
 
 app.post("/category/33306036/delete-by-ID", function (req,res) {
-    let categoryID =parseInt(req.body.categoryID); 
+    // let categoryID =parseInt(req.body.categoryID); 
+   const categoryID = req.body.categoryID;
     for (let i = 0; i < categoriesDB.length; i++) {
-		if (categoriesDB[i].categoryID === categoryID) {
-			categoriesDB.splice(i, 1);
+		console.log("Comparing with category:", categoriesDB[i].id);
+        if (categoriesDB[i].id === categoryID) {
+			console.log("Deleting category:", categoriesDB[i]);
+            categoriesDB.splice(i, 1);
 			break;
 		} 
 	}
+    console.log("After deleting:", categoriesDB);
     res.redirect("/category/33306036/list-all");
 });
+
+
 
 //Sidd
 const Event = require("./models/event");
 
+
+
 //Adding a new event
 app.get("/sidd/events/add", function(req, res){
-    if (categoriesDB.length == 0){
-        // Serve a page which says categories are empty
-    }else{
-       res.sendFile( VIEWS_PATH + "add-event.html" ) 
-    }
-    
+    res.sendFile( VIEWS_PATH + "add-event.html" )
+  
 })
 
 app.post("/sidd/events/add", function(req, res){
@@ -113,24 +135,23 @@ app.get("/sidd/events", function(req, res){
     res.render("list-all-events", { events: eventsDB });
 })
 
-//Listing sold out events
-app.get("/sidd/soldout-events", function(req, res){
-    //Iterate through events and make a new array of sold out events then parse it in soldEvents
-    let soldEventsDB = [];
 
-    console.log(eventsDB[0]);
+// Listing sold out events
+// app.get("/sidd/soldout-events", function(req, res){
+//     //Iterate through events and make a new array of sold out events then parse it in soldEvents
+//     let soldEventsDB = [];
+// //forloop
+//     for(let i=0;i<eventsDB.length;i++){
+//         if (eventsDB[i].ticketsAvailable == 0){
+//             console.log(eventsDB[i]);
+//             //soldEventsDB.push(eventsDB[i]);
+//         }
+//     }
 
-    res.send("Hi");
+//     console.log(soldEventsDB);
 
-    // for(let i=0;i<eventsDB.length;i++){
-    //     if (eventsDB[i].ticketsAvailable == 0){
-            
-    //         //soldEventsDB.push(eventsDB[i]);
-    //     }
-    // }
-
-    // res.render("list-soldout-events", { soldEvents: soldEventsDB });
-})
+//     res.render("list-soldout-events", { soldEvents: soldEventsDB });
+// })
 
 
 //404 errors

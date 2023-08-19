@@ -5,7 +5,7 @@ const randString = require("randomstring")
 class Category{
     constructor(eventId, name, description, image, createdAt ){
         
-        this.ID = "E" + randString.generate({length: 2, charset: "ABCDEFGHIJKLMNOPQRSTUvWXYZ"}) 
+        this.id = "E" + randString.generate({length: 2, charset: "ABCDEFGHIJKLMNOPQRSTUvWXYZ"}) 
                     + "-" + randString.generate({length: 4, charset: "0123456789"});
         this.name = name;
         this.description = description;
