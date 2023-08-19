@@ -99,7 +99,7 @@ app.post("/category/33306036/delete-by-ID", function (req,res) {
     // let categoryID =parseInt(req.body.categoryID); 
    const categoryID = req.body.categoryID;
     for (let i = 0; i < categoriesDB.length; i++) {
-		console.log("Comparing with category:", categoriesDB[i].id);
+
         if (categoriesDB[i].id === categoryID) {
 			console.log("Deleting category:", categoriesDB[i]);
             categoriesDB.splice(i, 1);
@@ -136,10 +136,24 @@ app.get("/sidd/events", function(req, res){
 })
 
 
-// Listing sold out events
-app.get("/sidd/soldout-events", function(req, res){
-    res.render("list-soldout-events", { events: eventsDB });
-})
+
+
+
+//     //Iterate through events and make a new array of sold out events then parse it in soldEvents
+//     let soldEventsDB = [];
+// //forloop
+//     for(let i=0;i<eventsDB.length;i++){
+//         if (eventsDB[i].ticketsAvailable == 0){
+//             console.log(eventsDB[i]);
+//             //soldEventsDB.push(eventsDB[i]);
+//         }
+//     }
+
+//     console.log(soldEventsDB);
+
+//     res.render("list-soldout-events", { soldEvents: soldEventsDB });
+// })
+
 
 
 //404 errors
