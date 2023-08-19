@@ -28,23 +28,25 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <% for(let i=0;i<soldEvents.length;i++){ %>
-                        <tr> 
-                            <td><%= soldEvents[i].id %></td>
-                            <td><%= soldEvents[i].name %></td>
-                            <td><%= soldEvents[i].startTime %></td>
-                            <td><%= events[i].endTime %></td>
-                            <td><%= soldEvents[i].duration %></td>
-                            <!-- Find a way to make isActive a checkbox -->
-                            <td><%= soldEvents[i].isActive %></td>
-                            <td><%= soldEvents[i].image %></td>
-                            <td><%= soldEvents[i].capacity %></td>
-                            <td><%= soldEvents[i].availableTickets %></td>
-                            <td><%= soldEvents[i].categoryID %></td>
-                            <!-- Redirect to show event details by parsing it the position of this index -->
-                            <td><button type="view" class="btn btn-primary">View</button></td>
-                        </tr>
-                        <% } %>
+                            <% for(let i=0;i<events.length;i++){ %>
+                                <% if(events[i].availableTickets == 0){ %>
+                                    <tr> 
+                                        <td><%= events[i].id %></td>
+                                        <td><%= events[i].name %></td>
+                                        <td><%= events[i].startTime %></td>
+                                        <td><%= events[i].endTime %></td>
+                                        <td><%= events[i].duration %></td>
+                                        <!-- Find a way to make isActive a checkbox -->
+                                        <td><%= events[i].isActive %></td>
+                                        <td><%= events[i].image %></td>
+                                        <td><%= events[i].capacity %></td>
+                                        <td><%= events[i].availableTickets %></td>
+                                        <td><%= events[i].categoryID %></td>
+                                        <!-- Redirect to show event details by parsing it the position of this index -->
+                                        <td><button type="view" class="btn btn-primary">View</button></td>
+                                    </tr>
+                                <% } %>    
+                            <% } %>
                         </tr>
                     </tbody>
                 </table>

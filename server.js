@@ -137,21 +137,9 @@ app.get("/sidd/events", function(req, res){
 
 
 // Listing sold out events
-// app.get("/sidd/soldout-events", function(req, res){
-//     //Iterate through events and make a new array of sold out events then parse it in soldEvents
-//     let soldEventsDB = [];
-// //forloop
-//     for(let i=0;i<eventsDB.length;i++){
-//         if (eventsDB[i].ticketsAvailable == 0){
-//             console.log(eventsDB[i]);
-//             //soldEventsDB.push(eventsDB[i]);
-//         }
-//     }
-
-//     console.log(soldEventsDB);
-
-//     res.render("list-soldout-events", { soldEvents: soldEventsDB });
-// })
+app.get("/sidd/soldout-events", function(req, res){
+    res.render("list-soldout-events", { events: eventsDB });
+})
 
 
 //404 errors
