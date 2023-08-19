@@ -113,9 +113,6 @@ app.post("/category/33306036/delete-by-ID", function (req,res) {
 
 //Sidd
 const Event = require("./models/event");
-const { log } = require('console');
-
-
 
 //Adding a new event
 app.get("/sidd/events/add", function(req, res){
@@ -162,8 +159,6 @@ app.get("/sidd/events/delete", function(req, res){
         res.redirect("/sidd/events");
     }
 })
-    
-
 
 //404 errors
 app.get("*", function(req, res) {
