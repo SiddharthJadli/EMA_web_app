@@ -3,7 +3,7 @@ const express = require('express');
 const morgan = require("morgan")
 const path = require("path");
 const ejs = require("ejs");
-const Category = require("./models/category");
+
 
 // const router = require("./routes/event-category");
 // app.use("/category" , router);
@@ -26,6 +26,7 @@ const print = console.log;
 const VIEWS_PATH = path.join(__dirname, "/views/");
 
 let eventsDB = [];
+let categoriesDB = [];
 
 const PORT_NUMBER = 8080;
 
@@ -39,24 +40,34 @@ app.get("/" , function (req, res) {
 });
 
 //Jade
+const Category = require("./models/category");
+
+app.get("/category/33306036/add", function(req,res) {
+    res.sendFile (VIEWS_PATH + "add-category.html");
+})
+
 app.post("/category/33306036/add", function (req,res) {
     let reqBody = req.body;
     console.log(reqBody);
     let aCategory = new Category(reqBody.categoryName, reqBody.categoryDescription, reqBody.categoryImage, reqBody.categoryCreatedAt);
-    db.push(aCategory);
+    categoriesDB.push(aCategory);
     res.redirect("/category/33306036/list-all");
 });
 
 
 
 app.get("/category/33306036/list-all" , function (req, res) {
-    res.render("list-all-category", {categories: db});
+    res.render("list-all-category", {categories: categoriesDB});
 });
 
 
+app.get("/category/33306036/show-event-details", function (req,res) {
+    res.render("show-event-details", {events: eventsDB});
+});
+
 app.get("/category/33306036/list-by-keyword" , function(req, res) {
     const keyword = req.query.keyword;
-    const filterCategory = db.filter(category);
+    const filterCategory = categoriesDB.filter(category);
     res.render("list-category-by-keyword" , {
         categories: filteredCategories. keyword
     });
@@ -67,9 +78,9 @@ app.get("/category/33306036/delete-by-ID", function (req, res) {
 });
 
 app.post("/category/33306036/delete-by-ID", function (req,res) {
-    let id =parseInt(req.body.id); 
-    for (let i = 0; i < db.length; i++) {
-		if (db[i].id === id) {
+    let categoryID =parseInt(req.body.categoryID); 
+    for (let i = 0; i < categoriesDB.length; i++) {
+		if (categoriesDB[i].categoriesDB === categoriesDB) {
 			db.splice(i, 1);
 			break;
 		} 
