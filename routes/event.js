@@ -45,7 +45,7 @@ app.get("/sidd/events/delete", function(req, res){
         // console.log(eventsDB[0]);
         for (let i = 0; i < eventsDB.length; i++) {
             if (eventsDB[i].ID === ID) {
-                categoriesDB.splice(i, 1);
+                eventsDB.splice(i, 1);
                 break;
             } 
         }

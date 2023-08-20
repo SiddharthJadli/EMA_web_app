@@ -48,6 +48,7 @@ app.get("/category/33306036/add", function(req,res) {
 
 app.post("/category/33306036/add", function (req,res) {
     let reqBody = req.body;
+    console.log(reqBody);
     let currentDate = new Date;
     let aCategory = new Category(reqBody.categoryID, reqBody.name, reqBody.description, reqBody.image, currentDate);
     categoriesDB.push(aCategory);
@@ -67,7 +68,7 @@ app.get("/category/33306036/show-event-details", function (req,res) {
     res.render("show-event-details", {events: eventsDB});
 });
 
-//filtering category list by keyword in name and description
+//filtering category list by keyword in name and descrip
 app.get("/category/33306036/list-by-keyword" , function(req, res) {
     const keyword = req.query.keyword;
     const filteredCategories = categoriesDB.filter(function(category) {
@@ -96,7 +97,7 @@ app.get("/category/33306036/delete-by-ID", function (req, res) {
 
 app.post("/category/33306036/delete-by-ID", function (req,res) {
     // let categoryID =parseInt(req.body.categoryID); 
-    const categoryID = req.body.categoryID;
+   const categoryID = req.body.categoryID;
     for (let i = 0; i < categoriesDB.length; i++) {
 		console.log("Comparing with category:", categoriesDB[i].id);
         if (categoriesDB[i].id === categoryID) {
@@ -114,13 +115,12 @@ app.post("/category/33306036/delete-by-ID", function (req,res) {
 //Sidd
 const Event = require("./models/event");
 
+
+
 //Adding a new event
 app.get("/sidd/events/add", function(req, res){
-    if (categoriesDB.length == 0){
-        res.sendFile( VIEWS_PATH + "add-event-without-category.html" )
-    } else{
-        res.sendFile( VIEWS_PATH + "add-event.html" )
-    }
+    res.sendFile( VIEWS_PATH + "add-event.html" )
+  
 })
 
 app.post("/sidd/events/add", function(req, res){
@@ -135,7 +135,8 @@ app.get("/sidd/events", function(req, res){
     res.render("list-all-events", { events: eventsDB });
 })
 
-//Listing sold out events
+
+// Listing sold out events
 app.get("/sidd/soldout-events", function(req, res){
     res.render("list-soldout-events", { events: eventsDB });
 })
@@ -152,6 +153,7 @@ app.get("/sidd/events/delete", function(req, res){
         for (let i = 0; i < eventsDB.length; i++) {
             if (eventsDB[i].ID === ID) {
                 categoriesDB.splice(i, 1);
+                // change to eventsDB, change 'ID' to 'id'
                 break;
             } 
         }
