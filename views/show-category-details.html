@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<head>
+    <link href="bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Category image -->
+    <img src="/EVENTS.png" alt="events" style="width: 150px; height: auto;">
+    <h4><%= categories[index].name %></h4>
+
+    <table>
+        <tbody>   
+            <tr>
+                <td>Category ID:</td>
+                <td><%= categories[index].id %></td>
+            </tr>
+
+            <tr>
+                <td>Name:</td>
+                <td><%= categories[index].name %></td>
+            </tr>
+
+            <tr>
+                <td>Description:</td>
+                <td><%= categories[index].description %></td>
+            </tr>
+
+            <tr>
+                <td>Created Date Time:</td>
+                <td><%= categories[index].createdAt %></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+        <div class="table1">
+            <table class="table">
+                <thead class=""thread-dark> 
+                    <tr> 
+                        <th scope="col" >ID</th>
+                        <th scope="col" >Name</th>
+                        <th scope="col" >Start</th>
+                        <th scope="col" >End</th>
+                        <th scope="col" >Duration</th>
+                        <th scope="col" >Is Active</th>
+                        <th scope="col" >Capacity</th>
+                        <th scope="col" >Tickets Available</th>
+                        <th scope="col" >Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <% for(let i=0;i<events.length;i++){ %>
+                            <% if(events[i].categoryID == categories[index].id){ %>
+                                <tr> 
+                                    <td><%= events[i].id %></td>
+                                    <td><%= events[i].name %></td>
+                                    <!-- Reformat start and end time -->
+                                    <td><%= events[i].startTime %></td>
+                                    <td><%= events[i].endTime %></td>
+                                    <td><%= events[i].duration %></td>
+                                    <!-- Find a way to make isActive a checkbox -->
+                                    <td><%= events[i].isActive %></td>
+                                    <td><%= events[i].capacity %></td>
+                                    <td><%= events[i].availableTickets %></td>
+                                    <td><button type="view" class="btn btn-primary">View</button></td>
+                                </tr>
+                            <% } %>
+                        <% } %>
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
+    </div>
+    
+</body>
+</html>
+

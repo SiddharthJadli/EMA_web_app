@@ -61,7 +61,6 @@ app.get("/category/33306036/list-all" , function (req, res) {
     res.render("list-all-category", {categories: categoriesDB});
 });
 
-// ->link "show category details frm task 4 student 2"
 
 
 app.get("/category/33306036/show-event-details", function (req,res) {
@@ -88,15 +87,12 @@ if (filteredCategories.length===0) {
         res.render("show-event-details", {events:eventsDB})
     });
 
-    // , categories:categoriesDB
-
 // Task 1 point 5 delete category by ID
 app.get("/category/33306036/delete-by-ID", function (req, res) {
 	res.sendFile(path.join(__dirname, "views", "delete-category-by-ID.html")); 
 });
 
 app.post("/category/33306036/delete-by-ID", function (req,res) {
-    // let categoryID =parseInt(req.body.categoryID); 
    const categoryID = req.body.categoryID;
     for (let i = 0; i < categoriesDB.length; i++) {
 		console.log("Comparing with category:", categoriesDB[i].id);
@@ -110,17 +106,16 @@ app.post("/category/33306036/delete-by-ID", function (req,res) {
     res.redirect("/category/33306036/list-all");
 });
 
-
-
 //Sidd
 const Event = require("./models/event");
 
-
-
 //Adding a new event
 app.get("/sidd/events/add", function(req, res){
-    res.sendFile( VIEWS_PATH + "add-event.html" )
-  
+    if (categoriesDB.length == 0){
+        res.sendFile( VIEWS_PATH + "add-event-without-category.html" );
+    } else{
+        res.sendFile( VIEWS_PATH + "add-event.html" );
+    }
 })
 
 app.post("/sidd/events/add", function(req, res){
@@ -135,25 +130,43 @@ app.get("/sidd/events", function(req, res){
     res.render("list-all-events", { events: eventsDB });
 })
 
-
 // Listing sold out events
 app.get("/sidd/soldout-events", function(req, res){
     res.render("list-soldout-events", { events: eventsDB });
 })
 
+// Show category detail
+app.get("/sidd/category", function(req, res){
+    const showCategoryId = req.query.id;
+    
+    if(categoriesDB.length == 0){
+        res.sendFile( VIEWS_PATH + "show-category-without-categories.html" );
+    }else{
+        if(showCategoryId==undefined){
+            res.render("show-category-details", { categories: categoriesDB, index: 0 , events: eventsDB});
+        }else{
+            for (let i = 0; i < categoriesDB.length; i++) {
+                if (categoriesDB[i].id == showCategoryId) {
+                    res.render("show-category-details", { categories: categoriesDB, index: i , events: eventsDB});
+                    break;
+                } 
+            }
+        }
+    }
+})
+
+
+
 //Deleting an event
 app.get("/sidd/events/delete", function(req, res){
-    const ID = req.query.id;
+    const deleteid = req.query.id;
     
-    if(ID==undefined){
+    if(deleteid==undefined){
         res.sendFile( VIEWS_PATH + "delete-event.html" )
     }else{
-        // console.log(ID)
-        // console.log(eventsDB[0]);
         for (let i = 0; i < eventsDB.length; i++) {
-            if (eventsDB[i].ID === ID) {
-                categoriesDB.splice(i, 1);
-                // change to eventsDB, change 'ID' to 'id'
+            if (eventsDB[i].id === deleteid) {
+                eventsDB.splice(i, 1);
                 break;
             } 
         }
@@ -166,4 +179,4 @@ app.get("/sidd/events/delete", function(req, res){
 app.get("*", function(req, res) {
     fileName = VIEWS_PATH + "404.html"
     res.sendFile(fileName);
-    });
+});
