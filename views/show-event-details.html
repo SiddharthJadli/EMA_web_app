@@ -1,84 +1,71 @@
-
-
 <!DOCTYPE html>
-
-
 <head>
     <link href="bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css">
-    
 </head>
-
 <body>
-    
-        <img src="/EVENTS.png" alt="events" style="width: 150px; height: auto;">
-            <h4>Events Page</h4>
+    <!-- Category image -->
+    <img src="/EVENTS.png" alt="events" style="width: 150px; height: auto;">
+    <h4><%= categories[index].name %></h4>
 
-<table>
-        <tbody>
-          
-            <% for(let i=0;i<events.length;i++){%>
-                
+    <table>
+        <tbody>   
             <tr>
                 <td>Event ID:</td>
-                <td><%= events[i].id %></td>
+                <td><%= events[index].id %></td>
             </tr>
 
             <tr>
                 <td>Name:</td>
-                <td><%= events[i].name %></td>
+                <td><%= events[index].name %></td>
             </tr>
 
             <tr>
                 <td>Description:</td>
-                <td><%= events[i].description %></td>
+                <td><%= events[index].startTime %></td>
             </tr>
 
-            
             <tr>
                 <td>Start Date Time:</td>
-                <td><%= events[i].startTime %></td>
+                <td><%= events[index].startTime %></td>
             </tr>
 
             <tr>
                 <td>End Date Time:</td>
-                <td><%= events[i].endTime%></td>
+                <td><%= events[index].endTime %></td>
             </tr>
 
             <tr>
                 <td>Duration:</td>
-                <td><%= events[i].duration %> minutes</td>
+                <td><%= events[index].duration %></td>
             </tr>
 
             <tr>
                 <td>Is Active:</td>
-                <td><input type="checkbox" <%= events[i].isActive ? 'checked' : '' %> disabled</td>
+                <td><input type="checkbox" <%= events[index].isActive ? 'checked' : '' %> disabled</td>>
             </tr>
 
             <tr>
                 <td>Capacity:</td>
-                <td><%= events[i].capacity %></td>
+                <td><%= events[index].capacity %></td>
             </tr>
 
             <tr>
-                <td>Tickets Available:</td>
-                <td><%= events[i].availableTickets %></td>
-        
+                <td>Tickets Available</td>
+                <td><%= events[index].availableTickets %></td>
             </tr>
 
-        <% } %>
+            <tr>
+                <td>Category Id:</td>
+                <td><%= categories[index].id %></td>
+            </tr>
 
-
-    
-       
+           
         </tbody>
     </table>
 
-            
-            
-            
+    
     
 </body>
-
 </html>
 
