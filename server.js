@@ -63,9 +63,25 @@ app.get("/category/33306036/list-all" , function (req, res) {
 
 
 
-app.get("/category/33306036/show-event-details", function (req,res) {
-    res.render("show-event-details", {events: eventsDB});
-});
+
+app.get("/category/33306036/show-event-details", function(req, res){
+    const showEventId = req.query.id;
+    
+    if(eventsDB.length == 0){
+        res.sendFile( VIEWS_PATH + "show-events-without-events.html" );
+    }else{
+        if(showCategoryId==undefined){
+            res.render("show-category-details", { categories: categoriesDB, index: 0 , events: eventsDB});
+        }else{
+            for (let i = 0; i < eventsDB.length; i++) {
+                if (eventsDB[i].id == eventsDB) {
+                    res.render("show-event-details", { categories: categoriesDB, index: i , events: eventsDB});
+                    break;
+                } 
+            }
+        }
+    }
+})
 
 //filtering category list by keyword in name and descrip
 app.get("/category/33306036/list-by-keyword" , function(req, res) {
