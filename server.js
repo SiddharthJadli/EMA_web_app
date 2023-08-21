@@ -83,7 +83,7 @@ app.get("/category/33306036/show-event-details", function(req, res){
     }
 })
 
-//filtering category list by keyword in name and descrip
+//filtering category list by keyword in name and description
 app.get("/category/33306036/list-by-keyword" , function(req, res) {
     const keyword = req.query.keyword;
     const filteredCategories = categoriesDB.filter(function(category) {
@@ -92,10 +92,32 @@ app.get("/category/33306036/list-by-keyword" , function(req, res) {
 
 if (filteredCategories.length===0) {
     console.log("No such keywords found"); 
+    res.redirect("/category/33306036/keyworderror");
         } else {
+            // const keywordFound = "filter keyword found"
             res.render("list-all-category" , {categories: filteredCategories});
         }
     });
+
+    app.get("/category/33306036/keyworderror", function (req, res) {
+        res.sendFile(path.join(__dirname, "views", "keyworderror.html"));
+    });
+
+
+    
+    app.get("/category/33306036/list-by-keyword", function (req, res) {
+        const keyword = req.query.keyword;
+        const filteredCategories = categoriesDB.filter(function (category) {
+            return category.description.includes(keyword) || category.name.includes(keyword);
+        });
+    
+        if (filteredCategories.length === 0) {
+            res.redirect("/category/33306036/keyworderror"); 
+        } else {
+            res.render("list-all-category", { categories: filteredCategories });
+        }
+    });
+    
 
 
 

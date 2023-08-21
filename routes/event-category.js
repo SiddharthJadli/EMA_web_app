@@ -11,6 +11,7 @@ router.get('/category/33306036/list-by-keyword', function(req, res) {
     res.sendFile(fileName);
 });
 
+
 router.get('/category/33306036/delete-by-ID', function(req, res) {
     fileName = VIEWS_PATH + "delete-category-by-ID.html";
     res.sendFile(fileName);
@@ -31,5 +32,6 @@ router.get('/category/33306036/show-event-details', function(req, res) {
     res.sendFile(fileName);
     
 });
+
 
 module.exports = router;
