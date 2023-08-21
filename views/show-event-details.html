@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <head>
-    <link href="bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css">
+    <link href="/bootstrap.min.css" rel="stylesheet" />
+
 </head>
 <body>
 
-    <img src="/event.png" alt="events" style="width: 80%; height: auto;">
+    <img src="/event.png" alt="events" style="width: 100%; height: auto;">
     <h4><%= events[index].name %></h4>
 
     <table>
@@ -42,7 +42,7 @@
 
             <tr>
                 <td>Is Active:</td>
-                <td><input type="checkbox" <%= events[index].isActive ? 'checked' : '' %> disabled</td>
+                <td><%= events[i].isActive %> ></td>
             </tr>
 
             <tr>

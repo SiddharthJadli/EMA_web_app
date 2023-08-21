@@ -16,7 +16,7 @@ app.use(morgan('tiny'));
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 
-app.use(express.static("images"));
+app.use(express.static("Images"));
 app.engine("html", ejs.renderFile);
 app.set("view engine", "html");
 
@@ -49,6 +49,8 @@ app.get("/category/33306036/add", function(req,res) {
 app.post("/category/33306036/add", function (req,res) {
     let reqBody = req.body;
     console.log(reqBody);
+
+    //adding new category objects
     let aCategory = new Category(reqBody.categoryID, reqBody.name, reqBody.description, reqBody.image, new Date());
     categoriesDB.push(aCategory);
     res.redirect("/category/33306036/list-all");
@@ -59,8 +61,6 @@ app.post("/category/33306036/add", function (req,res) {
 app.get("/category/33306036/list-all" , function (req, res) {
     res.render("list-all-category", {categories: categoriesDB});
 });
-
-
 
 
 app.get("/category/33306036/show-event-details", function(req, res){
@@ -83,41 +83,19 @@ app.get("/category/33306036/show-event-details", function(req, res){
 })
 
 //filtering category list by keyword in name and description
-app.get("/category/33306036/list-by-keyword" , function(req, res) {
+
+app.get("/category/33306036/list-by-keyword", function (req, res) {
     const keyword = req.query.keyword;
-    const filteredCategories = categoriesDB.filter(function(category) {
+    const filteredCategories = categoriesDB.filter(function (category) {
         return category.description.includes(keyword) || category.name.includes(keyword);
+    });
+
+    if (filteredCategories.length === 0) {
+       console.log("no such keyword");
+    } else {
+        res.render("list-all-category", { categories: filteredCategories });
+    }
 });
-
-if (filteredCategories.length===0) {
-    console.log("No such keywords found"); 
-    res.redirect("/category/33306036/keyworderror");
-        } else {
-            // const keywordFound = "filter keyword found"
-            res.render("list-all-category" , {categories: filteredCategories});
-        }
-    });
-
-    app.get("/category/33306036/keyworderror", function (req, res) {
-        res.sendFile(path.join(__dirname, "views", "keyworderror.html"));
-    });
-
-
-    
-    app.get("/category/33306036/list-by-keyword", function (req, res) {
-        const keyword = req.query.keyword;
-        const filteredCategories = categoriesDB.filter(function (category) {
-            return category.description.includes(keyword) || category.name.includes(keyword);
-        });
-    
-        if (filteredCategories.length === 0) {
-            res.redirect("/category/33306036/keyworderror"); 
-        } else {
-            res.render("list-all-category", { categories: filteredCategories });
-        }
-    });
-    
-
 
 
 // Task 1 point 5 delete category by ID
@@ -186,7 +164,7 @@ app.get("/sidd/category", function(req, res){
             }
         }
     }
-})
+});
 
 
 

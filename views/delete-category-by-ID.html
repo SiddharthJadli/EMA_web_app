@@ -1,29 +1,27 @@
-
-<head>
-    <!doctype html>
-    <html lang="en">
+<!doctype html>
+   
       <head>
         <title>delete category by id</title>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-      </head>
-     
-          
-     
-    </html>
-    <link href="bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css">
-</head>
+
+        <link href="/bootstrap.min.css" rel="stylesheet" >
+        <style>   
+            .buttons-contain {
+                text-align: center;
+            }
 
 
-   <body>
+            .container {
+                margin-top: 80px;
+                margin-bottom: 20px;
+            }
+        </style>  
+    </head>
+        </head>
+<body>
+
     <img src="/Appbanner.png" alt="events" style="width: 100%; height: auto;">
 
-    <div class="container-fluid d-flex justify-content-center align-items-center vh-100" >
+    <div class="container" >
         
         <div>
             
@@ -31,23 +29,27 @@
             <p>Please provide category ID and click delete</p>
 
             <form  action="/category/33306036/delete-by-ID" method="POST">
+                <div class = "form-group"></div>
                     <label for="Name">Name</label>
                     <input type="text" class="form-control" id="id", name="categoryID" placeholder="Enter Category ID">
-                    <br />
+                    <br/>
+
+                </div class = "buttons-contain">
+                <!-- adding space(marginbottom) between 'id' and 'enter id' box -->
+                  
+                    <button type = "submit" class="btn btn-danger name="submit">Delete Category</button>
+                </div> 
                 </div>
 
-                <div class = "mb-4"> 
-                    <!-- adding space(marginbottom) between 'id' and 'enter id' box -->
-                    <button type = "submit" class="btn btn-danger name="submit">Delete Category</button>
-                </div>
-                
+               
+                      
             </form>
         </div>
        
     </div>
     
 
-   </body>
+</body>
 
 </html>
 

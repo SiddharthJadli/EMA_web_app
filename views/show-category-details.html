@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <head>
-    <link href="bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css">
+    <link href="/bootstrap.min.css" rel="stylesheet" />
+
 </head>
 <body>
     <!-- Category image -->
-    <img src="/Categorypageimg.png" alt="events" style="width: auto; height: auto;">
+    <img src="/Categoryimg.png" alt="events" style="width: 100%; height: auto;">
     <h4><%= categories[index].name %></h4>
 
     <table>
@@ -32,10 +32,9 @@
         </tbody>
     </table>
 
-    <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
-        <div class="table1">
-            <table class="table">
-                <thead class=""thread-dark> 
+    <div class="table1">
+            <table class="container m-3">
+                <thead> 
                     <tr> 
                         <th scope="col" >ID</th>
                         <th scope="col" >Name</th>
@@ -62,15 +61,16 @@
                                     <td><%= events[i].isActive %></td>
                                     <td><%= events[i].capacity %></td>
                                     <td><%= events[i].availableTickets %></td>
-                                    <td><button type="view" class="btn btn-primary">View</button></td>
+                                    <td>
+                                        <a href="/category/33306036/show-event-details?id=<%= events[i].id %>" class="btn btn-primary">View</a>
+                                    </td>
                                 </tr>
                             <% } %>
                         <% } %>
                     </tr>
                 </tbody>
             </table>
-        </div> 
-    </div>
+        </div>  
     
 </body>
 </html>
