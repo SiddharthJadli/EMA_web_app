@@ -142,6 +142,9 @@ app.post("/category/33306036/delete-by-ID", function (req,res) {
 //Sidd
 const Event = require("./models/event");
 
+// const router = require("./routes/event-category");
+// app.use("/category" , router);
+
 //Adding a new event
 app.get("/sidd/events/add", function(req, res){
     if (categoriesDB.length == 0){
