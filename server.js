@@ -49,8 +49,7 @@ app.get("/category/33306036/add", function(req,res) {
 app.post("/category/33306036/add", function (req,res) {
     let reqBody = req.body;
     console.log(reqBody);
-    let currentDate = new Date;
-    let aCategory = new Category(reqBody.categoryID, reqBody.name, reqBody.description, reqBody.image, currentDate);
+    let aCategory = new Category(reqBody.categoryID, reqBody.name, reqBody.description, reqBody.image, new Date());
     categoriesDB.push(aCategory);
     res.redirect("/category/33306036/list-all");
 });
@@ -73,9 +72,9 @@ app.get("/category/33306036/show-event-details", function(req, res){
         if(showEventId==undefined){
             res.render("show-event-details", { categories: categoriesDB, index: 0 , events: eventsDB});
         }else{
-            for (let i = 0; i < eventsDB.length; i++) {
-                if (eventsDB[i].id == showEventId) {
-                    res.render("show-event-details", { categories: categoriesDB, index: i , events: eventsDB});
+            for (let index = 0; index < eventsDB.length; index++) {
+                if (eventsDB[index].id == showEventId) {
+                    res.render("show-event-details", { categories: categoriesDB, index: index , events: eventsDB});
                     break;
                 } 
             }

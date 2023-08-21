@@ -59,7 +59,7 @@
                         <td><%= categories[i].name %></td>
                         <td><%= categories[i].description %></td>
                         <td><%= categories[i].image %> </td>
-                        <td><%= categories[i].createdAt.toISOString() %> </td>
+                        <td><%= categories[i].createdAtFormatted %> </td>
                         <td>
                             <div class="buttons-contain">
                                 <a href="/sidd/category?id=<%= categories[i].id %>" class="buttons">View</a>

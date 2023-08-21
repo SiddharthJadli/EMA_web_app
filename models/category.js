@@ -10,9 +10,17 @@ class Category{
         this.name = name;
         this.description = description;
         this.image = image;
-        this.createdAt = createdAt;  
         this.events = [];  
         this.eventId = eventId;
+        this.createdAt = createdAt;  
+       this.createdAtFormatted = new Intl.DateTimeFormat("en-Au", {
+        hour: "2-digit",
+        minute: "2-digit",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+       }).format(this.createdAt);
+        
     }
 
     addEvent(event){
