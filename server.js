@@ -93,7 +93,7 @@ app.get("/category/33306036/list-by-keyword", function (req, res) {
     if (filteredCategories.length === 0) {
        console.log("no such keyword");
     } else {
-        res.render("list-all-category", { categories: filteredCategories });
+        res.render("list-all-category", { categories: filteredCategories});
     }
 });
 
