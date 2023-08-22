@@ -91,14 +91,17 @@ app.get("/category/33306036/list-by-keyword", function (req, res) {
         return category.description.includes(keyword) || category.name.includes(keyword);
     });
 
-    if (filteredCategories.length === 0) {
-       console.log("no such keyword");
+    if (keyword) {
+        if (filteredCategories.length > 0) {
+            console.log("Keyword found");
+            res.render("list-all-category", { categories: filteredCategories, keyword: keyword });
+        } else {
+            console.log("Keyword not found");
+            res.render("list-all-category", { categories: categoriesDB, keyword: keyword });
+        }
     } else {
-        res.render("list-all-category", { categories: filteredCategories});
-        console.log("keyword is found");
+        res.render("list-all-category", { categories: categoriesDB, keyword: keyword });
     }
-
-   
 });
 
 
