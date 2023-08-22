@@ -40,8 +40,9 @@
                             <td><%= events[i].availableTickets %></td>
                             <td><%= events[i].categoryID %></td>
                             <td>
-                                <a href="/category/33306036/show-event-details?index=<%= events[i].id %>" class="btn btn-primary">View</a>
+                                <a href="/category/33306036/show-event-details/<%= events[i].id %>" class="btn btn-primary">View</a>
                             </td>
+                            
                             
                         </tr>
                         <% } %>

@@ -63,8 +63,9 @@ app.get("/category/33306036/list-all" , function (req, res) {
 });
 
 
-app.get("/category/33306036/show-event-details", function(req, res){
-    const showEventId = req.query.id;
+
+app.get("/category/33306036/show-event-details/:showEventId", function(req, res){
+    const showEventId = req.params.id;
     
     if(eventsDB.length == 0){
         res.sendFile( VIEWS_PATH + "show-event-without-events.html" );
@@ -94,7 +95,10 @@ app.get("/category/33306036/list-by-keyword", function (req, res) {
        console.log("no such keyword");
     } else {
         res.render("list-all-category", { categories: filteredCategories});
+        console.log("keyword is found");
     }
+
+   
 });
 
 
