@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <head>
     <link href="/bootstrap.min.css" rel="stylesheet" />
-
 </head>
 <body>
-    <!-- Category image -->
     <img src="/Categoryimg.png" alt="events" style="width: 100%; height: auto;">
     <h4><%= categories[index].name %></h4>
 
@@ -53,7 +51,6 @@
                                 <tr> 
                                     <td><%= events[i].id %></td>
                                     <td><%= events[i].name %></td>
-                                    <!-- Reformat start and end time -->
                                     <td><%= events[i].startTimeFormatted %></td>
                                     <td><%= events[i].endTimeFormatted %></td>
                                     <td><%= events[i].duration %></td>
