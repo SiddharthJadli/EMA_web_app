@@ -55,7 +55,13 @@
         
                     <tr>
                         <td>Is Active:</td>
-                        <td><<%= events[index].isActive %> ></td>
+                        <td>
+                            <% if(events[i].isActive == "off") { %>
+                                <input type="checkbox" disabled="disabled">
+                            <% } else { %>
+                                <input type="checkbox" disabled="disabled" checked>
+                            <% } %>
+                        </td>
                     </tr>
         
                     <tr>

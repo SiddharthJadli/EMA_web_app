@@ -3,13 +3,15 @@ const morgan = require("morgan")
 const path = require("path");
 const ejs = require("ejs");
 
-// const router = require("./routes/event-category");
-// app.use("/category" , router);
-
 const app = express();
+
 //Sidd
 const eventRouter = require("./routes/event");
 app.use("/" , eventRouter);
+
+//Jade
+// const router = require("./routes/event-category");
+// app.use("/category" , router);
 
 app.use(express.static("node_modules/bootstrap/dist/css"));
 app.use(morgan('tiny'));
@@ -24,7 +26,8 @@ app.set("view engine", "html");
 const print = console.log;
 const VIEWS_PATH = path.join(__dirname, "/views/");
 
-let categoriesDB = [];
+categoriesDB = []
+app.locals.categoriesDB = categoriesDB;
 
 const PORT_NUMBER = 8080;
 
@@ -115,9 +118,6 @@ app.post("/category/33306036/delete-by-ID", function (req,res) {
     console.log("After deleting:", categoriesDB);
     res.redirect("/category/33306036/list-all");
 });
-
-
-
 
 //404 errors
 app.get("*", function(req, res) {

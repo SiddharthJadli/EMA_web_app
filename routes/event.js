@@ -5,11 +5,8 @@ const ejs = require("ejs");
 let path = require("path");
 
 const categoryRouter = require("./event-category");
-// express.use("/" , categoryRouter);
 
 pathRoot = "/Users/siddharthjadli/Monash/2023Sem2/FIT2095/Ass/assignment-1/server.js";
-
-// const router = express();
 
 router.use(express.static("node_modules/bootstrap/dist/css"));
 router.use(morgan('tiny'));
@@ -17,21 +14,20 @@ router.use(morgan('tiny'));
 router.use(express.urlencoded({ extended: true}));
 router.use(express.json());
 
-// router.use(express.static("images"));
-// router.engine("html", ejs.renderFile);
-// router.set("view engine", "html");
-
 const Event = require("../models/event");
 let eventsDB = [];
 
+exports.route = function(req, res){
+    const categoriesDB = req.app.locals.categoriesDB;
+}
+
 //Adding a new event
 router.get("/sidd/events/add", function(req, res){
-    // if (categoriesDB.length == 0){
-    //     res.render("add-event-without-category" );
-    // } else{
-    //     res.render("add-event" );
-    // }
-    res.render("add-event" );
+    if (categoriesDB.length == 0){
+        res.render("add-event-without-category" );
+    } else{
+        res.render("add-event" );
+    }
 })
 
 router.post("/sidd/events/add", function(req, res){

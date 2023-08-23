@@ -54,8 +54,13 @@
                                 <td><%= events[i].startTimeFormatted %></td>
                                 <td><%= events[i].endTimeFormatted %></td>
                                 <td><%= events[i].duration %></td>
-                                <!-- Find a way to make isActive a checkbox -->
-                                <td><%= events[i].isActive %></td>
+                                <td>
+                                    <% if(events[i].isActive == "off") { %>
+                                        <input type="checkbox" disabled="disabled">
+                                    <% } else { %>
+                                        <input type="checkbox" disabled="disabled" checked>
+                                    <% } %>
+                                </td>
                                 <td><%= events[i].capacity %></td>
                                 <td><%= events[i].availableTickets %></td>
                                 <td>
