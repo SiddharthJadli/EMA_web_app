@@ -7,7 +7,7 @@
     <body>
         <img src="/Appbanner.png" alt="events" style="width: 100%; height: auto;">
 
-        <div class="container-fluid justify-content-center align-items-center vh-100" >
+        <div class="container-fluid d-flex justify-content-center align-items-center vh-100" >
             <div>
                 <h2>Add Event</h2>
                 <p>Fill in event details and click submit</p>
@@ -16,12 +16,12 @@
                 <form action="/sidd/events/add" method="post" >
                     <div class="form-group mb-4">
                         <label for="Name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter event name">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter event name" required>
                     </div>
 
                     <div class="form-group mb-4">
                         <label for="Description">Description</label>
-                        <input type="text" class="form-control" id="description" name="description">
+                        <input type="text" class="form-control" id="description" rows=2 name="description">
                     </div>
 
                     <div class="form-group mb-4">
@@ -31,12 +31,12 @@
 
                     <div class="form-group mb-4">
                         <label for="StartDateTime">Start Date Time</label>
-                        <input type="datetime-local" class="form-control" id="startDateTime" name="startDateTime">
+                        <input type="datetime-local" class="form-control" id="startDateTime" name="startDateTime" required>
                     </div>
 
                     <div class="form-group mb-4">
                         <label for="Duration">Duration In Minutes</label>
-                        <textarea class="form-control" id="duration" name="duration" rows="5" placeholder="Event duration in minutes" min="1"></textarea>  
+                        <input type="number" class="form-control" id="duration" name="duration" placeholder="Event duration in minutes" min="1" required>
                     </div>
 
                     <div class="form-group mb-4">
@@ -58,7 +58,7 @@
 
                     <div class="form-group mb-4">
                         <label for="CategoryID">Category ID</label>
-                        <input type="text" class="form-control" id="categoryID" name="categoryID" placeholder="Enter category id">
+                        <input type="text" class="form-control" id="categoryID" name="categoryID" placeholder="Enter category id" required>
                     </div>
 
                     <div>

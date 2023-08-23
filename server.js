@@ -1,9 +1,7 @@
 const express = require('express');
-
 const morgan = require("morgan")
 const path = require("path");
 const ejs = require("ejs");
-
 
 // const router = require("./routes/event-category");
 // app.use("/category" , router);
@@ -19,8 +17,6 @@ app.use(express.json());
 app.use(express.static("Images"));
 app.engine("html", ejs.renderFile);
 app.set("view engine", "html");
-
-
 
 const print = console.log;
 const VIEWS_PATH = path.join(__dirname, "/views/");
@@ -56,13 +52,9 @@ app.post("/category/33306036/add", function (req,res) {
     res.redirect("/category/33306036/list-all");
 });
 
-
-
 app.get("/category/33306036/list-all" , function (req, res) {
     res.render("list-all-category", {categories: categoriesDB});
 });
-
-
 
 app.get("/category/33306036/show-event-details/:showEventId", function(req, res){
     const showEventId = req.params.id;
@@ -84,7 +76,6 @@ app.get("/category/33306036/show-event-details/:showEventId", function(req, res)
 })
 
 //filtering category list by keyword in name and description
-
 app.get("/category/33306036/list-by-keyword", function (req, res) {
     const keyword = req.query.keyword;
     const filteredCategories = categoriesDB.filter(function (category) {
@@ -103,7 +94,6 @@ app.get("/category/33306036/list-by-keyword", function (req, res) {
         res.render("list-all-category", { categories: categoriesDB, keyword: keyword });
     }
 });
-
 
 // Task 1 point 5 delete category by ID
 app.get("/category/33306036/delete-by-ID", function (req, res) {
@@ -175,8 +165,6 @@ app.get("/sidd/category", function(req, res){
         }
     }
 });
-
-
 
 //Deleting an event
 app.get("/sidd/events/delete", function(req, res){

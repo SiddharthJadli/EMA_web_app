@@ -8,54 +8,49 @@
         <img src="/Appbanner.png" alt="events" style="width: 100%; height: auto;">
 
         <h2>Sold Event List</h2>
-            <div class="container m-3">
-                <table class="table">
-                    <thead> 
-                        <tr> 
-                            <th scope="col" >ID</th>
-                            <th scope="col" >Name</th>
-                            <th scope="col" >Start</th>
-                            <th scope="col" >End</th>
-                            <th scope="col" >Duration</th>
-                            <th scope="col" >Is Active</th>
-                            <th scope="col" >Image</th>
-                            <th scope="col" >Capacity</th>
-                            <th scope="col" >Tickets Available</th>
-                            <th scope="col" >Category ID</th>
-                            <th scope="col" >Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <% for(let i=0;i<events.length;i++){ %>
-                                <% if(events[i].availableTickets == 0){ %>
-                                    <tr> 
-                                        <td><%= events[i].id %></td>
-                                        <td><%= events[i].name %></td>
-                                        <td><%= events[i].startTimeFormatted %></td>
-                                        <td><%= events[i].endTimeFormatted %></td>
-                                        <td><%= events[i].duration %></td>
-                                        <!-- Find a way to make isActive a checkbox -->
-                                        <td><%= events[i].isActive %></td>
-                                        <td><%= events[i].image %></td>
-                                        <td><%= events[i].capacity %></td>
-                                        <td><%= events[i].availableTickets %></td>
-                                        <td><%= events[i].categoryID %></td>
-                                        <!-- Redirect to show event details by parsing it the position of this index -->
-                                        <td>
-                                            <div class="buttons-contain">
-                                                <a href="/category/33306036/show-event-details/<%= events[i].id %>" class="btn btn-primary">View</a>
-                                            </div>
-                                           
-                                            
-                                        </td>
-                                    </tr>
-                                <% } %>    
-                            <% } %>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>    
+        <div class="container m-3">
+            <table class="table">
+                <thead> 
+                    <tr> 
+                        <th scope="col" >ID</th>
+                        <th scope="col" >Name</th>
+                        <th scope="col" >Start</th>
+                        <th scope="col" >End</th>
+                        <th scope="col" >Duration</th>
+                        <th scope="col" >Is Active</th>
+                        <th scope="col" >Capacity</th>
+                        <th scope="col" >Tickets Available</th>
+                        <th scope="col" >Category ID</th>
+                        <th scope="col" >Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <% for(let i=0;i<events.length;i++){ %>
+                            <% if(events[i].availableTickets == 0){ %>
+                                <tr> 
+                                    <td><%= events[i].id %></td>
+                                    <td><%= events[i].name %></td>
+                                    <td><%= events[i].startTimeFormatted %></td>
+                                    <td><%= events[i].endTimeFormatted %></td>
+                                    <td><%= events[i].duration %></td>
+                                    <!-- Find a way to make isActive a checkbox -->
+                                    <td><%= events[i].isActive %></td>
+                                    <td><%= events[i].capacity %></td>
+                                    <td><%= events[i].availableTickets %></td>
+                                    <td><%= events[i].categoryID %></td>
+                                    <td>
+                                        <div class="buttons-contain">
+                                            <a href="/category/33306036/show-event-details/<%= events[i].id %>" class="btn btn-primary">View</a>
+                                        </div>                   
+                                    </td>
+                                </tr>
+                            <% } %>    
+                        <% } %>
+                    </tr>
+                </tbody>
+            </table>
+        </div>    
     </body>
 </html>
 
