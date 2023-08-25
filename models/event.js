@@ -51,6 +51,8 @@ class Event{
         
         this.categoryID = categoryID;
     }
+
+  
 }
 
 module.exports = Event;

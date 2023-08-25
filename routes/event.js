@@ -1,10 +1,6 @@
 let express = require("express");
 let router = express.Router();
 const morgan = require("morgan")
-const ejs = require("ejs");
-let path = require("path");
-
-const categoryRouter = require("./event-category");
 
 pathRoot = "/Users/siddharthjadli/Monash/2023Sem2/FIT2095/Ass/assignment-1/server.js";
 
@@ -15,11 +11,10 @@ router.use(express.urlencoded({ extended: true}));
 router.use(express.json());
 
 const Event = require("../models/event");
-let eventsDB = [];
 
-exports.route = function(req, res){
-    const categoriesDB = req.app.locals.categoriesDB;
-}
+global.eventsDB = [];
+const categoriesDB = require("./event-category").categoriesDB;
+
 
 //Adding a new event
 router.get("/sidd/events/add", function(req, res){
@@ -32,13 +27,19 @@ router.get("/sidd/events/add", function(req, res){
 
 router.post("/sidd/events/add", function(req, res){
     let reqBody = req.body;
+    console.log(reqBody);
     let newEvent = new Event(reqBody.name, reqBody.description, reqBody.startDateTime, reqBody.duration, reqBody.isActive, reqBody.image, reqBody.capacity, reqBody.ticketsAvailable, reqBody.categoryID);
-    eventsDB.push(newEvent);
+    // let events = req.app.get("events");
+    global.eventsDB.push(newEvent);
+    // req.app.set('events', events);
+    console.log("duration");
+    console.log(eventsDB);
     res.redirect("/sidd/events");
 })
 
 //Listing all events
 router.get("/sidd/events", function(req, res){
+    
     res.render("list-all-events", { events: eventsDB });
 })
 
@@ -50,7 +51,7 @@ router.get("/sidd/soldout-events", function(req, res){
 // Show category detail
 router.get("/sidd/category", function(req, res){
     const showCategoryId = req.query.id;
-    
+    console.log(categoriesDB);   
     if(categoriesDB.length == 0){
         res.render("show-category-without-categories.html" );
     }else{
@@ -73,7 +74,7 @@ router.get("/sidd/events/delete", function(req, res){
     const deleteid = req.query.id;
     
     if(deleteid==undefined){
-        res.sendFile( VIEWS_PATH + "delete-event.html" )
+        res.render("delete-event.html" )
     }else{
         for (let i = 0; i < eventsDB.length; i++) {
             if (eventsDB[i].id === deleteid) {
@@ -87,3 +88,6 @@ router.get("/sidd/events/delete", function(req, res){
 })
 
 module.exports = router;
+// module.exports.eventsDB = global.eventsDB;
+// console.log(eventsDB);
+// module.exports.categoriesDB = categoriesDB;
