@@ -6,9 +6,6 @@ const app = express();
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({ extended : true}));
-// global.__basedir = __dirname;
-// global.eventsDB = [];
-
 
 
 //Sidd

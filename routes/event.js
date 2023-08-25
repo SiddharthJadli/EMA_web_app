@@ -88,6 +88,3 @@ router.get("/sidd/events/delete", function(req, res){
 })
 
 module.exports = router;
-// module.exports.eventsDB = global.eventsDB;
-// console.log(eventsDB);
-// module.exports.categoriesDB = categoriesDB;

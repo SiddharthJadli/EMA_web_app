@@ -13,7 +13,6 @@ router.use(express.json());
 const Category = require("../models/category");
 
 let categoriesDB = [];
-// const eventsDB = require("./event").global.eventsDB;
 console.log(eventsDB);
 
 router.get("/category/33306036/add", function(req,res) {
@@ -37,10 +36,8 @@ router.get("/category/33306036/list-all" , function (req, res) {
 
 router.get("/category/33306036/show-event-details", function(req, res){
       const showEventId = req.query.id;
-        // if(eventsDB.length == 0){
             console.log(eventsDB);
             let events=global.eventsDB;
-            console.log("hello");
             console.log(events);
             
         if(!eventsDB?.length){

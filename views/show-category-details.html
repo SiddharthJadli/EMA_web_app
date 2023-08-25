@@ -1,10 +1,27 @@
 <!DOCTYPE html>
     <head>
         <link href="/bootstrap.min.css" rel="stylesheet" />
+
+        <style>
+            .container {
+                margin-top: 20px;
+            }
+            .table {
+                width: 100%;
+                margin: auto;
+
+            }
+        
+            td {
+                padding: 20px;
+                vertical-align: top;
+            }
+        </style>
+
     </head>
     <body>
         <img src="/Categoryimg.png" alt="events" style="width: 100%; height: auto;">
-        <h4><%= categories[index].name %></h4>
+        <h2 style="margin-top: 60px; margin-bottom: 30px; margin-left: 30px; text-align: center;"><%= categories[index].name %></h2>
 
         <table>
             <tbody>   
