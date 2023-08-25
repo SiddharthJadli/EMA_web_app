@@ -14,6 +14,7 @@
 
         <h2 style="margin-top: 60px; margin-bottom: 60px; margin-left: 30px; text-align: center;">Categories List</h2>
 
+        <!-- JavaScript script to display a filtered keyword -->
         <script>
             if (window.location.href.includes("/category/33306036/list-by-keyword")) {
                 document.write('<% if (categories.length > 0) { %>');
@@ -24,7 +25,8 @@
 
         <div class="container m-8" >
             <table class="table">
-                <thead class>
+                <thead>
+                    <!-- Table Header -->
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Name</th>
@@ -35,6 +37,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- looping through categories for filling up table -->
                     <% for(let i=0;i <categories.length;i++){ %>
                     <tr>
                         <td>

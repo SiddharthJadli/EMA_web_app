@@ -1,6 +1,13 @@
-
-//jade
 const randString = require("randomstring")
+/**
+* Represents a category.
+*
+* @param {string} eventId - The ID of the event associated with the category.
+* @param {string} name - The name of the category.
+* @param {string} description - The description of the category.
+* @param {string} image - The image URL of the category.
+* @param {Date} createdAt - The creation date of the category.
+*/
 
 class Category{
     constructor(eventId, name, description, image, createdAt ){
@@ -13,7 +20,7 @@ class Category{
         this.events = [];  
         this.eventId = eventId;
         this.createdAt = createdAt;  
-       this.createdAtFormatted = new Intl.DateTimeFormat("en-Au", {
+        this.createdAtFormatted = new Intl.DateTimeFormat("en-Au", {
         hour: "2-digit",
         minute: "2-digit",
         day: "2-digit",
@@ -23,6 +30,11 @@ class Category{
         
     }
 
+ /**
+   * Adding event to the category.
+   *
+   * @param {Object} event - The event to be added.
+   */
     addEvent(event){
         this.events.push(event)
     }
