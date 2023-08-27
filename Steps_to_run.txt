@@ -17,3 +17,5 @@ STEPS TO RUN THE ASSIGNMENT
    
 7. When using 'search by keyword' function, please key into the url '?id={id}'. 
    The button is set to find the keyword 'sample' initially.
+
+8. If you use the 'show event details' button at homepage, please key into the url '?id={id}'. 
