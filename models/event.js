@@ -1,8 +1,21 @@
 const randString = require("randomstring")
 
+/**
+* Represents an event
+*
+* @param {String} eventId - The ID of the event associated with the category
+* @param {String} name - The name of the event
+* @param {String} description - The description of the event
+* @param {Date} startTime - The start date and time of the event
+* @param {Number} duration - The duration of the event in minutes
+* @param {Boolean} isActive - Boolean value signifying if the event is active or not
+* @param {String} image - The image URL of the category
+* @param {Number} capacity - The creation date of the category
+* @param {Number} availableTickets - Number of tickets available
+* @param {String} categoryID - The category an event belongs to
+*/
 class Event{
     constructor(name, description, startTime, duration, isActive="off", image, capacity, availableTickets, categoryID){
-        
         this.id = "E" + randString.generate({length: 2, charset: "ABCDEFGHIJKLMNOPQRSTUVWXYZ"}) 
                     + "-" + randString.generate({length: 4, charset: "0123456789"});
         
@@ -51,8 +64,9 @@ class Event{
         
         this.categoryID = categoryID;
     }
-
-  
 }
 
+/**
+ * @exports router
+ */
 module.exports = Event;

@@ -1,14 +1,31 @@
+/**
+ * @requires express
+ */
 const express = require('express');
+
+/**
+ * @requires morgan
+ */
 const morgan = require("morgan")
+app.use(morgan('tiny'));
+
+/**
+ * @requires ejs
+ */
 const ejs = require("ejs");
 const app = express();
 
+/**
+ * @requires body-parser
+ */
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({ extended : true}));
 
-
 //Sidd
+/**
+ * @requires event (router)
+ */
 const eventRouter = require("./routes/event");
 app.use("/" , eventRouter);
 
@@ -16,9 +33,10 @@ app.use("/" , eventRouter);
 const categoryRouter = require("./routes/event-category");
 app.use("/" , categoryRouter);
 
+//bootstrap css files from node_modules
 app.use(express.static("node_modules/bootstrap/dist/css"));
-app.use(morgan('tiny'));
 
+// Parse request bodies as JSON and URL-encoded
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 
@@ -58,7 +76,6 @@ app.listen(PORT_NUMBER, function () {
 app.get("/" , function (req, res) {
     res.render("index");
 });
-
 
 /**
  * Handling 404 errors.
