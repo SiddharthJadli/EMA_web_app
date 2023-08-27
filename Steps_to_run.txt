@@ -11,3 +11,6 @@ STEPS TO RUN THE ASSIGNMENT
 
 5. If you wish to add any other images for either an event or a category, make sure you add the (.png) to the Images folder before you
    use it on the web application
+
+6. When you use the "category details page" or "delete event by id" function, make sure you add the ids in the url as a parameter by 
+   adding "?id={id}" 
