@@ -7,13 +7,14 @@ const express = require('express');
  * @requires morgan
  */
 const morgan = require("morgan")
-app.use(morgan('tiny'));
 
 /**
  * @requires ejs
  */
 const ejs = require("ejs");
 const app = express();
+
+app.use(morgan('tiny'));
 
 /**
  * @requires body-parser

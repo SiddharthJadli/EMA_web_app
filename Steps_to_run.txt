@@ -1,0 +1,3 @@
+STEPS TO RUN THE ASSIGNMENT
+
+1. Change the directory to the root folder and run the server.js file with either the node or the nodemon command
