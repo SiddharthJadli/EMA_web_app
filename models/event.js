@@ -67,6 +67,6 @@ class Event{
 }
 
 /**
- * @exports router
+ * @exports Event
  */
 module.exports = Event;

@@ -40,4 +40,7 @@ class Category{
     }
 }
 
+/**
+ * @exports Category
+ */
 module.exports = Category;

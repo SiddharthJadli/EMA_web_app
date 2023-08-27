@@ -82,8 +82,8 @@ app.get("/" , function (req, res) {
  * Handling 404 errors.
  * @name GET-*
  * @function
- * @param {import("express").Request} 
- * @param {import("express").Response}
+ * @param {import("express").Request} -response object
+ * @param {import("express").Response} -response object
  */
 app.get("*", function(req, res) {
     res.render("404.html");

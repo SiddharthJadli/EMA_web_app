@@ -94,11 +94,11 @@ router.get("/category/33306036/show-event-details", function(req, res){
         
         }else{
              if(showEventId==undefined){
-                res.render("show-event-details", {categories: categoriesDB, index: 0 , events: eventsDB});
+                res.render("show-event-details", {events:eventsDB, index: 0 , categories: categoriesDB});
             }else{
                 for(let index = 0; index < eventsDB.length; index++) {
                      if(eventsDB[index].id == showEventId) {
-                    res.render("show-event-details", {categories:categoriesDB, index:index, events:eventsDB});
+                    res.render("show-event-details", {events:eventsDB, index:index, categories:categoriesDB});
                     break;
                 }
             }
@@ -110,7 +110,7 @@ router.get("/category/33306036/show-event-details", function(req, res){
 
 /**
  * Route handler for listing categories filtered by a keyword.
- * @name GET-/category/33306036/list-by-keyword
+ * @name GET-/category/33306036/list-by-keyword?id=
  * @function
  * @param {import("express").Request} 
  * @param {import("express").Response} 
@@ -168,7 +168,11 @@ router.post("/category/33306036/delete-by-ID", function (req,res) {
     res.redirect("/category/33306036/list-all");
 });
 
-
+/**
+ * @exports router
+ * @exports categoriesDB
+ * @exports eventsDB
+ */
 module.exports = router
 module.exports.categoriesDB = categoriesDB;
 module.exports.eventsDB = eventsDB;
