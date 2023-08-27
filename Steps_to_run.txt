@@ -14,3 +14,6 @@ STEPS TO RUN THE ASSIGNMENT
 
 6. When you use the "category details page" or "delete event by id" function, make sure you add the ids in the url as a parameter by 
    adding "?id={id}" 
+   
+7. When using 'search by keyword' function, please key into the url '?id={id}'. 
+   The button is set to find the keyword 'sample' initially.
