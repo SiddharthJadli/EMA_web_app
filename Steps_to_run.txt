@@ -1,3 +1,13 @@
 STEPS TO RUN THE ASSIGNMENT
 
 1. Change the directory to the root folder and run the server.js file with either the node or the nodemon command
+   [Make sure you have all the necessary libraries installed (ejs, morgan, etc.)]
+
+2. Go on your browser and enter "http://localhost:8080/" to access the homepage to the web application
+
+3. Once on the home page (index.html), you are free to use the Event Management Application (EMA)
+
+4. Make sure you add a category first before you add an event or wish to perform any other actions.
+
+5. If you wish to add any other images for either an event or a category, make sure you add the (.png) to the Images folder before you
+   use it on the web application
