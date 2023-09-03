@@ -15,6 +15,7 @@
         <h2 style="margin-top: 60px; margin-bottom: 60px; margin-left: 30px; text-align: center;">Categories List</h2>
 
         <!-- JavaScript script to display a filtered keyword -->
+        <!-- checking at current URL, checking for the first element in the array ->0 -->
         <script>
             if (window.location.href.includes("/category/33306036/list-by-keyword")) {
                 document.write('<% if (categories.length > 0) { %>');
@@ -37,7 +38,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- looping through categories for filling up table -->
+                    <!-- looping through categories for filling up table using ejs syntax tags -->
                     <% for(let i=0;i <categories.length;i++){ %>
                     <tr>
                         <td>

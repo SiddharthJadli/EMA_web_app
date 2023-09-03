@@ -1,4 +1,4 @@
-const randString = require("randomstring")
+var randString = require("randomstring")
 
 /**
 * Represents an event

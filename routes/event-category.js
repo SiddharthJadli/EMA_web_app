@@ -15,7 +15,7 @@ pathRoot = "/Users/Jade/Downloads/fit2095-assignments/server.js";
 router.use(express.static("node_modules/bootstrap/dist/css"));
 router.use(morgan('tiny'));
 
-// Parse request bodies as JSON and URL-encoded
+// enable Express to parse request bodies as JSON and URL-encoded
 router.use(express.urlencoded({ extended: true}));
 router.use(express.json());
 
@@ -26,7 +26,6 @@ const Category = require("../models/category");
  * @type {Category[]}
  */
 let categoriesDB = [];
-console.log(eventsDB);
 
 
 /**
@@ -54,6 +53,7 @@ router.post("/category/33306036/add", function (req,res) {
      */
     let aCategory = new Category(reqBody.categoryID, reqBody.name, reqBody.description, reqBody.image, new Date());
     categoriesDB.push(aCategory);
+    console.log(categoriesDB);
     res.redirect("/category/33306036/list-all");
 });
 
@@ -89,7 +89,6 @@ router.get("/category/33306036/show-event-details", function(req, res){
             console.log(events);
             
         if(!eventsDB?.length){
-            //when eventsDB is empty
             res.render("show-event-without-events.html");
         
         }else{
@@ -110,7 +109,7 @@ router.get("/category/33306036/show-event-details", function(req, res){
 
 /**
  * Route handler for listing categories filtered by a keyword.
- * @name GET-/category/33306036/list-by-keyword?id=
+ * @name GET-/category/33306036/list-by-keyword
  * @function
  * @param {import("express").Request} 
  * @param {import("express").Response} 

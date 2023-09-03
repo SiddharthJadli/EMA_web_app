@@ -1,7 +1,12 @@
 /**
  * @requires express
  */
+const mongoose = require("mongoose");
 const express = require('express');
+// const mongodb = require("mongodb");
+
+const url = "mongodb://localhost:27017/";
+// async function 
 
 /**
  * @requires morgan
@@ -21,7 +26,6 @@ app.use(morgan('tiny'));
  */
 const bodyParser = require('body-parser');
 
-app.use(bodyParser.urlencoded({ extended : true}));
 
 //Sidd
 /**
@@ -34,11 +38,19 @@ app.use("/" , eventRouter);
 const categoryRouter = require("./routes/event-category");
 app.use("/" , categoryRouter);
 
+
+async function connect() {
+	await mongoose.connect(url);
+}
+connect()
+	.catch((err) => console.log(err));
+	// .then( );
+
 //bootstrap css files from node_modules
 app.use(express.static("node_modules/bootstrap/dist/css"));
 
 // Parse request bodies as JSON and URL-encoded
-app.use(express.urlencoded({ extended: true}));
+app.use(bodyParser.urlencoded({ extended : true}));
 app.use(express.json());
 
 app.use(express.static("Images"));
@@ -53,7 +65,6 @@ const print = console.log;
  * @constant
  */
 const PORT_NUMBER = 8080;
-
 /**
  * Start the server and listen on port 8080.
  * @name listen
@@ -86,5 +97,7 @@ app.get("/" , function (req, res) {
  * @param {import("express").Response} -response object
  */
 app.get("*", function(req, res) {
-    res.render("404.html");
+    res.status(404).render("404.html");
 });
+
+//* is used as a wildcard in routes, common convention used.
