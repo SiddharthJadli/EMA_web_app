@@ -26,7 +26,6 @@ app.use(morgan('tiny'));
  */
 const bodyParser = require('body-parser');
 
-
 //Sidd
 /**
  * @requires event (router)
@@ -39,12 +38,14 @@ const categoryRouter = require("./routes/event-category");
 app.use("/" , categoryRouter);
 
 
-async function connect() {
+async function connect(url) {
 	await mongoose.connect(url);
+	return "Connected Successfully";
 }
-connect()
+
+connect(url)
+	.then(console.log)
 	.catch((err) => console.log(err));
-	// .then( );
 
 //bootstrap css files from node_modules
 app.use(express.static("node_modules/bootstrap/dist/css"));
