@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+var randString = require("randomstring");
 const validator = require('validator');
-var randString = require("randomstring")
+
 
 /**
 * Represents a category.
@@ -21,6 +22,9 @@ const categorySchema = new mongoose.Schema({
                    + "-" + randString.generate({length: 4, charset: "0123456789"});
         }
     },
+
+    
+
 
     name:  {
         type: String,
@@ -60,20 +64,6 @@ const categorySchema = new mongoose.Schema({
 
     },
 });
-
-
-categorySchema.pre('save', function (next) {
-    const createdAtFormatted = new Intl.DateTimeFormat("en-Au", {
-                hour: "2-digit",
-                minute: "2-digit",
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-               }).format(this.createdAt);
-
-               this.createdAtFormatted=createdAtFormatted;
-});
-
 
  /**
    * Adding event to the categories object.

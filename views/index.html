@@ -46,7 +46,29 @@
             <h3>Admin Panel</h3>
             <p>Task group 1 (Jade)</p>
         </div>
+        <p>Total Categories: <span id="categoryCount">Loading...</span></p>
 
+        <script>
+          // Fetch category count using the Fetch API
+          document.addEventListener('DOMContentLoaded', () => {
+            fetch('/api/categories/count')
+              .then((response) => response.json())
+              .then((data) => {
+                document.getElementById('categoryCount').textContent = data.count;
+              })
+              .catch((error) => {
+                console.error(error);
+                document.getElementById('categoryCount').textContent =
+                  'Error Loading Count';
+              });
+          });
+        </script>
+
+
+
+
+
+        
         <div class="buttons-contain">
             <a href="/category/33306036/add" class="buttons">Add Category</a>
             <a href="/category/33306036/list-all" class="buttons">List All Category</a>

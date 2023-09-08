@@ -18,14 +18,11 @@ router.use(morgan('tiny'));
 // enable Express to parse request bodies as JSON and URL-encoded
 router.use(express.urlencoded({ extended: true}));
 router.use(express.json());
-
+const mongoose = require('mongoose');
 const Category = require("../models/category");
 
-/**
- * An array of categories.
- * @type {Category[]}
- */
-let categoriesDB = [];
+
+
 
 
 /**
@@ -33,8 +30,8 @@ let categoriesDB = [];
  * @name GET-/category/33306036/add
  * @function
  */
-router.get("/category/33306036/add", function(req,res) {
-    res.render("add-category.html");
+router.get("/category/33306036/add", async(req,res) => {
+    res.render("add-category");
 });
 
 
@@ -43,19 +40,32 @@ router.get("/category/33306036/add", function(req,res) {
  * @name POST-/category/33306036/add
  * @function
  */
-router.post("/category/33306036/add", function (req,res) {
-    let reqBody = req.body;
-    console.log(reqBody);
+router.post("/category/33306036/add", async (req,res) => {
+    try{
+        let reqBody = req.body;
+        console.log(reqBody);
+    
+        
+        const aCategory = new Category({
+            name: reqBody.name,
+            description: reqBody.description,
+            image: reqBody.image,
+            createdAt: new Date(),
+        });
 
-     /**
-     * Create a new category to add categories
-     * @type {Category}
-     */
-    let aCategory = new Category(reqBody.categoryID, reqBody.name, reqBody.description, reqBody.image, new Date());
-    categoriesDB.push(aCategory);
-    console.log(categoriesDB);
-    res.redirect("/category/33306036/list-all");
-});
+        await aCategory.save();
+        console.log('category saved to Mongodb', aCategory);
+        const categories = await Category.find({});
+
+        res.render("list-all-category", {categories});
+    } catch (error) {
+        console.log("err saving category",error);
+        res.status(500).json({ message: 'Internal Server Error' });
+
+        
+    }
+    });
+   
 
 /**
  * Router for rendering the "List All Categories" page.
@@ -63,8 +73,14 @@ router.post("/category/33306036/add", function (req,res) {
  * @function
  */
 
-router.get("/category/33306036/list-all" , function (req, res) {
-    res.render("list-all-category", {categories: categoriesDB});
+router.get("/category/33306036/list-all" , async (req, res)=>  {
+    try{
+        const categories = await Category.find({});
+        res.render("list-all-category", {categories});
+
+    } catch (err) {
+        console.log('error getting categories');
+    }
 });
 
 /**
@@ -75,35 +91,29 @@ router.get("/category/33306036/list-all" , function (req, res) {
  * @param {import("express").Response} 
  */
 router.get("/category/33306036/show-event-details", function(req, res){
-      /**
-       * getting id of the event for url
-       */
-    const showEventId = req.query.id;
-            console.log(eventsDB);
-            
-        /**
-         * accessing eventsDB array globally
-         * @type{Object[]}
-         */
-            let events=global.eventsDB;
-            console.log(events);
-            
-        if(!eventsDB?.length){
-            res.render("show-event-without-events.html");
-        
-        }else{
-             if(showEventId==undefined){
-                res.render("show-event-details", {events:eventsDB, index: 0 , categories: categoriesDB});
-            }else{
-                for(let index = 0; index < eventsDB.length; index++) {
-                     if(eventsDB[index].id == showEventId) {
-                    res.render("show-event-details", {events:eventsDB, index:index, categories:categoriesDB});
-                    break;
-                }
-            }
-        }
-    }
+   
+  const showEventId = req.query.id;
+          console.log(eventsDB);
+          let events=global.eventsDB;
+          console.log(events);
+          
+      if(!eventsDB?.length){
+          res.render("show-event-without-events.html");
+      
+      }else{
+           if(showEventId==undefined){
+              res.render("show-event-details", {events:eventsDB, index: 0 , categories: categoriesDB});
+          }else{
+              for(let index = 0; index < eventsDB.length; index++) {
+                   if(eventsDB[index].id == showEventId) {
+                  res.render("show-event-details", {events:eventsDB, index:index, categories:categoriesDB});
+                  break;
+              }
+          }
+      }
+  }
 });
+
 
 
 
@@ -115,23 +125,15 @@ router.get("/category/33306036/show-event-details", function(req, res){
  * @param {import("express").Response} 
  * filtering category list by keyword in name and description
  */
-router.get("/category/33306036/list-by-keyword", function (req, res) {
+router.get("/category/33306036/list-by-keyword", async (req, res) => {
     const keyword = req.query.keyword;
-    const filteredCategories = categoriesDB.filter(function (category) {
-        return category.description.includes(keyword) || category.name.includes(keyword);
+    const categories = await Category.find({
+        name: {$regex: keyword, $options: 'i'}
+
     });
 
-    if (keyword) {
-        if (filteredCategories.length > 0) {
-            console.log("Keyword found");
-            res.render("list-all-category", { categories: filteredCategories, keyword: keyword });
-        } else {
-            console.log("Keyword not found");
-            res.render("list-all-category", { categories: categoriesDB, keyword: keyword });
-        }
-    } else {
-        res.render("list-all-category", { categories: categoriesDB, keyword: keyword });
-    }
+    res.render("list-all-category", {categories,keyword});
+
 });
 
 
@@ -140,38 +142,41 @@ router.get("/category/33306036/list-by-keyword", function (req, res) {
  * @name GET-/category/33306036/delete-by-ID
  * @function
  */
-router.get("/category/33306036/delete-by-ID", function (req, res) {
-	res.render("delete-category-by-ID.html"); 
+router.get("/category/33306036/delete-by-ID", async (req, res) => {
+	res.render("delete-category-by-ID"); 
 });
 
 
-/**
- * Processing the "Delete Category by ID" form.
- * @name POST-/category/33306036/delete-by-ID
- * @function
- */
-router.post("/category/33306036/delete-by-ID", function (req,res) {
-   const categoryID = req.body.categoryID;
+router.post('/category/33306036/delete-by-ID', async (req, res) => {
+    const categoryID = req.body.categoryID;
 
-    for (let i = 0; i < categoriesDB.length; i++) {
-		
-        console.log("Comparing with category:", categoriesDB[i].id);
-        if (categoriesDB[i].id === categoryID) {
-			
-            console.log("Deleting category:", categoriesDB[i]);
-            categoriesDB.splice(i, 1);
-			break;
-		} 
-	}
-    console.log("After deleting:", categoriesDB);
-    res.redirect("/category/33306036/list-all");
+    try {
+        console.log("Received categoryID:", categoryID);
+
+    const deletedCategory = await Category.findOneAndDelete({ id: categoryID });
+    res.redirect('/category/33306036/list-all');
+
+    if (deletedCategory) {
+
+      console.log('Deleted category:', deletedCategory);
+      res.status(200).json({ message: 'category deleted', deletedCategory });
+    } else {
+      console.log('Category ID not found:', categoryID);
+    }
+
+    res.redirect('/category/33306036/list-all');
+  } catch (error) {
+    console.log('Error deleting category:');
+}
 });
+
+
 
 /**
  * @exports router
- * @exports categoriesDB
- * @exports eventsDB
- */
+//  * @exports categoriesDB
+//  * @exports eventsDB
+//  */
 module.exports = router
-module.exports.categoriesDB = categoriesDB;
+// module.exports.categoriesDB = categoriesDB;
 module.exports.eventsDB = eventsDB;
