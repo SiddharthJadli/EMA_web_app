@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 var randString = require("randomstring");
 
 const eventSchema = new mongoose.Schema({
-    id: {
+    eventId: {
         type: String,
         unique: true,
         default: () => {
@@ -34,7 +34,6 @@ const eventSchema = new mongoose.Schema({
         required: true
     },
 
-    // TBC
     endTime:{
         type: Date, 
         default: () => {
@@ -74,7 +73,7 @@ const eventSchema = new mongoose.Schema({
         }
     },
 
-    categoryID: {
+    categories: {
         type: String,
         required: true
     },
