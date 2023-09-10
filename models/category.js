@@ -13,7 +13,7 @@ const validator = require('validator');
 * @param {Date} createdAt - The creation date of the category.
 */
 const categorySchema = new mongoose.Schema({
-    id: {
+    catId: {
         type: String,
         unique: true,
         required: true,
@@ -22,8 +22,6 @@ const categorySchema = new mongoose.Schema({
                    + "-" + randString.generate({length: 4, charset: "0123456789"});
         }
     },
-
-    
 
 
     name:  {
@@ -39,12 +37,15 @@ const categorySchema = new mongoose.Schema({
     description: String,
     image: String,
 
-    events: [
+    eventsList: [
         { type: mongoose.Schema.Types.ObjectId, 
             ref: 'Event' },
         ],
 
     eventId: String,
+
+    
+
     createdAt:{
         type: Date,
         default: Date.now,

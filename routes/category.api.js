@@ -12,7 +12,7 @@ router.post("/api/v1/category/33306036/add/", async function (req, res) {
     try {
         let aCategory = new Category({name, description});
         await aCategory.save();
-        res.status(200).json({id: aCategory.id});
+        res.status(200).json({id: aCategory.catId});
     } catch (err) {
         console.error(err);
         res.status(400).json({ error: 'Validation failed', details: err.message });
@@ -28,7 +28,7 @@ router.get("/api/v1/category/33306036/list/", async (req, res) => {
         res.status(200).json(categories);
     } catch (err) {
         console.error(err);
-        res.status(400).json({ message: 'Error' });
+        res.json({ message: 'Error' });
     }
 });
 
@@ -37,25 +37,31 @@ router.delete("/api/v1/category/33306036/delete/", async (req, res) => {
     const {categoryID} = req.body;
 
    try {
-    console.log('Deleting category with ID:', categoryID);
     const deletedCategory = await Category.findOneAndDelete(categoryID);
-    console.log('Deleted category:', deletedCategory);
-
     if (!deletedCategory) {
-      return res.json({ message: 'Category not found' });
-    }
-    // const eventsDeleted = await Event.deleteMany({ id: categoryID });
-    // console.log('Events deleted:', eventsDeleted.deletedCount);
-    //^ add when events is defined
+        return res.json({ message: 'Category not found' });
+      }
 
-    res.status(200).json({
-      acknowledged: true,
-    //   deletedCount: ,
-    });
+    const eventsDeleted = await Event.deleteMany({ catId: deletedCategory.eventsList});
+
+    if (deletedCategory && eventsDeleted) {
+        res.status(200).json({
+            "acknowledged": true,
+            "deletedCount": 1
+        })
+
+    }   else {
+        res.json({ message: 'Category not found' });
+    }
+    // res.json({ deletedCount: eventsDeleted.deletedCount});
+
+
+   
   } catch (err) {
     console.error('Error deleting category:', err);
    }
 });
+//delete category from category list.
 
 
 

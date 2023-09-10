@@ -153,7 +153,7 @@ router.post('/category/33306036/delete-by-ID', async (req, res) => {
     try {
         console.log("Received categoryID:", categoryID);
 
-    const deletedCategory = await Category.findOneAndDelete({ id: categoryID });
+    const deletedCategory = await Category.findOneAndDelete({ catId: categoryID });
     res.redirect('/category/33306036/list-all');
 
     if (deletedCategory) {
@@ -162,9 +162,10 @@ router.post('/category/33306036/delete-by-ID', async (req, res) => {
       res.status(200).json({ message: 'category deleted', deletedCategory });
     } else {
       console.log('Category ID not found:', categoryID);
+      res.status(404).json({ message: 'Category not found' });
     }
 
-    res.redirect('/category/33306036/list-all');
+    // res.redirect('/category/33306036/list-all');
   } catch (error) {
     console.log('Error deleting category:');
 }
@@ -178,5 +179,3 @@ router.post('/category/33306036/delete-by-ID', async (req, res) => {
 //  * @exports eventsDB
 //  */
 module.exports = router
-// module.exports.categoriesDB = categoriesDB;
-module.exports.eventsDB = eventsDB;
