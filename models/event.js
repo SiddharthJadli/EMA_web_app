@@ -1,72 +1,89 @@
-var randString = require("randomstring")
+const mongoose = require('mongoose');
+var randString = require("randomstring");
 
-/**
-* Represents an event
-*
-* @param {String} eventId - The ID of the event associated with the category
-* @param {String} name - The name of the event
-* @param {String} description - The description of the event
-* @param {Date} startTime - The start date and time of the event
-* @param {Number} duration - The duration of the event in minutes
-* @param {Boolean} isActive - Boolean value signifying if the event is active or not
-* @param {String} image - The image URL of the category
-* @param {Number} capacity - The creation date of the category
-* @param {Number} availableTickets - Number of tickets available
-* @param {String} categoryID - The category an event belongs to
-*/
-class Event{
-    constructor(name, description, startTime, duration, isActive="off", image, capacity, availableTickets, categoryID){
-        this.id = "E" + randString.generate({length: 2, charset: "ABCDEFGHIJKLMNOPQRSTUVWXYZ"}) 
-                    + "-" + randString.generate({length: 4, charset: "0123456789"});
-        
-        this.name = name;
-        this.description = description;
-        
-        //Format Date time
-        this.startTime = new Date(startTime);
-        this.startTimeFormatted = new Intl.DateTimeFormat("en-Au", {
-            hour: "2-digit",
-            minute: "2-digit",
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-           }).format(this.startTime);
-        
-        //Find out when this event ends using duration minutes value
-        this.endTime = new Date(this.startTime.getTime() + duration * 60000);
-        this.endTimeFormatted = new Intl.DateTimeFormat("en-Au", {
-            hour: "2-digit",
-            minute: "2-digit",
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-           }).format(this.endTime);
-        
-
-        //Format in hourse and minutes
-        this.duration = `${Math.floor(duration /60)}h ${duration % 60}min`;
-
-        this.isActive = isActive;
-        
-        this.image = image;
-        
-        if (capacity == ""){
-            this.capacity = 1000;
-        } else {
-            this.capacity = capacity;;
+const eventSchema = new mongoose.Schema({
+    id: {
+        type: String,
+        unique: true,
+        default: () => {
+            return "E" + randString.generate({length: 2, charset: "ABCDEFGHIJKLMNOPQRSTUVWXYZ"}) 
+                        + "-" + randString.generate({length: 4, charset: "0123456789"});
         }
-        
-        if (availableTickets == ""){
-            this.availableTickets = this.capacity;
-        } else {
-            this.availableTickets = availableTickets;
-        }
-        
-        this.categoryID = categoryID;
-    }
-}
+    },
 
-/**
- * @exports Event
- */
-module.exports = Event;
+    name:  {
+        type: String,
+        required: true,
+        validate: {
+            validator: function(value) {
+                return validator.isAlphanumeric(value);
+            },
+            message: "Name accepts alphanumeric values only"
+        }
+    },
+
+    description: String,
+    
+    startTime:{
+        type: Date,
+        required: true
+    },
+
+    duration:{
+        type: Number,
+        required: true
+    },
+
+    // TBC
+    endTime:{
+        type: Date, 
+        default: () => {
+            return this.startTime.setMinutes(this.startTime.getMinutes() + this.duration);
+        }
+    },
+
+    isActive:{
+        type: Boolean,
+        default: true
+    },
+    
+    image:{
+        type: String,
+        default: "../Images/event.png" 
+    },
+
+    capacity:{
+        type: Number,
+        default: 1000,
+        validate: {
+            validator: function(value) {
+                return value >= 10 && value <= 2000 ;
+            },
+            message: "Capacity can only be between 10 and 2000 (inclusive)"
+        }
+    },
+
+    availableTickets:{
+        type: Number, 
+        default: this.capacity,
+        validate: {
+            validator: function(value) {
+                return value <= this.capacity;
+            },
+            message: "Available tickets can't be higher than the capacity!"
+        }
+    },
+
+    categoryID: {
+        type: String,
+        required: true
+    },
+
+    categoryList: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "Category",
+	}]
+});
+
+
+module.exports = mongoose.model("Event", eventSchema);

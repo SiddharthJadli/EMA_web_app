@@ -9,7 +9,6 @@ const url = "mongodb://127.0.0.1:27017/category";
 // async function 
 
 
-
 /**
  * @requires morgan
  */
@@ -41,7 +40,6 @@ app.use("/" , categoryRouter);
 
 const categoryapiRouter = require("./routes/category.api");
 app.use("/" , categoryapiRouter);
-
 
 async function connect(url) {
 	await mongoose.connect(url);
@@ -95,8 +93,6 @@ app.get("/" , function (req, res) {
     res.render("index");
 });
 
-
-
 /**
  * Handling 404 errors.
  * @name GET-*
@@ -107,4 +103,3 @@ app.get("/" , function (req, res) {
 app.get("*", function(req, res) {
     res.status(404).render("404.html");
 });
-
