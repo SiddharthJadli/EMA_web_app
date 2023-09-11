@@ -14,6 +14,8 @@ const validator = require('validator');
 const categorySchema = new mongoose.Schema({
     catId: {
         type: String,
+        required: true,
+
         unique: true,
         default: () => {
             return "C" + randString.generate({length: 2, charset: "ABCDEFGHIJKLMNOPQRSTUVWNYZ"}) 

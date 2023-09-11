@@ -8,7 +8,8 @@ const router = express.Router();
 
 router.post("/api/v1/category/33306036/add/", async function (req, res) {
     try {
-        let aCategory = new Category(req.body.name, req.body.description);
+        console.log("Request body:", req.body);
+        let aCategory = new Category({name: req.body.name, description: req.body.description});
         await aCategory.save();
         res.status(200).json({id: aCategory.catId});
     } catch (err) {

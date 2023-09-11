@@ -4,7 +4,7 @@ const express = require('express');
 const url = "mongodb://127.0.0.1:27017/assignment02";
 
 const app = express();
-
+app.use(express.json());
 
 const eventRouter = require("./routes/event-api");
 app.use("/sidd/api/v1" , eventRouter);
