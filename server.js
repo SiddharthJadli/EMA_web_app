@@ -1,4 +1,3 @@
-
 const mongoose = require("mongoose");
 const express = require('express');
 
@@ -10,12 +9,7 @@ const app = express();
 const eventRouter = require("./routes/event-api");
 app.use("/sidd/api/v1" , eventRouter);
 
-
-//Jade
-const categoryRouter = require("./routes/event-category");
-app.use("/" , categoryRouter);
-
-const categoryapiRouter = require("./routes/category.api");
+const categoryapiRouter = require("./routes/category-api");
 app.use("/" , categoryapiRouter);
 
 async function connect(url) {
@@ -23,26 +17,15 @@ async function connect(url) {
 	return "Connected Successfully";
 }
 
-connect(url)
-	.then(console.log)
-	.catch((err) => console.log(err));
-	const print = console.log;
-	/**
- * The port number the server will listen on.
- * @type {number}
- * @constant
- */
 const PORT_NUMBER = 8080;
-/**
- * Start the server and listen on port 8080.
- * @name listen
- * @function
- * @param {number} port - port number
- * @param {Function} callback - callback function when the server starts.
- */
-app.listen(PORT_NUMBER, function () {
-	print(`listening on port ${PORT_NUMBER}`);
-});  
+
+connect(url)
+  .then(() => {
+    app.listen(PORT_NUMBER, () => {
+      console.log("Server is listening on port 8080");
+    });
+  })
+  .catch((err) => console.log(err));
 
 
 app.get("*", function(req, res) {

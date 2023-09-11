@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 var randString = require("randomstring");
 const validator = require('validator');
 
-
 /**
 * Represents a category.
 *
@@ -16,7 +15,6 @@ const categorySchema = new mongoose.Schema({
     catId: {
         type: String,
         unique: true,
-        required: true,
         default: () => {
             return "C" + randString.generate({length: 2, charset: "ABCDEFGHIJKLMNOPQRSTUVWNYZ"}) 
                    + "-" + randString.generate({length: 4, charset: "0123456789"});
@@ -31,9 +29,10 @@ const categorySchema = new mongoose.Schema({
             validator: function(value) {
                 return validator.isAlphanumeric(value);
             },
-            message: 'Name only accept alphanumeric values only.'
+            message: 'Name only accept alphanumeric values only.',
         }
     },
+
     description: String,
     image: String,
 
@@ -43,8 +42,6 @@ const categorySchema = new mongoose.Schema({
         ],
 
     eventId: String,
-
-    
 
     createdAt:{
         type: Date,
@@ -66,18 +63,4 @@ const categorySchema = new mongoose.Schema({
     },
 });
 
- /**
-   * Adding event to the categories object.
-   *For storing different event into categoies object
-   *
-   * @param {Object} event - The event to be added.
-   */
-    // addEvent(event){
-    //     this.events.push(event)
-    // }
-
-
-/**
- * @exports Category
- */
 module.exports = mongoose.model("Category", categorySchema);
