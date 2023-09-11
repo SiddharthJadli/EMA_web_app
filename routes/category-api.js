@@ -5,25 +5,21 @@ const Event = require("../models/event");
 
 const router = express.Router();
 
-
-router.post("/api/v1/category/33306036/add/", async function (req, res) {
+router.post("/api/v1/category/33306036/add", async function (req, res) {
     try {
         console.log("Request body:", req.body);
-        let aCategory = new Category({name: req.body.name, description: req.body.description});
+        let aCategory = new Category({name: req.body.name, description: req.body.description, image: req.body.image, eventId: req.body.eventID});
         await aCategory.save();
         res.status(200).json({id: aCategory.catId});
     } catch (err) {
         console.error(err);
         res.status(400).json({ error: 'Validation failed', details: err.message });
-
     }
-
 });
 
-router.get("/api/v1/category/33306036/list/", async (req, res) => {
+router.get("/api/v1/category/33306036/list", async (req, res) => {
     try {
         let categories = await Category.find({}).populate("events");
-        //eventsSchema
         res.status(200).json(categories);
     } catch (err) {
         console.error(err);

@@ -5,60 +5,63 @@ module.exports = {
 	insertEvent: async function (req, res) {
 		let anEvent = new Event({ name: req.body.name, description: req.body.description, startTime: req.body.startTime, duration: req.body.duration, capacity: req.body.capacity, categories: req.body.categories});
         
-        let categoryIDList = anEvent.categories.split(",");
-        categoryIDList.forEach(categoryID => {
-            let category = Category.findOne({categoryId: categoryID});
-            anEvent.categoryList.push(category._id);
-        });
+        //Splitting user input
+        let categoryIDList = req.body.categories.split(",");
         
-		await anEvent.save();
+        let i=0;
+        //Removing any whitespave in the array elements
+        categoryIDList.forEach(categoryID => {
+            categoryIDList[i] = categoryID.trim();
+            i++;
+        });
+
+        const category = await Category.find({catId: {$in: categoryIDList}});
+        anEvent.categoryList = category;
+
+        await anEvent.save();
+
 		res.json(anEvent.eventId);
 	},
 
     listEvents: async function (req, res) {
-		let events = await Event.find({}).populate("category");
+		let events = await Event.find({}).populate("categoryList");
         res.json(events);
     },
 
     updateEvent: async function (req, res) {
-		let eventID = req.body.eventId;
+		let eventID = req.body.eventID;
         let name = req.body.name;
         let capacity = req.body.capacity;
 
-        let anEvent = Event.findOne({eventId: eventID});
-        anEvent.name = name;
-        anEvent.capacity = capacity;
-        anEvent.save()
+        let updatedEvent = Event.findOneAndUpdate({eventId: eventID},{name: name, capacity: capacity});
+        await updatedEvent.save();
 
-        await anEvent.save();
-
-		res.status(200).json({
+        res.status(200).json({
             "status": "updated successfully"
         })
     },
 
 	deleteEvent: async function (req, res) {
-		let eventID = req.body.eventId;
+		let eventID = req.body.eventID;
+        let anEvent = Event.findOne({eventId: eventID});
 
-	    let anEvent = Event.findByIdAndRemove({eventId: eventID})
+        anEvent.categoryList.forEach(catID => {
+            let category = Category.findOne({ _id: catID });
+            
+            for (let i=0; category.eventsList.length; i++){
+                if (category.eventsList[i] == anEvent._id){
+                    category.eventsList.splice(i,1);
+                    break;
+                }
+            }
+        })
 
-        // This is the part where you delete the event from the category
-        // anEvent.categoryList.forEach(categoryID => {
-        //     let aCategory = Category.findOne({ _id: categoryID});
-             
-        //     for (let i=0; aCategory.events.length; i++){
-        //         if (aCategory.events[i] == ){
-        //             farm.animals.splice(i,1);
-        //             break;
-        //         }
-        //     }
-        // });
-
-        await anEvent.save();
-
+	    let deletedEvent = Event.findByIdAndRemove({ _id: anEvent._id });
+        await deletedEvent.save();  
+        
         res.status(200).json({
             "acknowledged": true,
-            "deletedCount": 1
+            "deletedCount": 1 //Is this supposed to be done differently?
         })
-	},
-};
+    }
+}

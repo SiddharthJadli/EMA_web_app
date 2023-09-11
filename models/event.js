@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 var randString = require("randomstring");
+const validator = require('validator');
 
 const eventSchema = new mongoose.Schema({
     eventId: {
@@ -34,12 +35,12 @@ const eventSchema = new mongoose.Schema({
         required: true
     },
 
-    endTime:{
-        type: Date, 
-        default: () => {
-            return this.startTime.setMinutes(this.startTime.getMinutes() + this.duration);
-        }
-    },
+    // endTime:{
+    //     type: Date, 
+    //     default: () => {
+    //         return this.startTime + this.duration*60000;
+    //     }
+    // },
 
     isActive:{
         type: Boolean,
@@ -71,11 +72,6 @@ const eventSchema = new mongoose.Schema({
             },
             message: "Available tickets can't be higher than the capacity!"
         }
-    },
-
-    categories: {
-        type: String,
-        required: true
     },
 
     categoryList: [{

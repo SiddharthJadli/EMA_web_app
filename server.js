@@ -4,12 +4,15 @@ const express = require('express');
 const url = "mongodb://127.0.0.1:27017/assignment02";
 
 const app = express();
+
 app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
 const eventRouter = require("./routes/event-api");
 app.use("/sidd/api/v1" , eventRouter);
 
 const categoryapiRouter = require("./routes/category-api");
+const { json } = require("body-parser");
 app.use("/" , categoryapiRouter);
 
 async function connect(url) {
