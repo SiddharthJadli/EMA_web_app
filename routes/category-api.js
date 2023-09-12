@@ -1,4 +1,3 @@
-
 const express = require("express");
 const categoryController = require("../controller/category-controller");
 

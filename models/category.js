@@ -8,53 +8,55 @@ const categorySchema = new mongoose.Schema({
         unique: true,
         default: () => {
             return "C" + randString.generate({length: 2, charset: "ABCDEFGHIJKLMNOPQRSTUVWNYZ"}) 
-                   + "-" + randString.generate({length: 4, charset: "0123456789"});
+            + "-" + randString.generate({length: 4, charset: "0123456789"});
         }
     },
 
-    name:  {
+    name: {
         type: String,
         required: true,
         validate: {
-            validator: function(value) {
+            validator: function (value) {
                 return validator.isAlphanumeric(value);
             },
-            message: 'Name only accept alphanumeric values only.',
+            message: 'Name only accept alphanumeric values only.'
         }
     },
 
     description: String,
-    
-    image:{
+
+    image: {
         type: String,
-        default: "../Images/Categoryimg.png" 
+        default: "../Images/Categoryimg.png"
     },
 
-    createdAt:{
+    createdAt: {
         type: Date,
-        default: Date.now,
+        default: Date.now
     },
 
     createdAtFormatted: {
         type: String,
-        default: function() {
+        default: function () {
             return new Intl.DateTimeFormat("en-Au", {
                 hour: "2-digit",
                 minute: "2-digit",
                 day: "2-digit",
                 month: "2-digit",
-                year: "numeric",
+                year: "numeric"
             }).format(this.createdAt || Date.now())
         }
     },
-    
+
     eventId: String,
 
-    eventsList: [{ 
-        type: mongoose.Schema.Types.ObjectId,
-        default: [], 
-        ref: 'Event' 
-    }]
+    eventsList: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            default: [],
+            ref: 'Event'
+        }
+    ]
 });
 
 module.exports = mongoose.model("Category", categorySchema);
