@@ -12,7 +12,6 @@ const categorySchema = new mongoose.Schema({
         }
     },
 
-
     name:  {
         type: String,
         required: true,
@@ -25,6 +24,7 @@ const categorySchema = new mongoose.Schema({
     },
 
     description: String,
+    
     image:{
         type: String,
         default: "../Images/Categoryimg.png" 

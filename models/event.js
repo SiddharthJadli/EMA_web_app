@@ -35,12 +35,12 @@ const eventSchema = new mongoose.Schema({
         required: true
     },
 
-    // endTime:{
-    //     type: Date, 
-    //     default: () => {
-    //         return this.startTime + this.duration*60000;
-    //     }
-    // },
+    endTime:{
+        type: Date, 
+        default: function() {
+            return new Date(this.startTime.getTime() + this.duration*60000);
+        }
+    },
 
     isActive:{
         type: Boolean,
@@ -79,6 +79,5 @@ const eventSchema = new mongoose.Schema({
 		ref: "Category",
 	}]
 });
-
 
 module.exports = mongoose.model("Event", eventSchema);

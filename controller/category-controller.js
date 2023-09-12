@@ -21,19 +21,18 @@ module.exports = {
         } catch (err) {
             console.error(err);
             res.json({ message: 'Error' });
-        }
+            }
     },
     
     
     deleteCategory: async (req, res) => {
         const {categoryID} = req.body;
     
-       try {
-        const deletedCategory = await Category.findOneAndDelete({categoryID});
-        if (!deletedCategory) {
-            return res.json({ message: 'Category not found' });
-          }
-    
+        try {
+            const deletedCategory = await Category.findOneAndDelete({categoryID});
+            if (!deletedCategory) {
+                return res.json({ message: 'Category not found' });
+            }
       
         const eventsDeleted = await Event.deleteMany({ catId: deletedCategory.eventsList});
     
@@ -42,26 +41,14 @@ module.exports = {
                 "acknowledged": true,
                 "deletedCount": 1
             })
-    
-        
-        }   else {
+        } else {
             res.json({ message: 'Category not found' });
         }
-
     } catch (err) {
         console.error('Error deleting category:', err);
-       }
-    
-        
-    
-    
-       
-
+       } 
     },
-
-    
-    
-    
+ 
     updateCategory: async (req, res) => {
         const {name, description, categoryId} = req.body;
     	// let categoryId = req.body.categoryID;
