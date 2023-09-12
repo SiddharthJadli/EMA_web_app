@@ -7,7 +7,6 @@ module.exports = {
             console.log("Request body:", req.body);
             let aCategory = new Category({name: req.body.name, description: req.body.description, image: req.body.image, eventId: req.body.eventID});
             await aCategory.save();
-            
             res.status(200).json({id: aCategory.catId});
         } catch (err) {
             console.error(err);
@@ -26,56 +25,80 @@ module.exports = {
     },
     
     
-    deleteCategory: async (req, res) => {
-        const {categoryID} = req.body;
+    // deleteCategory: async (req, res) => {
+    //     const {categoryID} = req.body;
     
-        try {
-            const deletedCategory = await Category.findOneAndDelete({categoryID});
-            if (!deletedCategory) {
-                return res.json({ message: 'Category not found' });
-            }
+    //     try {
+    //         const deletedCategory = await Category.findOneAndDelete({categoryID});
+    //         if (!deletedCategory) {
+    //             return res.json({ message: 'Category not found' });
+    //         }
       
-        const eventsDeleted = await Event.deleteMany({ catId: deletedCategory.eventsList});
+    //     const eventsDeleted = await Event.deleteMany({ catId: deletedCategory.eventsList});
     
-        if (deletedCategory && eventsDeleted) {
-            res.status(200).json({
-                "acknowledged": true,
-                "deletedCount": 1
-            })
-        } else {
-            res.json({ message: 'Category not found' });
-        }
-    } catch (err) {
-        console.error('Error deleting category:', err);
-       } 
-    },
- 
-    updateCategory: async (req, res) => {
-        const {name, description, categoryId} = req.body;
-    	// let categoryId = req.body.categoryID;
-        // let name = req.body.name;
-        // let description = req.body.description;
+    //     if (deletedCategory && eventsDeleted) {
+    //         res.status(200).json({
+    //             "acknowledged": true,
+    //             "deletedCount": 1
+    //         })
+    //     } else {
+    //         res.json({ message: 'Category not found' });
+    //     }
+    // } catch (err) {
+    //     console.error('Error deleting category:', err);
+    //    } 
+    // },
 
-        try{
-            // let updatedCategory = await Category.findOneAndUpdate( 
-            //     { catId: categoryId },
-            //     { name, description},
-            //     { new: true }
-            //     );
-            let updatedCategory = await Category.findOneAndUpdate( { categoryId, name, description });
-            if (updatedCategory) {
-                res.json({status: 'Category is updated', category: updatedCategory});
-    
-            } else {
-                console.log("Category not found", categoryId);
-                res.json({status:'ID not found'});
+    deleteCategory: async function (req, res) {
+		let categoryID = req.body.catId;
+        let aCategory = await Category.findOne({catId: categoryID});
+        console.log('Received categoryID:', categoryID);
+
+        if(!aCategory) {
+            return res.status(404).json({
+                "status": "Category not found"
+            });
+        } else {
+            const response = {
+                "acknowledged": true
             }
-        } catch(err) {
-            console.error('Error updating category:', err);
         }
+        aCategory.eventsList.forEach(async (eventId) => {
+            let event = await Event.findOne({ _id: eventId });
+            
+            for (let i=0;  category.eventsList.length; i++){
+                if (category.eventsList[i] == anEvent._id){
+                    category.eventsList.splice(i,1);
+                    break;
+                }
+            }
+        })
+
+	    let deletedCategory = await Category.deleteOne(aCategory._id);  
+        res.status(200).json(deletedCategory)
+    },
+
+    updateCategory: async function (req, res) {
+        let categoryID = req.body.catId;
+        let name = req.body.name;
+        let description = req.body.description;
+        console.log('Received categoryID:', categoryID);
+    
+            let updatedCategory = await Category.findOneAndUpdate(
+                { catId: categoryID },
+                { name: name, description: description },
+            );
+
+            if (!updatedCategory) {
+                return res.json({
+                    "status": "CategoryID not found"
+                });
+            } else {
+                res.status(200).json({
+                    "status": "updated successfully"
+                });
+            }
+       
     }
 }
-
-
-
-
+    
