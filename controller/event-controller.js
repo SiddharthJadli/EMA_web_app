@@ -19,6 +19,7 @@ module.exports = {
 
         const category = await Category.find({catId: {$in: categoryIDList}});
         anEvent.categoryList = category;
+        category.eventsList.push(events._id);
 
         await anEvent.save();
 
