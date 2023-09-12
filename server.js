@@ -1,12 +1,24 @@
 const mongoose = require("mongoose");
 const express = require('express');
- 
+
+const Operation = require("./models/operation");
+
 const url = "mongodb://127.0.0.1:27017/assignment02";
 
 const app = express();
 
 app.use(express.json())        ;
 app.use(express.urlencoded({extended:true}));
+
+async function asyncCall() {
+  //Check if 1 document exists. If it does then do nothing.
+  console.log(Operation.find().count());
+  // let anOperation = new Operation();
+  // await anOperation.save();
+}
+
+asyncCall();
+
 
 const eventRouter = require("./routes/event-api");
 app.use("/sidd/api/v1" , eventRouter);

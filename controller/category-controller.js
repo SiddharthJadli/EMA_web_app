@@ -7,6 +7,7 @@ module.exports = {
             console.log("Request body:", req.body);
             let aCategory = new Category({name: req.body.name, description: req.body.description, image: req.body.image, eventId: req.body.eventID});
             await aCategory.save();
+            
             res.status(200).json({id: aCategory.catId});
         } catch (err) {
             console.error(err);
