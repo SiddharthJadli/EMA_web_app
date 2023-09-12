@@ -1,5 +1,6 @@
 const Category = require("../models/category");
 const Event = require("../models/event");
+const Operation = require("./stats")
 
 module.exports = {
     addCategory: async function (req, res) {
@@ -8,6 +9,8 @@ module.exports = {
             let aCategory = new Category({name: req.body.name, description: req.body.description, image: req.body.image, eventId: req.body.eventID});
             await aCategory.save();
             res.status(200).json({id: aCategory.catId});
+
+            Operation.incrementAdd;
         } catch (err) {
             console.error(err);
             res.status(400).json({error: 'Validation failed', details: err.message});
@@ -23,7 +26,6 @@ module.exports = {
             res.json({message: 'Error'});
         }
     },
-
 
     deleteCategory: async function (req, res) {
         let categoryID = req.body.catId;
@@ -49,6 +51,8 @@ module.exports = {
 
         let deletedCategory = await Category.deleteOne(aCategory._id);
         res.status(200).json(deletedCategory)
+
+        Operation.incrementDelete;
     },
 
     updateCategory: async function (req, res) {
@@ -70,5 +74,6 @@ module.exports = {
             res.status(200).json({"status": "updated successfully"});
         }
 
+        Operation.incrementUpdate;
     }
 }

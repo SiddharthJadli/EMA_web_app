@@ -10,8 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-async function asyncCall() { // only has 1 now, even if there is multiple categories added.
-    console.log(Operation.find().count());
+async function asyncCall() {
     let existingOperation = await Operation.findOne();
     if (! existingOperation) {
         let anOperation = new Operation();
@@ -39,6 +38,6 @@ connect(url).then(() => {
     });
 }).catch((err) => console.log(err));
 
-// app.get("*", function(req, res) {
-//     res.status(404).render("404.html");
-// });
+app.get("*", function(req, res) {
+    res.status(404).render("404.html");
+});
