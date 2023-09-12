@@ -34,5 +34,18 @@ module.exports = {
     // res.status(200).json({
     //     addCount: operation.delete
     //     })
+    },
+
+    //counting for category labels
+    countCategories: async function (req, res) {
+        const categoryCount = await category.countDocuments();
+        res.status(200).json({count: categoryCount});
+    
+    },
+    // counting events label
+    countEvents: async function (req, res) {
+        const eventCount = await event.countDocuments();
+        res.status(200).json({count: eventCount});
+
     }
-}
+};

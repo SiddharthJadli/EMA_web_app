@@ -24,6 +24,9 @@ app.use("/sidd/api/v1", eventRouter);
 
 const categoryRouter = require("./routes/category-api");
 app.use("/api/v1/category/33306036", categoryRouter);
+//for labels inhtml
+const count = require("./routes/operation-api");
+app.use("/count" , count);
 
 async function connect(url) {
     await mongoose.connect(url);
@@ -37,6 +40,12 @@ connect(url).then(() => {
         console.log("Server is listening on port 8080");
     });
 }).catch((err) => console.log(err));
+
+//for category and event labels
+// app.get('/counts', async (req, res) => {
+//     const counts = await statsController.getCurrentCounts(req, res);
+//     res.render('index', { counts });
+//   });
 
 app.get("*", function(req, res) {
     res.status(404).render("404.html");
