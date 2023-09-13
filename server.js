@@ -10,6 +10,8 @@ const ejs = require("ejs");
 
 app.use(express.static("node_modules/bootstrap/dist/css"));
 app.use(express.static("Images"));
+app.use('/Images', express.static("Images"));
+
 app.engine("html", ejs.renderFile);
 app.set("view engine", "html");
 
@@ -32,9 +34,11 @@ async function asyncCall() {
         let anOperation = new Operation({operation: "delete"});
         await anOperation.save();
     }
+    
 }
 asyncCall();
 
+  
 const eventRouter = require("./routes/event-api");
 app.use("/sidd/api/v1", eventRouter);
 
@@ -67,7 +71,7 @@ connect(url).then(() => {
 app.get("/" , function (req, res) {
     res.render("index");
   });
-  
+
 //for category and event labels
 app.get('/counts', async (req, res) => {
     const counts = await statsController.getCurrentCounts(req, res);
