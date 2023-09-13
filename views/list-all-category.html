@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html Lang="en">
+    <head>
+        <link href="/bootstrap.min.css" rel="stylesheet" />
+        <style>
+            .container {
+                max-width: 1100px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <img src="/Appbanner.png" alt="events" style="width: 100%; height: auto;">
+
+        <h2 style="margin-top: 60px; margin-bottom: 60px; margin-left: 30px; text-align: center;">Categories List</h2>
+
+        <!-- JavaScript script to display a filtered keyword -->
+        <!-- checking at current URL, checking for the first element in the array ->0 -->
+        <script>
+            if (window.location.href.includes("/category/33306036/list-by-keyword")) {
+                document.write('<% if (categories.length > 0) { %>');
+                document.write('<h5 style="text-align: center;">keyword \'<%= categories[0].name || categories[0].description %>\' is filtered</h5>');
+                document.write('<% } %>');
+            }
+        </script>
+
+        <div class="container m-8" >
+            <table class="table">
+                <thead>
+                    <!-- Table Header -->
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Created At</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- looping through categories for filling up table using ejs syntax tags -->
+                    <% for(let i=0;i <categories.length;i++){ %>
+                    <tr>
+                        <td>
+                            <%= categories[i].catId %>
+                        </td>
+                        <td>
+                            <%= categories[i].name %>
+                        </td>
+                        <td>
+                            <%= categories[i].description %>
+                        </td>
+
+                        <td>
+                            <% if(categories[i].image) { %>
+                                <img src="/<%= categories[i].image %>" alt="events" style="width: 500px; height: auto;">
+                                <% } else { %>
+                                    <img src="/Categoryimg.png" alt="events" style="width: 500px; height: auto;">
+                                <% } %>
+                        </td>
+
+                        <td>        
+                            <%= categories[i].createdAtFormatted %>
+                        </td>
+
+                        <td>
+                            <div class="buttons-contain">
+                                <a href="/sidd/category?id=<%= categories[i].id %>" class="btn btn-primary" role="button">View</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

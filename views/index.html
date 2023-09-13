@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<head>
+    <link href="/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .buttons-contain {
+            text-align: center;
+        }
+
+        .buttons {
+            background-color: #5b7cf5;
+            color: whitesmoke;
+            padding: 5px 8px;
+            border: none;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 14px;
+            display: inline-block;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        .container1 {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .container2 {
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-top: 150px;
+            margin-bottom: 20px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <img src="/Appbanner.png" alt="events" style="width: 100%; height: auto;">
+
+    <div class="container mt-4">
+        <div class="card border-info text-center" style="max-width: 8rem;">
+            <div class="card-header ">Categories</div>
+            <div class="card-body py-2">
+                <h6 class="card-title" id="categoryCount">0</h6>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <div class="card border-info text-center" style="max-width: 8rem;">
+            <div class="card-header ">Events</div>
+            <div class="card-body py-2">
+                <h6 class="card-title" id="eventCount">0</h6>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function fetchCategoryCount() {
+            const response = await fetch('/count/operation/categorycount');
+            const data = await response.json();
+            const categoryCountSpan = document.getElementById('categoryCount');
+            categoryCountSpan.textContent = data.count;
+        }
+        window.addEventListener('load', fetchCategoryCount);
+
+        async function fetchEventCount() {
+            const response = await fetch('/count/operation/eventcount');
+            const data = await response.json();
+            const categoryCountSpan = document.getElementById('eventCount');
+            categoryCountSpan.textContent = data.count;
+        }
+        window.addEventListener('load', fetchEventCount);
+    </script>
+
+
+    <div class="container1">
+        <h3>Admin Panel</h3>
+        <p>Task group 1 (Jade)</p>
+    </div>
+
+    <div class="buttons-contain">
+        <a href="/category/33306036/add" class="buttons">Add Category</a>
+        <a href="/category/33306036/list-all" class="buttons">List All Category</a>
+        <a href="/category/33306036/list-by-keyword?keyword=sample" class="buttons">List Category by Keyword</a>
+        <a href="/category/33306036/show-event-details" class="buttons">Show Event Details</a>
+        <a href="/category/33306036/delete-by-ID" class="buttons">Delete Category by ID</a>
+    </div>
+
+    <div class="container2">
+        <p>Task group 2 (Sidd)</p>
+    </div>
+
+    <div class="buttons-contain">
+        <a href="/sidd/events/add" class="buttons">Add Event</a>
+        <a href="/sidd/events" class="buttons">List All Events</a>
+        <a href="/sidd/soldout-events" class="buttons">List Sold out events</a>
+        <a href="/sidd/category" class="buttons">Category Details Page</a>
+        <a href="/sidd/events/delete" class="buttons">Delete Event By ID</a>
+    </div>
+    <div class="logo">
+        <img src="/logo.png" alt="events" style="width: 80px; height: 80px;">
+    </div>
+</body>
+
+</html>
