@@ -59,8 +59,35 @@
             </div>
         </div>
     </div>
+    <div class="container mt-4">
+        <div class="card border-info text-center" style="max-width: 8rem;">
+            <div class="card-header ">Add</div>
+            <div class="card-body py-2">
+                <h6 class="card-title" id="addOperationCount">0</h6>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="card border-info text-center" style="max-width: 8rem;">
+            <div class="card-header ">Update</div>
+            <div class="card-body py-2">
+                <h6 class="card-title" id="updateOperationCount">0</h6>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="card border-info text-center" style="max-width: 8rem;">
+            <div class="card-header ">Delete</div>
+            <div class="card-body py-2">
+                <h6 class="card-title" id="deleteOperationCount">0</h6>
+            </div>
+        </div>
+    </div>
 
     <script>
+        //for counting category
         async function fetchCategoryCount() {
             const response = await fetch('/count/operation/categorycount');
             const data = await response.json();
@@ -68,7 +95,7 @@
             categoryCountSpan.textContent = data.count;
         }
         window.addEventListener('load', fetchCategoryCount);
-
+//for counting events
         async function fetchEventCount() {
             const response = await fetch('/count/operation/eventcount');
             const data = await response.json();
@@ -76,6 +103,38 @@
             categoryCountSpan.textContent = data.count;
         }
         window.addEventListener('load', fetchEventCount);
+// for addoperation
+        async function fetchAddOperationCount() {
+            const stat = require('../controller/stats');
+            
+            stats.getCounter('add');
+
+
+            const response = await fetch('/count/operation/addcount');
+            const data = await response.json();
+            const deleteOperationCountSpan = document.getElementById('appOperationCount');
+            deleteOperationCountSpan.textContent = data.count;
+        }
+        window.addEventListener('load', fetchAddOperationCount);
+// for update operation
+
+        async function fetchUpdateOperationCount() {
+            const response = await fetch('/count/operation/updatecount');
+            const data = await response.json();
+            const deleteOperationCountSpan = document.getElementById('updateOperationCount');
+            deleteOperationCountSpan.textContent = data.count;
+        }
+        window.addEventListener('load', fetchUpdateOperationCount);
+// for delete operation
+
+        async function fetchDeleteOperationCount() {
+            const response = await fetch('/count/operation/deletecount');
+            const data = await response.json();
+            const deleteOperationCountSpan = document.getElementById('deleteOperationCount');
+            deleteOperationCountSpan.textContent = data.count;
+        }
+        window.addEventListener('load', fetchDeleteOperationCount);
+
     </script>
 
 
