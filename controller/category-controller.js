@@ -1,29 +1,24 @@
 const Event = require("../models/event");
 const Category = require("../models/category");
 const statsController = require("../controller/stats")
-const event = require("../models/event");
 
 module.exports = {
-    addCategory: async function (req, res) {
-        let aCategory = new Category({name: req.body.name, description: req.body.description, image: req.body.image, events: req.body.events});
+    addCategory: async (req, res) => {
         console.log("Request body:", req.body);
-        if(req.body.eventIDList) {
-        let eventIDList = req.body.events.split(",");
-        let i = 0;
-        eventIDList.forEach(eventId => {
-            eventIDList[i] = eventId.trim();
-            i++;
-        });
-
-        const event = await Event.find({eventId: {$in: eventIDList}});
-        aCategory.eventsList = event;
-    }
+        let aCategory = new Category({name: req.body.name, description: req.body.description,image: req.body.image, eventsList: req.body.eventsList});
         await aCategory.save();
-        statsController.incrementCounter('add');
         res.status(200).json({category: aCategory.catId});
     },
 
-
+    addEventToCategory: async (req, res) => {
+        const{categoryId, eventId} = req.body;
+        const category = await Category.findOne({ catId: categoryId });
+        const event = await Event.findOne({ eventId: eventId });
+        category.eventsList.push(event._id);
+        await category.save();
+        res.status(200).json({ message: 'Event added successfully' });
+    },
+ 
 
     listCategory: async (req, res) => {
         let categories = await Category.find({}).populate({path: 'eventsList', model: 'Event'});
