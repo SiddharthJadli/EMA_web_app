@@ -1,8 +1,14 @@
 const express = require("express");
-const statsController = require("../controller/stats");
+const stats = require("../controller/stats");
 const router = express.Router();
+// router.get("/operation/getCounter", stats.getCounter);
+// router.get("/operation/incrementCounter", stats.incrementCounter);
 
-router.get("/operation/categorycount", statsController.countCategories);
-router.get("/operation/eventcount", statsController.countEvents);
+router.get("/categorycount", stats.countCategories);
+router.get("/eventcount", stats.countEvents);
+
+router.get("/deletecount", stats.deleteCount);
+router.get("/addcount", stats.addCount);
+router.get("/updatecount", stats.updateCount);
 
 module.exports = router;

@@ -6,6 +6,7 @@ const category = require("./models/category");
 const Operation = require("./models/operation");
 
 
+
 const url = "mongodb://127.0.0.1:27017/assignment02";
 
 const app = express();
@@ -56,8 +57,9 @@ const oriEventRouter = require("./routes/event");
 app.use("/" , oriEventRouter);
 
 //for labels inhtml
-const count = require("./routes/operation-api");
-app.use("/count" , count);
+const counters = require("./routes/operation-api");
+app.use("/count" , counters);
+
 
 async function connect(url) {
     await mongoose.connect(url);
@@ -77,10 +79,7 @@ app.get("/" , function (req, res) {
   });
 
 // for category and event labels
-app.get('/counts', async (req, res) => {
-    const counts = await statsController.getCurrentCounts(req, res);
-    res.render('index', { counts });
-  });
+
 
 app.get("*", function(req, res) {
     res.status(404).render("404.html");
