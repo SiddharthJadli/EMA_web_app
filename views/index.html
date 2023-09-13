@@ -90,24 +90,24 @@
         async function fetchCategoryCount() {
             const response = await fetch('/count/categorycount');
             const data = await response.json();
-            const categoryCountSpan = document.getElementById('categoryCount');
-            categoryCountSpan.textContent = data.count;
+            const categoryCount = document.getElementById('categoryCount');
+            categoryCount.textContent = data.count;
         }
         window.addEventListener('load', fetchCategoryCount);
 //for counting events
         async function fetchEventCount() {
             const response = await fetch('/count/eventcount');
             const data = await response.json();
-            const categoryCountSpan = document.getElementById('eventCount');
-            categoryCountSpan.textContent = data.count;
+            const eventCount = document.getElementById('eventCount');
+            eventCount.textContent = data.count;
         }
         window.addEventListener('load', fetchEventCount);
 // for addoperation
         async function fetchAddOperationCount() {
             const response = await fetch('/count/addcount');
             const data = await response.json();
-            const deleteOperationCountSpan = document.getElementById('appOperationCount');
-            deleteOperationCountSpan.textContent = data.count;
+            const addCount = document.getElementById('appOperationCount');
+            addCount.textContent = data.count;
         }
         window.addEventListener('load', fetchAddOperationCount);
 // for update operation
@@ -115,8 +115,8 @@
         async function fetchUpdateOperationCount() {
             const response = await fetch('/count/updatecount');
             const data = await response.json();
-            const deleteOperationCountSpan = document.getElementById('updateOperationCount');
-            deleteOperationCountSpan.textContent = data.count;
+            const updateCount = document.getElementById('updateOperationCount');
+            updateCount.textContent = data.count;
         }
         window.addEventListener('load', fetchUpdateOperationCount);
 // for delete operation
@@ -124,8 +124,8 @@
         async function fetchDeleteOperationCount() {
             const response = await fetch('/count/deletecount');
             const data = await response.json();
-            const deleteOperationCountSpan = document.getElementById('deleteOperationCount');
-            deleteOperationCountSpan.textContent = data.count;
+            const deleteCount = document.getElementById('deleteOperationCount');
+            deleteCount.textContent = data.count;
         }
         window.addEventListener('load', fetchDeleteOperationCount);
 
