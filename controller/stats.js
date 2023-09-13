@@ -9,8 +9,9 @@ module.exports = {
         await operation.save();
     },
 
-    getCounter: async function(req, res) {
-        const anOperation = await Operation.findOne();
+    getCounter: async function(key) {
+        const operation = await Operation.findOne({operation: key});
+        operation.counter;
         res.status(200).json({anOperation});
     },
 

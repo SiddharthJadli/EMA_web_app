@@ -106,14 +106,11 @@
 // for addoperation
         async function fetchAddOperationCount() {
             const stat = require('../controller/stats');
-            
-            stats.getCounter('add');
-
-
+            let addCounter = stats.getCounter('add');
             const response = await fetch('/count/operation/addcount');
             const data = await response.json();
-            const deleteOperationCountSpan = document.getElementById('appOperationCount');
-            deleteOperationCountSpan.textContent = data.count;
+            const addOperationCountSpan = document.getElementById('appOperationCount');
+            addOperationCountSpan.textContent = data.count;
         }
         window.addEventListener('load', fetchAddOperationCount);
 // for update operation
