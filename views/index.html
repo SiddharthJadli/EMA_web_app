@@ -44,48 +44,38 @@
     <img src="/Appbanner.png" alt="events" style="width: 100%; height: auto;">
 
     <div class="container mt-4">
-        <div class="card border-info text-center" style="max-width: 8rem;">
-            <div class="card-header ">Categories</div>
-            <div class="card-body py-2">
-                <h6 class="card-title" id="categoryCount">0</h6>
+        <div class="d-flex justify-content-between">
+    
+            <div class="card border-info text-center" style="max-width: 8rem;">
+                <div class="card-header">Categories</div>
+                <div class="card-body py-2">
+                    <h6 class="card-title" id="categoryCount">0</h6>
+                </div>
+            </div>
+    
+            <div class="card border-info text-center" style="max-width: 8rem;">
+                <div class="card-header">Events</div>
+                <div class="card-body py-2">
+                    <h6 class="card-title" id="eventCount">0</h6>
+                </div>
+            </div>
+    
+            <div class="card border-info text-center" style="max-width: 8rem;">
+                <div class="card-header">Add</div>
+                <div class="card-body py-2">
+                    <h6 class="card-title" id="addOperationCount">0</h6>
+                </div>
+            </div>
+    
+            <div class="card border-info text-center" style="max-width: 8rem;">
+                <div class="card-header">Update</div>
+                <div class="card-body py-2">
+                    <h6 class="card-title" id="updateOperationCount">0</h6>
+                </div>
             </div>
         </div>
     </div>
-    <div class="container mt-4">
-        <div class="card border-info text-center" style="max-width: 8rem;">
-            <div class="card-header ">Events</div>
-            <div class="card-body py-2">
-                <h6 class="card-title" id="eventCount">0</h6>
-            </div>
-        </div>
-    </div>
-    <div class="container mt-4">
-        <div class="card border-info text-center" style="max-width: 8rem;">
-            <div class="card-header ">Add</div>
-            <div class="card-body py-2">
-                <h6 class="card-title" id="addOperationCount">0</h6>
-            </div>
-        </div>
-    </div>
-
-    <div class="container mt-4">
-        <div class="card border-info text-center" style="max-width: 8rem;">
-            <div class="card-header ">Update</div>
-            <div class="card-body py-2">
-                <h6 class="card-title" id="updateOperationCount">0</h6>
-            </div>
-        </div>
-    </div>
-
-    <div class="container mt-4">
-        <div class="card border-info text-center" style="max-width: 8rem;">
-            <div class="card-header ">Delete</div>
-            <div class="card-body py-2">
-                <h6 class="card-title" id="deleteOperationCount">0</h6>
-            </div>
-        </div>
-    </div>
-
+    
     <script>
         //for counting category
         async function fetchCategoryCount() {
@@ -106,11 +96,14 @@
 // for addoperation
         async function fetchAddOperationCount() {
             const stat = require('../controller/stats');
-            let addCounter = stats.getCounter('add');
+            
+            stats.getCounter('add')
+
+
             const response = await fetch('/count/operation/addcount');
             const data = await response.json();
-            const addOperationCountSpan = document.getElementById('appOperationCount');
-            addOperationCountSpan.textContent = data.count;
+            const deleteOperationCountSpan = document.getElementById('appOperationCount');
+            deleteOperationCountSpan.textContent = data.count;
         }
         window.addEventListener('load', fetchAddOperationCount);
 // for update operation

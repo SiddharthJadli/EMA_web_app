@@ -1,7 +1,10 @@
 const mongoose = require("mongoose");
 const express = require('express');
+const category = require("./models/category"); 
+
 
 const Operation = require("./models/operation");
+
 
 const url = "mongodb://127.0.0.1:27017/assignment02";
 
@@ -34,6 +37,7 @@ async function asyncCall() {
         let anOperation = new Operation({operation: "delete"});
         await anOperation.save();
     }
+    
     
 }
 asyncCall();
@@ -72,9 +76,7 @@ app.get("/" , function (req, res) {
     res.render("index");
   });
 
-//for category and event labels
-const statsController = require("./controller/stats");
-
+// for category and event labels
 app.get('/counts', async (req, res) => {
     const counts = await statsController.getCurrentCounts(req, res);
     res.render('index', { counts });

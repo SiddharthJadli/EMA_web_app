@@ -11,12 +11,12 @@ const morgan = require("morgan")
 
 pathRoot = "/Users/siddharthjadli/Monash/2023Sem2/FIT2095/Ass/assignment-1/server.js";
 
-//bootstrap css files from node_modules
+// bootstrap css files from node_modules
 router.use(express.static("node_modules/bootstrap/dist/css"));
 router.use(morgan('tiny'));
 
 // Parse request bodies as JSON and URL-encoded
-router.use(express.urlencoded({ extended: true}));
+router.use(express.urlencoded({extended: true}));
 router.use(express.json());
 
 const mongoose = require('mongoose');
@@ -30,10 +30,11 @@ const Event = require("../models/event");
  * @name GET-/sidd/events/add
  * @function
  */
-router.get("/sidd/events/add", function(req, res){
-    if (categoriesDB.length == 0){
-        res.render("add-event-without-category" ); //If no category added then render to a page which asks to add a category
-    } else{
+router.get("/sidd/events/add", async (req, res) => {
+    const categories = await Category.find({});
+    if (categories.length == 0) {
+        res.render("add-event-without-category"); // If no category added then render to a page which asks to add a category
+    } else {
         res.render("add-event");
     }
 })
@@ -43,13 +44,20 @@ router.get("/sidd/events/add", function(req, res){
  * @name POST-/sidd/events/add
  * @function
  */
-router.post("/sidd/events/add", async(req, res) => {
-    try{
+router.post("/sidd/events/add", async (req, res) => {
+    try {
         let reqBody = req.body;
         console.log(reqBody);
-        const newEvent = new Event(reqBody.name, reqBody.description, reqBody.startDateTime, reqBody.duration, reqBody.isActive, reqBody.image, reqBody.capacity, reqBody.ticketsAvailable, reqBody.categoryID);
+        const newEvent = new Event({ name: reqBody.name,
+            description: reqBody.description,
+            startDateTime: reqBody.startDateTime,
+            duration: reqBody.duration,
+            isActive: reqBody.isActive=='on',
+            image: reqBody.image,
+            capacity: reqBody.capacity,
+            ticketsAvailable: reqBody.ticketsAvailable,
+            categoryID: reqBody.categoryID,});
         await newEvent.save();
-        console.log('Event saved to Mongodb', newEvent);
         const events = await Event.find({});
         res.render("/sidd/events", {events});
     } catch (error) {
@@ -64,9 +72,9 @@ router.post("/sidd/events/add", async(req, res) => {
  * @function
  */
 router.get("/sidd/events", async (req, res) => {
-    try{
+    try {
         const events = await Event.find({});
-        res.render("list-all-events", { events: events });
+        res.render("list-all-events", {events: events});
     } catch (err) {
         console.log('Error while getting events')
     }
@@ -79,7 +87,7 @@ router.get("/sidd/events", async (req, res) => {
  */
 router.get("/sidd/soldout-events", async (req, res) => {
     const events = await Event.find({});
-    res.render("list-soldout-events", { events: events });
+    res.render("list-soldout-events", {events: events});
 })
 
 /**
@@ -89,17 +97,21 @@ router.get("/sidd/soldout-events", async (req, res) => {
  * @param {import("express").Request} 
  * @param {import("express").Response} 
  */
-router.get("/sidd/category", async function(req, res){
+router.get("/sidd/category", async function (req, res) {
     const showCategoryId = req.query.categoryID;
-    let category = await Event.findOne({catId: showCategoryId}).populate('eventsList') 
-    if(!category){
-        res.render("show-category-without-categories.html" ); //If no categories present then cannot display a category
-    }else{
-        if(showCategoryId==undefined){
+    let category = await Event.findOne({catId: showCategoryId}).populate('eventsList')
+    if (! category) {
+        res.render("show-category-without-categories.html"); // If no categories present then cannot display a category
+    } else {
+        if (showCategoryId == undefined) {
             const events = await Event.find({});
-            res.render("show-category-details", { categories: categoriesDB, index: 0 , events: events}); //If no category specified by user then show a default category
-        }else{
-            res.render("show-category-details"< {
+            res.render("show-category-details", {
+                categories: categoriesDB,
+                index: 0,
+                events: events
+            }); // If no category specified by user then show a default category
+        } else {
+            res.render("show-category-details" < {
                 categories: category,
                 events: category.eventsList
             });
@@ -115,9 +127,9 @@ router.get("/sidd/category", async function(req, res){
 router.get("/sidd/events/delete", async (req, res) => {
     const deleteid = req.query.id;
 
-    if(deleteid==undefined){
-        res.render("delete-event.html" ) //If no category ID specified then display a page which tells the user to input parameters
-    }else{
+    if (deleteid == undefined) {
+        res.render("delete-event.html") // If no category ID specified then display a page which tells the user to input parameters
+    } else {
         const deletedEvent = await Event.findOneAndDelete({eventId: deleteid});
 
         if (deletedCategory) {
