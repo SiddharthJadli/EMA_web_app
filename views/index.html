@@ -86,49 +86,19 @@
     </div>
     
     <script>
-        //for counting category
-        async function fetchCategoryCount() {
-            const response = await fetch('/count/categorycount');
+        async function fetchAndShowCounts(url,elementId) {
+            const response = await fetch (url);
             const data = await response.json();
-            const categoryCount = document.getElementById('categoryCount');
-            categoryCount.textContent = data.count;
+            const element = document.getElementById(elementId);
+            element.textContent = data.count;
         }
-        window.addEventListener('load', fetchCategoryCount);
-//for counting events
-        async function fetchEventCount() {
-            const response = await fetch('/count/eventcount');
-            const data = await response.json();
-            const eventCount = document.getElementById('eventCount');
-            eventCount.textContent = data.count;
-        }
-        window.addEventListener('load', fetchEventCount);
-// for addoperation
-        async function fetchAddOperationCount() {
-            const response = await fetch('/count/addcount');
-            const data = await response.json();
-            const addCount = document.getElementById('appOperationCount');
-            addCount.textContent = data.count;
-        }
-        window.addEventListener('load', fetchAddOperationCount);
-// for update operation
-
-        async function fetchUpdateOperationCount() {
-            const response = await fetch('/count/updatecount');
-            const data = await response.json();
-            const updateCount = document.getElementById('updateOperationCount');
-            updateCount.textContent = data.count;
-        }
-        window.addEventListener('load', fetchUpdateOperationCount);
-// for delete operation
-
-        async function fetchDeleteOperationCount() {
-            const response = await fetch('/count/deletecount');
-            const data = await response.json();
-            const deleteCount = document.getElementById('deleteOperationCount');
-            deleteCount.textContent = data.count;
-        }
-        window.addEventListener('load', fetchDeleteOperationCount);
-
+        window.addEventListener('load', () => {
+            fetchAndShowCounts('/count/categorycount', 'categoryCount');
+            fetchAndShowCounts('/count/eventcount', 'eventCount');
+            fetchAndShowCounts('/count/addcount', 'addOperationCount');
+            fetchAndShowCounts('/count/updatecount', 'updateOperationCount');
+            fetchAndShowCounts('/count/deletecount', 'deleteOperationCount');
+        });
     </script>
 
 
