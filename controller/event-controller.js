@@ -1,11 +1,10 @@
 const Event = require("../models/event");
 const Category = require("../models/category");
+const statsController = require("../controller/stats")
 
 module.exports = {
 	insertEvent: async function (req, res) {
-		let anEvent = new Event({ name: req.body.name, description: req.body.description, startTime: req.body.startTime, duration: req.body.duration, capacity: req.body.capacity, categories: req.body.categories});
-        
-        console.log(req.body, anEvent);
+		let anEvent = new Event({ name: req.body.name, description: req.body.description, startTime: req.body.startTime, duration: req.body.duration, capacity: req.body.capacity, categories: req.body.categories});   
         
         //Splitting user input
         let categoryIDList = req.body.categories.split(",");
@@ -22,12 +21,10 @@ module.exports = {
 
         await anEvent.save();
 
+        statsController.incrementCounter('add');
+
 		res.json(anEvent.eventId);
 	},
-
-    // addCategoryToEvent: async function(req, res) {
-
-    // }
 
     listEvents: async function (req, res) {
 		let events = await Event.find({}).populate("categoryList");
@@ -40,6 +37,8 @@ module.exports = {
         let capacity = req.body.capacity;
 
         let updatedEvent = await Event.findOneAndUpdate({eventId: eventID},{name: name, capacity: capacity});
+
+        statsController.incrementCounter('update');
 
         res.status(200).json({
             "status": "updated successfully"
@@ -62,6 +61,8 @@ module.exports = {
         })
 
 	    let deletedEvent = await Event.deleteOne(anEvent._id);  
+
+        statsController.incrementCounter('delete');
         
         res.status(200).json(deletedEvent)
     }

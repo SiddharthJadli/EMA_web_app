@@ -1,21 +1,12 @@
 const mongoose = require('mongoose');
 
 const operationSchema = new mongoose.Schema({
-    add: {
-        type: Number, 
-        default: 0
-    },
+    operation: String,
 
-    update: {
+    counter: {
         type: Number, 
-        default: 0
-    },
-
-    delete: {
-        type: Number, 
-        default: 0
-    },
+        default: 0,
+    }
 });
-
 
 module.exports = mongoose.model("Operation", operationSchema);

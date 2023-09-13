@@ -18,8 +18,6 @@ module.exports = {
 
         await aCategory.save();
         res.status(200).json({category: aCategory.catId});
-        Operation.incrementAdd;
-
     },
 
     // addEventToCategory: async function (req, res) {

@@ -11,9 +11,19 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 async function asyncCall() {
-    let existingOperation = await Operation.findOne();
-    if (! existingOperation) {
-        let anOperation = new Operation();
+    let existingAddOperation = await Operation.findOne({operation: "add"});
+    if (! existingAddOperation) {
+        let anOperation = new Operation({operation: "add"});
+        await anOperation.save();
+    }
+    let existingUpdateOperation = await Operation.findOne({operation: "update"});
+    if (! existingUpdateOperation) {
+        let anOperation = new Operation({operation: "update"});
+        await anOperation.save();
+    }
+    let existingDeleteOperation = await Operation.findOne({operation: "delete"});
+    if (! existingDeleteOperation) {
+        let anOperation = new Operation({operation: "delete"});
         await anOperation.save();
     }
 }
