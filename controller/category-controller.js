@@ -1,27 +1,34 @@
-const Category = require("../models/category");
 const Event = require("../models/event");
+const Category = require("../models/category");
+
 const Operation = require("./stats")
 
-module.exports = { // cant populate event list after adding
+module.exports = { 
 
     addCategory: async function (req, res) {
         console.log("Request body:", req.body);
-        const aCategory = new Category({name: req.body.name, description: req.body.description, image: req.body.image, eventId: req.body.eventId});
-        await aCategory.save();
-        // if (req.body.eventId) {
-        //     const events = await Event.find({categoryId: aCategory._id});
-        //     aCategory.eventList = events;
-        //     await aCategory.save();
-        // }
+        let aCategory = new Category({
+            name: req.body.name, 
+            description: req.body.description, 
+            image: req.body.image, 
+            // eventId: req.body.event_id});
+        // aCategory.eventsList.push(req.body.eventId);
+        })
+        aCategory.eventsList = req.body.eventsList;
 
+        await aCategory.save();
         res.status(200).json({category: aCategory.catId});
         Operation.incrementAdd;
 
     },
 
+    // addEventToCategory: async function (req, res) {
+
+    // }
+//put eventList[] in postman
 
     listCategory: async (req, res) => {
-        let categories = await Category.find({}).populate("eventsList");
+        let categories = await Category.find({}).populate({path: 'eventsList', model: 'Event'});
         res.json(categories);
     },
 
