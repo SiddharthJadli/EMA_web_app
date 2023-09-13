@@ -80,7 +80,7 @@ router.get("/category/33306036/list-all", async (req, res) => {
 router.get("/category/33306036/show-event-details", async function (req, res) {
 
     const showEventId = req.query.eventId;
-let event = await Event.findOne({eventId: showEventId}).populate('categoryList')
+    let event = await Event.findOne({eventId: showEventId}).populate('categoryList')
     if (!event) {
         res.render("show-event-without-events.html");
     } else {

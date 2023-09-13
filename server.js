@@ -73,6 +73,8 @@ app.get("/" , function (req, res) {
   });
 
 //for category and event labels
+const statsController = require("./controller/stats");
+
 app.get('/counts', async (req, res) => {
     const counts = await statsController.getCurrentCounts(req, res);
     res.render('index', { counts });

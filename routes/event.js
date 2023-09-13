@@ -19,14 +19,11 @@ router.use(morgan('tiny'));
 router.use(express.urlencoded({ extended: true}));
 router.use(express.json());
 
+const mongoose = require('mongoose');
+const Category = require("../models/category");
 const Event = require("../models/event");
 
-/**
- * An array of categories.
- * @type {Event[]}
- */
-global.eventsDB = [];
-const categoriesDB = require("./event-category").categoriesDB;
+
 
 /**
  * Route handler for rendering the "Add Event" page.
@@ -37,7 +34,7 @@ router.get("/sidd/events/add", function(req, res){
     if (categoriesDB.length == 0){
         res.render("add-event-without-category" ); //If no category added then render to a page which asks to add a category
     } else{
-        res.render("add-event" );
+        res.render("add-event");
     }
 })
 
@@ -46,25 +43,33 @@ router.get("/sidd/events/add", function(req, res){
  * @name POST-/sidd/events/add
  * @function
  */
-router.post("/sidd/events/add", function(req, res){
-    let reqBody = req.body;
-    console.log(reqBody);
-    let newEvent = new Event(reqBody.name, reqBody.description, reqBody.startDateTime, reqBody.duration, reqBody.isActive, reqBody.image, reqBody.capacity, reqBody.ticketsAvailable, reqBody.categoryID);
-    // let events = req.app.get("events");
-    global.eventsDB.push(newEvent);
-    // req.app.set('events', events);
-    console.log("duration");
-    console.log(eventsDB);
-    res.redirect("/sidd/events");
-})
+router.post("/sidd/events/add", async(req, res) => {
+    try{
+        let reqBody = req.body;
+        console.log(reqBody);
+        const newEvent = new Event(reqBody.name, reqBody.description, reqBody.startDateTime, reqBody.duration, reqBody.isActive, reqBody.image, reqBody.capacity, reqBody.ticketsAvailable, reqBody.categoryID);
+        await newEvent.save();
+        console.log('Event saved to Mongodb', newEvent);
+        const events = await Event.find({});
+        res.render("/sidd/events", {events});
+    } catch (error) {
+        console.log("Error while saving event", error);
+        res.status(500).json({message: 'Internal Server Error'});
+    }
+});
 
 /**
  * Router for rendering the "List All Events" page.
  * @name GET-/sidd/events
  * @function
  */
-router.get("/sidd/events", function(req, res){
-    res.render("list-all-events", { events: eventsDB });
+router.get("/sidd/events", async (req, res) => {
+    try{
+        const events = await Event.find({});
+        res.render("list-all-events", { events: events });
+    } catch (err) {
+        console.log('Error while getting events')
+    }
 })
 
 /**
@@ -72,8 +77,9 @@ router.get("/sidd/events", function(req, res){
  * @name GET-/sidd/soldout-events
  * @function
  */
-router.get("/sidd/soldout-events", function(req, res){
-    res.render("list-soldout-events", { events: eventsDB });
+router.get("/sidd/soldout-events", async (req, res) => {
+    const events = await Event.find({});
+    res.render("list-soldout-events", { events: events });
 })
 
 /**
@@ -83,21 +89,20 @@ router.get("/sidd/soldout-events", function(req, res){
  * @param {import("express").Request} 
  * @param {import("express").Response} 
  */
-router.get("/sidd/category", function(req, res){
-    const showCategoryId = req.query.id;
-    console.log(categoriesDB);   
-    if(categoriesDB.length == 0){
+router.get("/sidd/category", async function(req, res){
+    const showCategoryId = req.query.categoryID;
+    let category = await Event.findOne({catId: showCategoryId}).populate('eventsList') 
+    if(!category){
         res.render("show-category-without-categories.html" ); //If no categories present then cannot display a category
     }else{
         if(showCategoryId==undefined){
-            res.render("show-category-details", { categories: categoriesDB, index: 0 , events: eventsDB}); //If no category specified by user then show a default category
+            const events = await Event.find({});
+            res.render("show-category-details", { categories: categoriesDB, index: 0 , events: events}); //If no category specified by user then show a default category
         }else{
-            for (let i = 0; i < categoriesDB.length; i++) {
-                if (categoriesDB[i].id == showCategoryId) {
-                    res.render("show-category-details", { categories: categoriesDB, index: i , events: eventsDB});
-                    break;
-                } 
-            }
+            res.render("show-category-details"< {
+                categories: category,
+                events: category.eventsList
+            });
         }
     }
 })
@@ -107,19 +112,20 @@ router.get("/sidd/category", function(req, res){
  * @name GET-/sidd/events/delete?id=
  * @function
  */
-router.get("/sidd/events/delete", function(req, res){
+router.get("/sidd/events/delete", async (req, res) => {
     const deleteid = req.query.id;
-    
+
     if(deleteid==undefined){
         res.render("delete-event.html" ) //If no category ID specified then display a page which tells the user to input parameters
     }else{
-        for (let i = 0; i < eventsDB.length; i++) {
-            if (eventsDB[i].id === deleteid) {
-                eventsDB.splice(i, 1);
-                break;
-            } 
+        const deletedEvent = await Event.findOneAndDelete({eventId: deleteid});
+
+        if (deletedCategory) {
+            console.log('Deleted event:', deletedEvent);
+            res.redirect("/sidd/events");
+        } else {
+            console.log('Event ID not found:', deletedEvent);
         }
-        res.redirect("/sidd/events");
     }
 })
 
