@@ -16,6 +16,7 @@ module.exports = {
         const event = await Event.findOne({ eventId: eventId });
         category.eventsList.push(event._id);
         await category.save();
+        statsController.incrementCounter('add');
         res.status(200).json({ message: 'Event added successfully' });
     },
  

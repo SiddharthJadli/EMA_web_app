@@ -22,6 +22,7 @@ router.use(express.json());
 const mongoose = require('mongoose');
 const Category = require("../models/category");
 const Event = require("../models/event");
+const statsController = require("../controller/stats")
 
 /**
  * Route handler for rendering the "Add Event" page.
@@ -69,6 +70,8 @@ router.post("/sidd/events/add", async (req, res) => {
             const category = await Category.find({catId: {$in: categoryIDList}});
             newEvent.categoryList = category;
 
+            statsController.incrementCounter('add');
+
             await newEvent.save();
 
             res.redirect("/sidd/events");
@@ -96,6 +99,8 @@ router.post("/sidd/events/add", async (req, res) => {
             const category = await Category.find({catId: {$in: categoryIDList}});
             newEvent.categoryList = category;
 
+            statsController.incrementCounter('add');
+
             await newEvent.save();
 
             res.redirect("/sidd/events");
@@ -110,7 +115,7 @@ router.post("/sidd/events/add", async (req, res) => {
                         availableTickets: reqBody.ticketsAvailable,
                         categoryID: reqBody.categoryID
                     });
-                
+               
             //Splitting user input
             let categoryIDList = reqBody.categoryID.split(",");
             
@@ -125,6 +130,8 @@ router.post("/sidd/events/add", async (req, res) => {
             newEvent.categoryList = category;
 
             await newEvent.save();
+
+            statsController.incrementCounter('add');
 
             res.redirect("/sidd/events");
         } else {
@@ -201,6 +208,8 @@ router.get("/sidd/events/delete", async (req, res) => {
         res.render("delete-event.html") // If no event ID specified then display a page which tells the user to input parameters
     } else {
         const deletedEvent = await Event.findOneAndDelete({eventId: deleteid});
+
+        statsController.incrementCounter('delete');
 
         res.redirect("/sidd/events");
     }

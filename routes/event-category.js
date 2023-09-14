@@ -49,6 +49,8 @@ router.post("/category/33306036/add", async (req, res) => {
         res.render("list-all-category", {categories});
     } catch (error) {
         console.log("err saving category", error);
+        statsController.incrementCounter('add');
+
         res.status(500).json({message: 'Internal Server Error'});
     }
 });
@@ -79,20 +81,27 @@ router.get("/category/33306036/list-all", async (req, res) => {
  */
 router.get("/category/33306036/show-event-details", async function (req, res) {
     const showEventId = req.query.eventId;
-//    if (!event) {
-//         res.render("show-event-without-events.html");
-//     } else {
-            const EVENT = await Event.findOne({ eventId: showEventId }).exec();
-            console.log(EVENT);
-            // const Category = await Category.findOne({catId: showCategoryId })
-            res.render("show-event-details", {
-                events: EVENT,
-                categories: Category
-            });
-        }
-    // }
-);
+    const showEvent = await Event.findOne({eventId: showEventId}).exec();
 
+    if (showEvent == undefined) {
+        const events = await Event.find({});
+
+        res.render("show-event-without-events.html");
+    } else {
+        console.log(showEvent);
+        // const Category = await Category.findOne({catId: showCategoryId })
+        if (showEvent == null) {
+            res.render("nullShowEvent")
+        } else {
+            const events = await Event.find({});
+            res.render("show-event-details"), {
+                events: events,
+                categories,
+                category
+            }
+        }
+    }
+});
 
 /**
  * Route handler for listing categories filtered by a keyword.
@@ -129,6 +138,8 @@ router.post('/category/33306036/delete-by-ID', async (req, res) => {
     const deletedCategory = await Category.findOneAndDelete({catId: categoryID});
     if (deletedCategory) {
         console.log('Deleted category:', deletedCategory);
+        statsController.incrementCounter('delete');
+
         res.redirect('/category/33306036/list-all');
     } else {
         console.log('Category ID not found:', categoryID);
