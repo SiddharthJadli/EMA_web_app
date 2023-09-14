@@ -23,8 +23,6 @@ const mongoose = require('mongoose');
 const Category = require("../models/category");
 const Event = require("../models/event");
 
-
-
 /**
  * Route handler for rendering the "Add Event" page.
  * @name GET-/sidd/events/add
@@ -169,24 +167,20 @@ router.get("/sidd/soldout-events", async (req, res) => {
  * @param {import("express").Request} 
  * @param {import("express").Response} 
  */
-router.get("/sidd/category", async function (req, res) {
-    const showCategoryId = req.query.categoryID;
-    let category = await Event.findOne({catId: showCategoryId}).populate('eventsList')
-    if (! category) {
-        res.render("show-category-without-categories.html"); // If no categories present then cannot display a category
-    } else {
-        if (showCategoryId == undefined) {
+router.get("/sidd/category", async (req, res) => {
+    const showCategoryId = req.query.id;
+    numberOfCategories = await Category.countDocuments();
+    if(numberOfCategories == 0){
+        res.render("show-category-without-categories.html" ); //If no categories present then cannot display a category
+    }else{
+        if(showCategoryId==undefined){
+            const category = await Category.findOne({}).populate('eventsList');
             const events = await Event.find({});
-            res.render("show-category-details", {
-                categories: categoriesDB,
-                index: 0,
-                events: events
-            }); // If no category specified by user then show a default category
-        } else {
-            res.render("show-category-details" < {
-                categories: category,
-                events: category.eventsList
-            });
+            res.render("show-category-details", { categories: category, events: events }); //If no category specified by user then show a default category
+        }else{
+            const category = await Category.findOne({ catId: showCategoryId }).populate('eventsList');
+            const events = await Event.find({});
+            res.render("show-category-details", { categories: category, events: events });
         }
     }
 })
@@ -204,12 +198,7 @@ router.get("/sidd/events/delete", async (req, res) => {
     } else {
         const deletedEvent = await Event.findOneAndDelete({eventId: deleteid});
 
-        if (deletedCategory) {
-            console.log('Deleted event:', deletedEvent);
-            res.redirect("/sidd/events");
-        } else {
-            console.log('Event ID not found:', deletedEvent);
-        }
+        res.redirect("/sidd/events");
     }
 })
 

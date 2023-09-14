@@ -44,11 +44,11 @@ app.use("/sidd/api/v1", eventRouter);
 const categoryRouter = require("./routes/category-api");
 app.use("/api/v1/category/33306036", categoryRouter);
 
-const oriCategoryRouter = require("./routes/event-category");
-app.use("/" , oriCategoryRouter);
+const originalCategoryRouter = require("./routes/event-category");
+app.use("/" , originalCategoryRouter);
 
-const oriEventRouter = require("./routes/event");
-app.use("/" , oriEventRouter);
+const originalEventRouter = require("./routes/event");
+app.use("/" , originalEventRouter);
 
 //for labels in html
 const counters = require("./routes/operation-api");

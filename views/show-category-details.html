@@ -21,28 +21,28 @@
     </head>
     <body>
         <img src="/Categoryimg.png" alt="events" style="width: 100%; height: auto;">
-        <h2 style="margin-top: 60px; margin-bottom: 30px; margin-left: 30px; text-align: center;"><%= categories[index].name %></h2>
+        <h2 style="margin-top: 60px; margin-bottom: 30px; margin-left: 30px; text-align: center;"><%= categories.name %></h2>
 
         <table>
             <tbody>   
                 <tr>
                     <td>Category ID:</td>
-                    <td><%= categories[index].id %></td>
+                    <td><%= categories.catId %></td>
                 </tr>
 
                 <tr>
                     <td>Name:</td>
-                    <td><%= categories[index].name %></td>
+                    <td><%= categories.name %></td>
                 </tr>
 
                 <tr>
                     <td>Description:</td>
-                    <td><%= categories[index].description %></td>
+                    <td><%= categories.description %></td>
                 </tr>
 
                 <tr>
                     <td>Created Date Time:</td>
-                    <td><%= categories[index].createdAt %></td>
+                    <td><%= categories.createdAt %></td>
                 </tr>
             </tbody>
         </table>
@@ -64,18 +64,18 @@
                 </thead>
                 <tbody>
                     <% for(let i=0;i<events.length;i++){ %>
-                        <% if(events[i].categoryID == categories[index].id){ %>
+                        <% if(events[i].categoryID.split(', ').includes(categories.catId)){ %>
                             <tr> 
-                                <td><%= events[i].id %></td>
+                                <td><%= events[i].eventId %></td>
                                 <td><%= events[i].name %></td>
                                 <td><%= events[i].startTimeFormatted %></td>
                                 <td><%= events[i].endTimeFormatted %></td>
                                 <td><%= events[i].duration %></td>
                                 <td>
-                                    <% if(events[i].isActive == "off") { %>
-                                        <input type="checkbox" disabled="disabled">
-                                    <% } else { %>
+                                    <% if(events[i].isActive == true) { %>
                                         <input type="checkbox" disabled="disabled" checked>
+                                    <% } else { %>
+                                        <input type="checkbox" disabled="disabled">
                                     <% } %>
                                 </td>
                                 <td><%= events[i].capacity %></td>
