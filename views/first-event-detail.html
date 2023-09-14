@@ -1,86 +1,86 @@
 <!DOCTYPE html>
+
 <head>
     <link href="/bootstrap.min.css" rel="stylesheet" />
     <style>
         .container {
             margin-top: 20px;
         }
+
         .table {
             width: 100%;
             max-width: 600px;
             margin: auto;
         }
-    
+
         td {
             padding: 15px;
             vertical-align: top;
         }
     </style>
 </head>
+
 <body>
     <a href="/"> <img src="/event.png" alt="events" style="width: 100%; height: auto;"> </a>
     <h2 style="margin-top: 60px; margin-bottom: 30px; margin-left: 30px; text-align: center;"></h2>
-    <div class="container m-8" >
+    <div class="container m-8">
         <table>
-            <tbody>   
+            <tbody>
 
                 <tr>
                     <td>Event ID:</td>
-                    <td><%= events.eventId %></td>
+                    <td>EEE-111</td>
                 </tr>
-    
+
                 <tr>
                     <td>Name:</td>
-                    <td><%= events.name %></td>
+                    <td>Sample Event</td>
                 </tr>
-    
+
                 <tr>
                     <td>Description:</td>
-                    <td><%= events.description %></td>
+                    <td>Sample Event Description</td>
                 </tr>
 
                 <tr>
                     <td>Start Date Time:</td>
-                    <td><%= events.startTimeFormatted %></td>
+                    <td>15/09/2023, 04:44 am</td>
                 </tr>
-    
+
                 <tr>
                     <td>End Date Time:</td>
-                    <td><%= events.endTimeFormatted %></td>
+                    <td>15/09/2023, 05:55 am</td>
                 </tr>
 
                 <tr>
                     <td>Duration:</td>
-                    <td><%= events.duration %> Minutes</td>
+                    <td>66 Minutes</td>
                 </tr>
-    
+
                 <tr>
                     <td>Is Active:</td>
                     <td>
-                        <% if(events.isActive == "off") { %>
-                            <input type="checkbox" disabled="disabled">
-                        <% } else { %>
-                            <input type="checkbox" disabled="disabled" checked>
-                        <% } %>
+                        <input type="checkbox" disabled="disabled" id="isActiveCheckbox">
                     </td>
                 </tr>
-    
+
                 <tr>
                     <td>Capacity:</td>
-                    <td><%= events.capacity %></td>
+                    <td> 30 %></td>
                 </tr>
-    
+
                 <tr>
                     <td>Tickets Available: </td>
-                    <td><%= events.availableTickets %></td>
+                    <td>100</td>
                 </tr>
-    
+
                 <tr>
                     <td>Category ID:</td>
-                    <td><%= events.categoryID %></td>
+                    <td>CCC-100</td>
                 </tr>
             </tbody>
         </table>
-    </div>  
+    </div>
 </body>
+
 </html>

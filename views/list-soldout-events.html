@@ -5,7 +5,7 @@
          <link href="/bootstrap.min.css" rel="stylesheet" />
     </head>
     <body>
-        <img src="/Appbanner.png" alt="events" style="width: 100%; height: auto;">
+        <a href="/"> <img src="/Appbanner.png" alt="events" style="width: 100%; height: auto;"> </a>
 
         <h2 style="margin-top: 60px; margin-bottom: 60px; margin-left: 30px; text-align: center;">Sold Event List</h2>
         <div class="container m-3">
@@ -46,7 +46,7 @@
                                     <td><%= events[i].categoryID %></td>
                                     <td>
                                         <div class="buttons-contain">
-                                            <a href="/category/33306036/show-event-details?id=<%= events[i].eventId %>" class="btn btn-primary">View</a>
+                                            <a href="/category/33306036/show-event-details/<%= events[i].eventId %>" class="btn btn-primary">View</a>
                                         </div>                   
                                     </td>
                                 </tr>

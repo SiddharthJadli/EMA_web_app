@@ -1,3 +1,8 @@
+/**
+ * @requires mongoose
+ * @requires express
+ * @requires operation
+ */
 const mongoose = require("mongoose");
 const express = require('express');
 
@@ -7,17 +12,28 @@ const url = "mongodb://127.0.0.1:27017/assignment02";
 
 const app = express();
 const ejs = require("ejs");
-
+/**
+ * Serve static Bootstrap CSS files.
+ */
 app.use(express.static("node_modules/bootstrap/dist/css"));
+/**
+ * Serve static image files.
+ */
 app.use(express.static("Images"));
 app.use('/Images', express.static("Images"));
-
+/**
+ * Configure EJS as the view engine.
+ */
 app.engine("html", ejs.renderFile);
 app.set("view engine", "html");
-
+/**
+ * Enable JSON and URL-encoded request body parsing.
+ */
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
+/**
+ * Asynchronous function to initialize operation counters.
+ */
 async function asyncCall() {
     let existingAddOperation = await Operation.findOne({operation: "add"});
     if (! existingAddOperation) {
@@ -43,7 +59,9 @@ async function asyncCall() {
 }
 asyncCall();
 
-
+/**
+ * Require and use the event, category, original router.
+ */
 const eventRouter = require("./routes/event-api");
 app.use("/sidd/api/v1", eventRouter);
 
@@ -59,8 +77,11 @@ app.use("/" , originalEventRouter);
 //for labels in html
 const counters = require("./routes/operation-api");
 app.use("/count" , counters);
-
-
+/**
+ * Asynchronous function to connect to the MongoDB database.
+ * @param {string} url - The MongoDB connection URL.
+ * @returns {string} - A message indicating the connection status.
+ */
 async function connect(url) {
     await mongoose.connect(url);
     return "Connected Successfully";
@@ -74,6 +95,10 @@ connect(url).then(() => {
     });
 }).catch((err) => console.log(err));
 
+app.get("/category/33306036/first-event-detail", function(req, res) {
+    res.render("first-event-detail.html");
+});
+
 const Category = require("./models/category");
 
 app.get("/" , async function (req, res) {
@@ -86,6 +111,11 @@ app.get("/" , async function (req, res) {
     }
 });
 
+
+
+/**
+ * Handle all other routes with a 404 status and render the "404.html" page.
+ */
 app.get("*", function(req, res) {
     res.status(404).render("404.html");
 });

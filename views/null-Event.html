@@ -2,7 +2,7 @@
 <html lang = "en">
     <head>
         <link href="/bootstrap.min.css" rel="stylesheet" />
-
+        
         <style>   
             .buttons-contain {
                 text-align: center;
@@ -17,16 +17,12 @@
         
     </head>
     <body>
-        <a href="/"> <img src="/Appbanner.png" alt="events" style="width: 100%; height: auto;"> </a>
-
         <div class="container">
-            <h2 style="text-align: center;">Missing query parameter "id"</h2>
-            <p style="text-align: center;">Cannot find event with ID: undefined</p>  
-            <br />
-        </div>                  
-        
+            <h2 style="text-align: center;">Could not find the event</h2>
+            <p style="text-align: center;">The event ID you provided (<%= eventId %>) does not exist in the database</p>                    
+        </div>
         <div class="buttons-contain">
-            <a href="/" class="btn btn-primary" role="button">Back to Home Page</a>   
+            <a href="/" class="btn btn-primary" role="button">Back to Home Page</a>
         </div>
     </body>
 </html>

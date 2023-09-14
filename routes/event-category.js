@@ -21,6 +21,7 @@ router.use(express.json());
 const mongoose = require('mongoose');
 const Category = require("../models/category");
 const Event = require("../models/event");
+const statsController = require("../controller/stats")
 
 
 /**
@@ -46,11 +47,11 @@ router.post("/category/33306036/add", async (req, res) => {
         await aCategory.save();
         console.log('category saved to Mongodb', aCategory);
         const categories = await Category.find({});
+        statsController.incrementCounter('add');
+
         res.render("list-all-category", {categories});
     } catch (error) {
         console.log("err saving category", error);
-        statsController.incrementCounter('add');
-
         res.status(500).json({message: 'Internal Server Error'});
     }
 });
@@ -79,26 +80,30 @@ router.get("/category/33306036/list-all", async (req, res) => {
  * @param {import("express").Request} 
  * @param {import("express").Response} 
  */
-router.get("/category/33306036/show-event-details", async function (req, res) {
-    const showEventId = req.query.eventId;
-    const showEvent = await Event.findOne({eventId: showEventId}).exec();
-
-    if (showEvent == undefined) {
-        const events = await Event.find({});
-
-        res.render("show-event-without-events.html");
+router.get("/category/33306036/show-event-details/:eventId", async function (req, res) {
+    const showEventId = req.params.eventId;
+    countingEvents = await Event.countDocuments();
+    if (countingEvents == 0) {
+        res.render("show-category-without-categories.html");
     } else {
-        console.log(showEvent);
-        // const Category = await Category.findOne({catId: showCategoryId })
-        if (showEvent == null) {
-            res.render("nullShowEvent")
-        } else {
-            const events = await Event.find({});
-            res.render("show-event-details"), {
+        if (showEventId == undefined) {
+            const events = await Event.findOne({}).populate('categoryList');
+            const categories = await Category.find({});
+            res.render("show-event-details", {
                 events: events,
-                categories,
-                category
+                categories: categories
+            });
+        } else {
+
+            const events = await Event.findOne({eventId: showEventId}).populate('categoryList');
+            if (events == null) {
+                res.render("null-Event", {eventId: showEventId});
             }
+            const categories = await Category.find({});
+            res.render("show-event-details", {
+                events: events,
+                categories: categories
+            });
         }
     }
 });
@@ -132,13 +137,19 @@ router.get("/category/33306036/list-by-keyword", async (req, res) => {
 router.get("/category/33306036/delete-by-ID", async (req, res) => {
     res.render("delete-category-by-ID");
 });
+/**
+ * Delete a category by ID.
+ * @name POST /category/33306036/delete-by-ID
+ * @function
+ */
 router.post('/category/33306036/delete-by-ID', async (req, res) => {
     const categoryID = req.body.catId;
     console.log("Received categoryID:", categoryID);
     const deletedCategory = await Category.findOneAndDelete({catId: categoryID});
+    statsController.incrementCounter('delete');
+
     if (deletedCategory) {
         console.log('Deleted category:', deletedCategory);
-        statsController.incrementCounter('delete');
 
         res.redirect('/category/33306036/list-all');
     } else {
