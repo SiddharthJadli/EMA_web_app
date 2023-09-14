@@ -23,16 +23,22 @@ async function asyncCall() {
     if (! existingAddOperation) {
         let anOperation = new Operation({operation: "add"});
         await anOperation.save();
+    }else{
+        await Operation.findOneAndUpdate({ operation: "add"}, {counter: 0});
     }
     let existingUpdateOperation = await Operation.findOne({operation: "update"});
     if (! existingUpdateOperation) {
         let anOperation = new Operation({operation: "update"});
         await anOperation.save();
+    }else{
+        await Operation.findOneAndUpdate({ operation: "update"}, {counter: 0});
     }
     let existingDeleteOperation = await Operation.findOne({operation: "delete"});
     if (! existingDeleteOperation) {
         let anOperation = new Operation({operation: "delete"});
         await anOperation.save();
+    }else{
+        await Operation.findOneAndUpdate({ operation: "delete"}, {counter: 0});
     }
 }
 asyncCall();
