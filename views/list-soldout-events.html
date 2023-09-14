@@ -29,7 +29,7 @@
                         <% for(let i=0;i<events.length;i++){ %>
                             <% if(events[i].availableTickets == 0){ %>
                                 <tr> 
-                                    <td><%= events[i].id %></td>
+                                    <td><%= events[i].eventId %></td>
                                     <td><%= events[i].name %></td>
                                     <td><%= events[i].startTimeFormatted %></td>
                                     <td><%= events[i].endTimeFormatted %></td>

@@ -4,8 +4,9 @@ const router = express.Router();
 
 router.get("/categorycount", stats.countCategories);
 router.get("/eventcount", stats.countEvents);
-router.get("/deletecount", stats.getCounter);
-router.get("/addcount", stats.getCounter);
-router.get("/updatecount", stats.getCounter);
+router.get("/deletecount", stats.deleteCount);
+router.get("/addcount", stats.addCount);
+router.get("/updatecount", stats.updateCount);
+
 
 module.exports = router;
