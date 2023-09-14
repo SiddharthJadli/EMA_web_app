@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <link href="/bootstrap.min.css" rel="stylesheet" />
+        
+        <style>   
+            .buttons-contain {
+                text-align: center;
+            }
+
+
+            .container {
+                margin-top: 80px;
+                margin-bottom: 20px;
+            }
+        </style>  
+        
+    </head>
+    <body>
+        <div class="container">
+            <h2 style="text-align: center;">Could not find the category</h2>
+            <p style="text-align: center;">The category ID you provided (<%= catID %>) does not exist in the database</p>                    
+        </div>
+        <div class="buttons-contain">
+            <a href="/" class="btn btn-primary" role="button">Back to Home Page</a>
+        </div>
+    </body>
+</html>

@@ -179,6 +179,10 @@ router.get("/sidd/category", async (req, res) => {
             res.render("show-category-details", { categories: category, events: events }); //If no category specified by user then show a default category
         }else{
             const category = await Category.findOne({ catId: showCategoryId }).populate('eventsList');
+            
+            if (category == null){
+                res.render("wrong-cat-name", {catID: showCategoryId});
+            }
             const events = await Event.find({});
             res.render("show-category-details", { categories: category, events: events });
         }
@@ -193,8 +197,8 @@ router.get("/sidd/category", async (req, res) => {
 router.get("/sidd/events/delete", async (req, res) => {
     const deleteid = req.query.id;
 
-    if (deleteid == undefined) {
-        res.render("delete-event.html") // If no category ID specified then display a page which tells the user to input parameters
+    if (deleteid == "") {
+        res.render("delete-event.html") // If no event ID specified then display a page which tells the user to input parameters
     } else {
         const deletedEvent = await Event.findOneAndDelete({eventId: deleteid});
 

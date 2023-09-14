@@ -36,13 +36,19 @@ module.exports = {
         let name = req.body.name;
         let capacity = req.body.capacity;
 
-        let updatedEvent = await Event.findOneAndUpdate({eventId: eventID},{name: name, capacity: capacity});
+        if(await Event.findOne({eventId: eventID}) == null){
+            res.status(404).json({
+                "status": "Event ID not found",
+            })
+        } else {
+            let updatedEvent = await Event.findOneAndUpdate({eventId: eventID},{name: name, capacity: capacity});
 
-        statsController.incrementCounter('update');
+            statsController.incrementCounter('update');
 
-        res.status(200).json({
-            "status": "updated successfully"
-        })
+            res.status(200).json({
+                "status": "updated successfully"
+            })
+        }
     },
 
 	deleteEvent: async function (req, res) {

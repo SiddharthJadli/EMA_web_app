@@ -68,9 +68,17 @@ connect(url).then(() => {
     });
 }).catch((err) => console.log(err));
 
-app.get("/" , function (req, res) {
-    res.render("index");
-  });
+const Category = require("./models/category");
+
+app.get("/" , async function (req, res) {
+    const firstCategory =await Category.findOne();
+    if (firstCategory == null){
+        res.render("index", {catID: ""});
+    }else{
+        console.log(firstCategory);
+        res.render("index", {catID: firstCategory.catId});
+    }
+});
 
 app.get("*", function(req, res) {
     res.status(404).render("404.html");
