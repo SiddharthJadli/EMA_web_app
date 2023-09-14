@@ -1,11 +1,7 @@
 const mongoose = require("mongoose");
 const express = require('express');
-const category = require("./models/category"); 
-
 
 const Operation = require("./models/operation");
-
-
 
 const url = "mongodb://127.0.0.1:27017/assignment02";
 
@@ -38,12 +34,10 @@ async function asyncCall() {
         let anOperation = new Operation({operation: "delete"});
         await anOperation.save();
     }
-    
-    
 }
 asyncCall();
 
-  
+
 const eventRouter = require("./routes/event-api");
 app.use("/sidd/api/v1", eventRouter);
 
@@ -56,7 +50,7 @@ app.use("/" , oriCategoryRouter);
 const oriEventRouter = require("./routes/event");
 app.use("/" , oriEventRouter);
 
-//for labels inhtml
+//for labels in html
 const counters = require("./routes/operation-api");
 app.use("/count" , counters);
 
@@ -77,9 +71,6 @@ connect(url).then(() => {
 app.get("/" , function (req, res) {
     res.render("index");
   });
-
-// for category and event labels
-
 
 app.get("*", function(req, res) {
     res.status(404).render("404.html");

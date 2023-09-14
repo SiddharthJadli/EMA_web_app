@@ -47,19 +47,91 @@ router.get("/sidd/events/add", async (req, res) => {
 router.post("/sidd/events/add", async (req, res) => {
     try {
         let reqBody = req.body;
-        console.log(reqBody);
-        const newEvent = new Event({ name: reqBody.name,
-            description: reqBody.description,
-            startDateTime: reqBody.startDateTime,
-            duration: reqBody.duration,
-            isActive: reqBody.isActive=='on',
-            image: reqBody.image,
-            capacity: reqBody.capacity,
-            ticketsAvailable: reqBody.ticketsAvailable,
-            categoryID: reqBody.categoryID,});
-        await newEvent.save();
-        const events = await Event.find({});
-        res.render("/sidd/events", {events});
+
+        if(reqBody.capacity == '' && reqBody.ticketsAvailable == ''){
+            const newEvent = new Event({ name: reqBody.name,
+                description: reqBody.description,
+                startTime: reqBody.startTime + ":00.000Z",
+                duration: reqBody.duration,
+                isActive: reqBody.isActive == 'on',
+                image: reqBody.image,
+                categoryID: reqBody.categoryID
+            });
+
+            //Splitting user input
+            let categoryIDList = reqBody.categoryID.split(",");
+            
+            let i=0;
+            //Removing any whitespace in the array elements
+            categoryIDList.forEach(categoryID => {
+                categoryIDList[i] = categoryID.trim();
+                i++;
+            });
+
+            const category = await Category.find({catId: {$in: categoryIDList}});
+            newEvent.categoryList = category;
+
+            await newEvent.save();
+
+            res.redirect("/sidd/events");
+        } else if (reqBody.capacity != '' && reqBody.ticketsAvailable == '') {
+            const newEvent = new Event({ name: reqBody.name,
+                description: reqBody.description,
+                startTime: reqBody.startTime + ":00.000Z",
+                duration: reqBody.duration,
+                isActive: reqBody.isActive == 'on',
+                image: reqBody.image,
+                capacity: reqBody.capacity,
+                categoryID: reqBody.categoryID
+            });
+
+            //Splitting user input
+            let categoryIDList = reqBody.categoryID.split(",");
+            
+            let i=0;
+            //Removing any whitespace in the array elements
+            categoryIDList.forEach(categoryID => {
+                categoryIDList[i] = categoryID.trim();
+                i++;
+            });
+
+            const category = await Category.find({catId: {$in: categoryIDList}});
+            newEvent.categoryList = category;
+
+            await newEvent.save();
+
+            res.redirect("/sidd/events");
+        } else if (reqBody.capacity != '' && reqBody.ticketsAvailable != '') {
+            const newEvent = new Event({ name: reqBody.name,
+                        description: reqBody.description,
+                        startTime: reqBody.startTime + ":00.000Z",
+                        duration: reqBody.duration,
+                        isActive: reqBody.isActive == 'on',
+                        image: reqBody.image,
+                        capacity: reqBody.capacity,
+                        availableTickets: reqBody.ticketsAvailable,
+                        categoryID: reqBody.categoryID
+                    });
+                
+            //Splitting user input
+            let categoryIDList = reqBody.categoryID.split(",");
+            
+            let i=0;
+            //Removing any whitespace in the array elements
+            categoryIDList.forEach(categoryID => {
+                categoryIDList[i] = categoryID.trim();
+                i++;
+            });
+
+            const category = await Category.find({catId: {$in: categoryIDList}});
+            newEvent.categoryList = category;
+
+            await newEvent.save();
+
+            res.redirect("/sidd/events");
+        } else {
+            console.log("You are not providing correct inputs")
+        }
     } catch (error) {
         console.log("Error while saving event", error);
         res.status(500).json({message: 'Internal Server Error'});

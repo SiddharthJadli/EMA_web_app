@@ -4,7 +4,7 @@ const statsController = require("../controller/stats")
 
 module.exports = {
 	insertEvent: async function (req, res) {
-		let anEvent = new Event({ name: req.body.name, description: req.body.description, startTime: req.body.startTime, duration: req.body.duration, capacity: req.body.capacity, categories: req.body.categories});   
+		let anEvent = new Event({ name: req.body.name, description: req.body.description, startTime: req.body.startTime, duration: req.body.duration, capacity: req.body.capacity, availableTickets: req.body.availableTickets, categories: req.body.categories});   
         
         //Splitting user input
         let categoryIDList = req.body.categories.split(",");

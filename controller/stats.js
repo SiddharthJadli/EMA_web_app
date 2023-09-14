@@ -2,11 +2,6 @@ const Operation = require("../models/operation");
 const event = require("../models/event");
 const category = require("../models/category");
 
-async function getCounter(key) {
-    const operation = await Operation.findOne({ operation: key });
-    return operation.counter;
-}
-
 module.exports = {
     incrementCounter: async function(key) {
         const operation = await Operation.findOne({operation: key});

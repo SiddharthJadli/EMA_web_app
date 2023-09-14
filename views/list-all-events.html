@@ -27,16 +27,16 @@
                 <tbody>
                     <% for(let i=0;i<events.length;i++){ %>
                     <tr> 
-                        <td><%= events[i].id %></td>
+                        <td><%= events[i].eventId %></td>
                         <td><%= events[i].name %></td>
                         <td><%= events[i].startTimeFormatted %></td>
                         <td><%= events[i].endTimeFormatted %></td>
                         <td><%= events[i].duration %></td>
                         <td>
-                            <% if(events[i].isActive == "off") { %>
-                                <input type="checkbox" disabled="disabled">
-                            <% } else { %>
+                            <% if(events[i].isActive == true) { %>
                                 <input type="checkbox" disabled="disabled" checked>
+                            <% } else { %>
+                                <input type="checkbox" disabled="disabled">
                             <% } %>
                         </td>
                         <td><%= events[i].capacity %></td>
