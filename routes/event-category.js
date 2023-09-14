@@ -78,18 +78,19 @@ router.get("/category/33306036/list-all", async (req, res) => {
  * @param {import("express").Response} 
  */
 router.get("/category/33306036/show-event-details", async function (req, res) {
-
     const showEventId = req.query.eventId;
-    let event = await Event.findOne({eventId: showEventId}).populate('categoryList')
-    if (!event) {
-        res.render("show-event-without-events.html");
-    } else {
+//    if (!event) {
+//         res.render("show-event-without-events.html");
+//     } else {
+            const EVENT = await Event.findOne({ eventId: showEventId }).exec();
+            console.log(EVENT);
+            // const Category = await Category.findOne({catId: showCategoryId })
             res.render("show-event-details", {
-                events: event,
-                categories: event.categoryList
+                events: EVENT,
+                categories: Category
             });
         }
-    }
+    // }
 );
 
 

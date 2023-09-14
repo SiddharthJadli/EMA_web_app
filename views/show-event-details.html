@@ -19,44 +19,44 @@
     </head>
     <body>
         <img src="/event.png" alt="events" style="width: 100%; height: auto;">
-        <h2 style="margin-top: 60px; margin-bottom: 30px; margin-left: 30px; text-align: center;"><%= events[index].name %></h2>
+        <h2 style="margin-top: 60px; margin-bottom: 30px; margin-left: 30px; text-align: center;"></h2>
         <div class="container m-8" >
             <table>
                 <tbody>   
                     <tr>
                         <td>Event ID:</td>
-                        <td><%= events[index].id %></td>
+                        <td><%= events.eventId %></td>
                     </tr>
         
                     <tr>
                         <td>Name:</td>
-                        <td><%= events[index].name %></td>
+                        <td><%= events.name %></td>
                     </tr>
         
                     <tr>
                         <td>Description:</td>
-                        <td><%= events[index].description %></td>
+                        <td><%= events.description %></td>
                     </tr>
     
                     <tr>
                         <td>Start Date Time:</td>
-                        <td><%= events[index].startTimeFormatted %></td>
+                        <td><%= events.startTimeFormatted %></td>
                     </tr>
         
                     <tr>
                         <td>End Date Time:</td>
-                        <td><%= events[index].endTimeFormatted %></td>
+                        <td><%= events.endTimeFormatted %></td>
                     </tr>
     
                     <tr>
                         <td>Duration:</td>
-                        <td><%= events[index].duration %> Minutes</td>
+                        <td><%= events.duration %> Minutes</td>
                     </tr>
         
                     <tr>
                         <td>Is Active:</td>
                         <td>
-                            <% if(events[index].isActive == "off") { %>
+                            <% if(events.isActive == "off") { %>
                                 <input type="checkbox" disabled="disabled">
                             <% } else { %>
                                 <input type="checkbox" disabled="disabled" checked>
@@ -66,17 +66,17 @@
         
                     <tr>
                         <td>Capacity:</td>
-                        <td><%= events[index].capacity %></td>
+                        <td><%= events.capacity %></td>
                     </tr>
         
                     <tr>
                         <td>Tickets Available: </td>
-                        <td><%= events[index].availableTickets %></td>
+                        <td><%= events.availableTickets %></td>
                     </tr>
         
                     <tr>
-                        <td>Category Id:</td>
-                        <td><%= categories[index].id %></td>
+                        <td>Category ID:</td>
+                        <td><%= categories.catId %></td>
                     </tr>
                 </tbody>
             </table>
