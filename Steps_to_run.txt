@@ -1,7 +1,20 @@
 STEPS TO RUN THE ASSIGNMENT
 
 1. Change the directory to the root folder and run the server.js file with either the node or the nodemon command
-   [Make sure you have all the necessary libraries installed (ejs, morgan, etc.)]
+   [Make sure you have all the necessary libraries installed (ejs, npm, morgan, mongoose, etc.)]
+
+   In order to test the API endpoints, you will need Postman. You can download it from the website or as an extension in VS code.
+
+   Testing app with Postman:
+   1. Open Postman: Launch Postman on your computer.
+   2. Create a New Request: Click "New" in Postman to create a new request.
+   3. Define Your API Endpoint: Specify the HTTP method (GET, POST, PUT, DELETE) and the URL of your API endpoint. 
+   4. Add necessary json body and send the request.
+   5. Start by adding a category, then an event. remember the IDs generated. Next, head to addEventToCategory function and key in the IDs and send. 
+      Now, list the categories and eventlist will be populated.
+
+      Testing app with localhost:
+1. Start server with node server.js
 
 2. Go on your browser and enter "http://localhost:8080/" to access the homepage to the web application
 
