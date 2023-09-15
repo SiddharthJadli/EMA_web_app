@@ -146,9 +146,14 @@ router.post('/category/33306036/delete-by-ID', async (req, res) => {
     const categoryID = req.body.catId;
     console.log("Received categoryID:", categoryID);
     const deletedCategory = await Category.findOneAndDelete({catId: categoryID});
-    statsController.incrementCounter('delete');
 
     if (deletedCategory) {
+        const events = await Event.find({categoryList: deletedCategory._id})
+        for (let i = 0; i < events.length; i++) {
+            await Event.deleteOne({ _id: events[i]._id });
+            statsController.incrementCounter('delete');
+
+        }
         console.log('Deleted category:', deletedCategory);
 
         res.redirect('/category/33306036/list-all');
