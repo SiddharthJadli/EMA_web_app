@@ -64,7 +64,8 @@
                 </thead>
                 <tbody>
                     <% for(let i=0;i<events.length;i++){ %>
-                        <% if(events[i].categoryID.split(', ').includes(categories.catId)){ %>
+                        <% if(events[i].categoryID && categories.catId && events[i].categoryID.split(', ').includes(categories.catId)){ %>
+
                             <tr> 
                                 <td><%= events[i].eventId %></td>
                                 <td><%= events[i].name %></td>
